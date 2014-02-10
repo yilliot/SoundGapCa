@@ -1,0 +1,52 @@
+{% extends 'SoundGapContentAdminBundle:Layout:ca.html.twig' %}
+
+{% block title %}{{pageName|capitalize}}{{parent()}}{% endblock %}
+
+{% block pageName %}
+{{parent()}} : {{point.name}}
+{% endblock %}
+
+{% block content %}
+<div class='col-sm-7'>
+<h2>{{actionName|humanize}} {{pageName|humanize}}</h2>
+{{ form_start(form, {'method': 'POST','attr':{'class':'form-horizontal','role':'form'}}) }}
+{{ form_end(form) }}
+</div>
+
+<div class='col-sm-5'>
+  <h2>{{pageName|capitalize}} List</h2>
+  <table class="table">
+  <thead>
+    <tr>
+      <th>Seq</th>
+      <th>Type</th>
+      <th>Caption</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  {% for pointcontent in pointContents %}
+    <tr>
+      <td> {{pointcontent.pageNumber}} </td>
+      <td>
+        {% if pointcontent.contentType == 'conversation' %}
+          <div><span class='label label-primary'>{{pointcontent.contentType|upper}}</span></div>
+        {% endif %}
+        {% if pointcontent.contentType == 'television' %}
+          <div><span class='label label-warning'>{{pointcontent.contentType|upper}}</span></div>
+        {% endif %}
+      </td>
+      <td> {{pointcontent.caption}} </td>
+      <td>
+        <div>
+          <a href="{{path('soundgap_ca_main_pointcontent_update',{'pointContentId':pointcontent.id})}}">update</a>
+        </div>
+        <div>
+          <a href="{{path('soundgap_ca_main_pointcontent_delete',{'id':pointcontent.id})}}" onclick="return confirm('sure bo?')"> delete </a>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

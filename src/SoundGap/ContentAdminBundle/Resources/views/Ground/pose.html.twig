@@ -1,0 +1,37 @@
+{% extends 'SoundGapContentAdminBundle:Layout:ca.html.twig' %}
+
+{% block title %}{{pageName|capitalize}}{{parent()}}{% endblock %}
+
+
+{% block content %}
+<div class='col-sm-7'>
+  <h2>{{pageName|capitalize}} List</h2>
+  <table class="table">
+  <thead>
+    <tr>
+      <th>{{pageName|capitalize}} Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  {% for pose in poses %}
+    <tr>
+      <td>{{pose.name}}</td>
+      <td>
+      <div>
+        <a class='label label-warning' href="{{path('soundgap_ca_ground_pose_update',{'id':pose.id})}}"> update </a>
+      </div>
+      <div>
+        <a class='label label-danger' href="{{path('soundgap_ca_ground_pose_delete',{'id':pose.id})}}" onclick="return confirm('sure bo?')"> delete </a>
+      </div>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+</div>
+
+<div class='col-sm-5'>
+<h2>{{actionName|humanize}} {{pageName|humanize}}</h2>
+{{ form_start(form, {'method': 'POST','attr':{'class':'form-horizontal','role':'form'}}) }}
+{{ form_end(form) }}
+</div>
+{% endblock %}

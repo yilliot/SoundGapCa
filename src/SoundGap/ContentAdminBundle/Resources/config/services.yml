@@ -1,0 +1,7 @@
+parameters:
+#    sound_gap_content_admin.example.class: SoundGap\ContentAdminBundle\Example
+
+services:
+#    sound_gap_content_admin.example:
+#        class: %sound_gap_content_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

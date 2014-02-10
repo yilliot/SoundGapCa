@@ -1,0 +1,4 @@
+sound_gap_content_admin:
+    resource: "@SoundGapContentAdminBundle/Resources/config/routing.yml"
+    prefix:   /ca
+

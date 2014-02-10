@@ -1,0 +1,39 @@
+{% extends 'SoundGapContentAdminBundle:Layout:ca.html.twig' %}
+
+{% block title %}{{pageName|capitalize}}{{parent()}}{% endblock %}
+
+
+{% block content %}
+<div class='col-sm-7'>
+  <h2>{{pageName|capitalize}} List</h2>
+  <table class="table">
+  <thead>
+    <tr>
+      <th>{{pageName|capitalize}} Name</th>
+      <th>Image</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  {% for appetizer in appetizers %}
+    <tr>
+      <td>{{appetizer.name}}</td>
+      <td><img class='img-thumbnail' src="/{{appetizer.image.webPath}}"></td>
+      <td>
+        <div>
+          <a class='label label-warning' href="{{path('soundgap_ca_parts_appetizer_update',{'id':appetizer.id})}}"> update </a>
+        </div>
+        <div>
+          <a class='label label-danger' href="{{path('soundgap_ca_parts_appetizer_delete',{'id':appetizer.id})}}" onclick="return confirm('sure bo?')"> delete </a>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+</div>
+
+<div class='col-sm-5'>
+<h2>{{actionName|humanize}} {{pageName|humanize}}</h2>
+{{ form_start(form, {'method': 'POST','attr':{'class':'form-horizontal','role':'form'}}) }}
+{{ form_end(form) }}
+</div>
+{% endblock %}

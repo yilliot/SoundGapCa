@@ -1,0 +1,65 @@
+{% extends 'SoundGapContentAdminBundle:Layout:ca.html.twig' %}
+
+{% block title %}{{pageName|capitalize}}{{parent()}}{% endblock %}
+
+
+{% block content %}
+<div class='col-sm-7'>
+  <h2>{{pageName|capitalize}} List</h2>
+  <table class="table">
+  <thead>
+    <tr>
+      <th>{{pageName|capitalize}}</th>
+      <th>CategoryGrade</th>
+      <th>Image</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  {% for point in points %}
+    <tr>
+      <td>
+        {% if point.type == 'lesson' %}
+          <div><span class='label label-primary'>{{point.type|upper}}</span></div>
+        {% endif %}
+        {% if point.type == 'practice' %}
+          <div><span class='label label-warning'>{{point.type|upper}}</span></div>
+        {% endif %}
+        {% if point.type == 'challenge' %}
+          <div><span class='label label-success'>{{point.type|upper}}</span></div>
+        {% endif %}
+        <div>{{point.name}}</div>
+      </td>
+      <td>{{point.categoryInfo.category}}:{{point.categoryInfo.grade}}</td>
+      <td>
+        <div >
+          <img  class="img-thumbnail" src="/{{point.image.webPath}}">
+        </div>
+      </td>
+      <td>
+        <div>
+        {% if point.type == 'lesson' %}
+          <a class="label label-primary" href="{{path('soundgap_ca_main_pointcontent',{'pointId':point.id})}}"> Content </a>
+        {% else %}
+          <a class="label label-primary" href="{{path('soundgap_ca_main_pointquest',{'pointId':point.id})}}"> Quest </a>
+        {% endif %}
+        </div>
+        <div>
+          <div>
+            <a class="label label-warning" href="{{path('soundgap_ca_main_point_update',{'id':point.id})}}">update</a>
+          </div>
+          <div>
+            <a class="label label-danger" href="{{path('soundgap_ca_main_point_delete',{'id':point.id})}}" onclick="return confirm('sure bo?')"> delete </a>
+          </div>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+</div>
+
+<div class='col-sm-5'>
+<h2>{{actionName|humanize}} {{pageName|humanize}}</h2>
+{{ form_start(form, {'method': 'POST','attr':{'class':'form-horizontal','role':'form'}}) }}
+{{ form_end(form) }}
+</div>
+{% endblock %}

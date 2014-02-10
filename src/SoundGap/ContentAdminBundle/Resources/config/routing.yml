@@ -1,0 +1,125 @@
+soundgap_ca_homepage:
+    pattern:  /
+    defaults: { _controller: SoundGapContentAdminBundle:Default:index }
+
+soundgap_ca_ground_category:
+    pattern:  /ground/category
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:category }
+soundgap_ca_ground_category_update:
+    pattern:  /ground/category/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:category }
+soundgap_ca_ground_category_delete:
+    pattern:  /ground/category/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:categoryDelete }
+soundgap_ca_ground_grade:
+    pattern:  /ground/grade
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:grade }
+soundgap_ca_ground_grade_update:
+    pattern:  /ground/grade/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:grade }
+soundgap_ca_ground_grade_delete:
+    pattern:  /ground/grade/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:gradeDelete }
+soundgap_ca_ground_character:
+    pattern:  /ground/character
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:character }
+soundgap_ca_ground_character_update:
+    pattern:  /ground/character/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:character }
+soundgap_ca_ground_character_delete:
+    pattern:  /ground/character/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:characterDelete }
+soundgap_ca_ground_pose:
+    pattern:  /ground/pose
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:pose }
+soundgap_ca_ground_pose_update:
+    pattern:  /ground/pose/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:pose }
+soundgap_ca_ground_pose_delete:
+    pattern:  /ground/pose/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:poseDelete }
+soundgap_ca_ground_tag:
+    pattern:  /ground/tag
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:tag }
+soundgap_ca_ground_tag_update:
+    pattern:  /ground/tag/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:tag }
+soundgap_ca_ground_tag_delete:
+    pattern:  /ground/tag/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:tagDelete }
+
+soundgap_ca_media_image:
+    pattern:  /media/image
+    defaults: { _controller: SoundGapContentAdminBundle:Media:image }
+soundgap_ca_media_image_update:
+    pattern:  /media/image/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Media:image }
+soundgap_ca_media_audio:
+    pattern:  /media/audio
+    defaults: { _controller: SoundGapContentAdminBundle:Media:audio }
+soundgap_ca_media_audio_update:
+    pattern:  /media/audio/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Media:audio }
+soundgap_ca_media_delete:
+    pattern:  /media/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Media:mediaDelete }
+
+soundgap_ca_main_point:
+    pattern:  /main/point
+    defaults: { _controller: SoundGapContentAdminBundle:Main:point }
+soundgap_ca_main_point_update:
+    pattern:  /main/point/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:point }
+soundgap_ca_main_pointcontent:
+    pattern:  /main/pointcontent/{pointId}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointContent }
+soundgap_ca_main_pointcontent_update:
+    pattern:  /main/pointcontent/update/{pointContentId}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointContentUpdate }
+soundgap_ca_main_pointquest:
+    pattern:  /main/pointquest/{pointId}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointQuest }
+soundgap_ca_main_pointPath:
+    pattern:  /main/pointPath
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointPath }
+soundgap_ca_main_point_delete:
+    pattern:  /main/point/delete{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointDelete }
+soundgap_ca_main_pointcontent_delete:
+    pattern:  /main/pointcontent/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointContentDelete }
+soundgap_ca_main_pointquest_delete:
+    pattern:  /main/pointquest/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointQuestDelete }
+soundgap_ca_main_pointPath_delete:
+    pattern:  /main/pointPath/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointPathDelete }
+
+soundgap_ca_parts_appetizer:
+    pattern:  /parts/appetizer
+    defaults: { _controller: SoundGapContentAdminBundle:Parts:appetizer }
+soundgap_ca_parts_appetizer_update:
+    pattern:  /parts/appetizer/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Parts:appetizer }
+soundgap_ca_parts_quest:
+    pattern:  /parts/quest
+    defaults: { _controller: SoundGapContentAdminBundle:Parts:quest }
+soundgap_ca_parts_quest_update:
+    pattern:  /parts/quest/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Parts:quest }
+soundgap_ca_parts_characterPose:
+    pattern:  /parts/characterPose
+    defaults: { _controller: SoundGapContentAdminBundle:Parts:characterPose }
+soundgap_ca_parts_characterPose_update:
+    pattern:  /parts/characterPose/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Parts:characterPose }
+soundgap_ca_parts_appetizer_delete:
+    pattern:  /parts/appetizer/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Parts:appetizerDelete }
+soundgap_ca_parts_quest_delete:
+    pattern:  /parts/quest/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Parts:questDelete }
+soundgap_ca_parts_characterPose_delete:
+    pattern:  /parts/characterPose/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Parts:characterPoseDelete }
+
