@@ -29,7 +29,7 @@ class Media
     protected $path;
 
     /**
-     * @MongoDB\String
+     * @MongoDB\ReferenceOne(targetDocument="Tag")
      * @MongoDB\Index
      */
     protected $tag;
@@ -249,19 +249,19 @@ class Media
     /**
      * Set tag
      *
-     * @param string $tag
+     * @param \SoundGap\ContentAdminBundle\Document\Tag $tag
      * @return self
      */
-    public function setTag($tag)
+    public function setTag(\SoundGap\ContentAdminBundle\Document\Tag $tag)
     {
-        $this->tag = $tag->getName();
+        $this->tag = $tag;
         return $this;
     }
 
     /**
      * Get tag
      *
-     * @return string $tag
+     * @return \SoundGap\ContentAdminBundle\Document\Tag $tag
      */
     public function getTag()
     {

@@ -1,0 +1,119 @@
+{% extends 'SoundGapContentAdminBundle:Layout:ca.html.twig' %}
+
+{% block title %}{{pageName|capitalize}}{{parent()}}{% endblock %}
+
+
+{% block content %}
+
+<div class='col-sm-3'>
+  {% if fromPoint is not null %}
+  <h2>From Point</h2>
+  <div>
+    <table class="table">
+      <tr>
+        <td>
+          {% if fromPoint.type == 'lesson' %}
+            <span class='glyphicon glyphicon-th-list'></span>
+          {% endif %}
+          {% if fromPoint.type == 'practice' %}
+            <span class='glyphicon glyphicon-star-empty'></span>
+          {% endif %}
+          {% if fromPoint.type == 'challenge' %}
+            <span class='glyphicon glyphicon-star'></span>
+          {% endif %}
+        </td>
+        <td>
+          <div>{{fromPoint.name}}</div>
+        </td>
+        <td>{{fromPoint.grade}}</td>
+      </tr>
+    </table>
+  </div>
+  {% else %}
+  <h2>Grade Filter</h2>
+  <ul class="nav nav-pills nav-stacked">
+  {% for category in categories %}
+    <li class="active">
+    <div>{{category.name}}</div>
+    <ul class="pagination" style='margin:1px 0 4px 0;'>
+    {% for grade in grades %}
+      {% if category == grade.category %}
+        <li>
+          <a href="{{path('soundgap_ca_main_pointPath',{'gradeId':grade.id})}}">{{grade.name}}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+    </li>
+  <div class="clearfix"></div>
+  {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+
+<div class='col-sm-9'>
+  <h2>Choose One</h2>
+  <table class="table">
+  <tbody>
+  {% for point in points %}
+  {% if (fromPoint == null or fromPoint.id != point.id) and (toPoints == null or point not in toPoints) %}
+    <tr>
+      <td>
+        {% if point.type == 'lesson' %}
+          <span class='glyphicon glyphicon-th-list'></span>
+        {% endif %}
+        {% if point.type == 'practice' %}
+          <span class='glyphicon glyphicon-star-empty'></span>
+        {% endif %}
+        {% if point.type == 'challenge' %}
+          <span class='glyphicon glyphicon-star'></span>
+        {% endif %}
+      </td>
+      <td>
+        <div>{{point.name}}</div>
+      </td>
+      <td>{{point.grade}}</td>
+      <td>
+        <div>
+        {% if fromPoint is null %}
+          <a class="label label-primary" href="{{path('soundgap_ca_main_pointPath',{'gradeId':point.grade.id,'fromId':point.id})}}">from</a>
+        {% else %}
+            <a class="label label-primary" href="{{path('soundgap_ca_main_pointPath',{'gradeId':point.grade.id,'toId':point.id, 'fromId':fromPoint.id})}}">add to point</a>
+        {% endif %}
+        </div>
+      </td>
+    </tr>
+  {% endif %}
+  {% endfor %}
+  </tbody>
+  </table>
+
+  <h2>Linked</h2>
+  <table class="table">
+  {% for toPoint in toPoints %}
+    <tr>
+      <td>
+        {% if toPoint.type == 'lesson' %}
+          <span class='glyphicon glyphicon-th-list'></span>
+        {% endif %}
+        {% if toPoint.type == 'practice' %}
+          <span class='glyphicon glyphicon-star-empty'></span>
+        {% endif %}
+        {% if toPoint.type == 'challenge' %}
+          <span class='glyphicon glyphicon-star'></span>
+        {% endif %}
+      </td>
+      <td>
+        <div>{{toPoint.name}}</div>
+      </td>
+      <td>{{toPoint.grade}}</td>
+      <td>
+        <div>
+          <a class="label label-danger" href="{{path('soundgap_ca_main_pointPath_remove',{'toId':toPoint.id, 'fromId':fromPoint.id})}}">remove link</a>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+</div>
+{% endblock %}

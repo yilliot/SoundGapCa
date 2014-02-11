@@ -15,10 +15,10 @@ class PointQuest
     protected $id;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="Point")
      * @MongoDB\Index 
      */
-    protected $pointId;
+    protected $point;
 
     /**
      * @MongoDB\Int
@@ -31,16 +31,21 @@ class PointQuest
     protected $numberOfQuest;
 
     /**
-     * @MongoDB\Collection
+     * @MongoDB\ReferenceMany(targetDocument="Quest")
+     * @MongoDB\Index 
      */
     protected $quests;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
-    protected $backgroundImageId;
+    protected $backgroundImage;
 
-
+    public function __construct()
+    {
+        $this->quests = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -52,25 +57,25 @@ class PointQuest
     }
 
     /**
-     * Set pointId
+     * Set point
      *
-     * @param object_id $pointId
+     * @param SoundGap\ContentAdminBundle\Document\Point $point
      * @return self
      */
-    public function setPointId($pointId)
+    public function setPoint(\SoundGap\ContentAdminBundle\Document\Point $point)
     {
-        $this->pointId = $pointId;
+        $this->point = $point;
         return $this;
     }
 
     /**
-     * Get pointId
+     * Get point
      *
-     * @return object_id $pointId
+     * @return SoundGap\ContentAdminBundle\Document\Point $point
      */
-    public function getPointId()
+    public function getPoint()
     {
-        return $this->pointId;
+        return $this->point;
     }
 
     /**
@@ -118,47 +123,54 @@ class PointQuest
     }
 
     /**
-     * Set backgroundImageId
+     * Add quest
      *
-     * @param object_id $backgroundImageId
-     * @return self
+     * @param SoundGap\ContentAdminBundle\Document\Quest $quest
      */
-    public function setBackgroundImageId($backgroundImageId)
+    public function addQuest(\SoundGap\ContentAdminBundle\Document\Quest $quest)
     {
-        $this->backgroundImageId = $backgroundImageId;
-        return $this;
+        $this->quests[] = $quest;
     }
 
     /**
-     * Get backgroundImageId
+     * Remove quest
      *
-     * @return object_id $backgroundImageId
+     * @param SoundGap\ContentAdminBundle\Document\Quest $quest
      */
-    public function getBackgroundImageId()
+    public function removeQuest(\SoundGap\ContentAdminBundle\Document\Quest $quest)
     {
-        return $this->backgroundImageId;
-    }
-
-
-    /**
-     * Set quests
-     *
-     * @param collection $quests
-     * @return self
-     */
-    public function setQuests($quests)
-    {
-        $this->quests = $quests;
-        return $this;
+        $this->quests->removeElement($quest);
     }
 
     /**
      * Get quests
      *
-     * @return collection $quests
+     * @return Doctrine\Common\Collections\Collection $quests
      */
     public function getQuests()
     {
         return $this->quests;
+    }
+
+    /**
+     * Set backgroundImage
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Media $backgroundImage
+     * @return self
+     */
+    public function setBackgroundImage(\SoundGap\ContentAdminBundle\Document\Media $backgroundImage)
+    {
+        $this->backgroundImage = $backgroundImage;
+        return $this;
+    }
+
+    /**
+     * Get backgroundImage
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Media $backgroundImage
+     */
+    public function getBackgroundImage()
+    {
+        return $this->backgroundImage;
     }
 }

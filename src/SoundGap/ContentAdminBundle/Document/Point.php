@@ -20,10 +20,10 @@ class Point
     protected $name;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="Grade")
      * @MongoDB\Index
      */
-    protected $gradeId;
+    protected $grade;
 
     /**
      * @MongoDB\String
@@ -31,12 +31,12 @@ class Point
     protected $type;
 
     /**
-     * @MongoDB\Hash
+     * @MongoDB\ReferenceOne(targetDocument="Appetizer")
      */
     protected $appetizer;
 
     /**
-     * @MongoDB\Hash
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
     protected $image;
 
@@ -47,10 +47,10 @@ class Point
     protected $imageCenterCoordinateX;
     protected $imageCenterCoordinateY;
 
-    /**
-     * @MongoDB\Hash
-     */
-    protected $categoryInfo;
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     /**
      * Get id
@@ -85,28 +85,6 @@ class Point
     }
 
     /**
-     * Set gradeId
-     *
-     * @param object_id $gradeId
-     * @return self
-     */
-    public function setGradeId($gradeId)
-    {
-        $this->gradeId = $gradeId;
-        return $this;
-    }
-
-    /**
-     * Get gradeId
-     *
-     * @return object_id $gradeId
-     */
-    public function getGradeId()
-    {
-        return $this->gradeId;
-    }
-
-    /**
      * Set type
      *
      * @param string $type
@@ -126,58 +104,6 @@ class Point
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Set appetizer
-     *
-     * @param hash $appetizer
-     * @return self
-     */
-    public function setAppetizer($appetizer)
-    {
-        $this->appetizer = array(
-            'id'=>$appetizer->getId(),
-            'name'=>$appetizer->getName(),
-            'image'=>$appetizer->getImage(),
-        );
-        return $this;
-    }
-
-    /**
-     * Get appetizer
-     *
-     * @return hash $appetizer
-     */
-    public function getAppetizer()
-    {
-        return $this->appetizer;
-    }
-
-    /**
-     * Set image
-     *
-     * @param hash $image
-     * @return self
-     */
-    public function setImage($image)
-    {
-        $this->image = array(
-            'webPath' => $image->getWebPath(),
-            'name' => $image->getName(),
-            'id' => $image->getId(),
-        );
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return hash $image
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 
     /**
@@ -227,24 +153,68 @@ class Point
     }
 
     /**
-     * Set categoryInfo
+     * Set grade
      *
-     * @param hash $categoryInfo
+     * @param SoundGap\ContentAdminBundle\Document\Grade $grade
      * @return self
      */
-    public function setCategoryInfo($categoryInfo)
+    public function setGrade(\SoundGap\ContentAdminBundle\Document\Grade $grade)
     {
-        $this->categoryInfo = $categoryInfo;
+        $this->grade = $grade;
         return $this;
     }
 
     /**
-     * Get categoryInfo
+     * Get grade
      *
-     * @return hash $categoryInfo
+     * @return SoundGap\ContentAdminBundle\Document\Grade $grade
      */
-    public function getCategoryInfo()
+    public function getGrade()
     {
-        return $this->categoryInfo;
+        return $this->grade;
+    }
+
+    /**
+     * Set appetizer
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Appetizer $appetizer
+     * @return self
+     */
+    public function setAppetizer(\SoundGap\ContentAdminBundle\Document\Appetizer $appetizer)
+    {
+        $this->appetizer = $appetizer;
+        return $this;
+    }
+
+    /**
+     * Get appetizer
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Appetizer $appetizer
+     */
+    public function getAppetizer()
+    {
+        return $this->appetizer;
+    }
+
+    /**
+     * Set image
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Media $image
+     * @return self
+     */
+    public function setImage(\SoundGap\ContentAdminBundle\Document\Media $image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Media $image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

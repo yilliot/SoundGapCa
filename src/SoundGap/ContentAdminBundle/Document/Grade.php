@@ -16,7 +16,7 @@ class Grade
     protected $id;
 
     /**
-     * @MongoDB\String
+     * @MongoDB\ReferenceOne(targetDocument="Category")
      * @MongoDB\Index
      * @Assert\NotBlank()
      */
@@ -29,7 +29,7 @@ class Grade
     protected $name;
 
     /**
-     * @MongoDB\Hash
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
     protected $image;
 
@@ -72,31 +72,9 @@ class Grade
         return $this->name;
     }
 
-    /**
-     * Set category
-     *
-     * @param string $category
-     * @return self
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category->getName();
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return string $category
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
     public function __toString()
     {
-        return $this->category.':'.$this->name;
+        return $this->category.'['.$this->name.']';
     }
 
     /**
@@ -122,25 +100,43 @@ class Grade
     }
 
     /**
-     * Set image
+     * Set category
      *
-     * @param hash $image
+     * @param Category $category
      * @return self
      */
-    public function setImage($image)
+    public function setCategory(Category $category)
     {
-        $this->image = array(
-            'webPath' => $image->getWebPath(),
-            'name' => $image->getName(),
-            'id' => $image->getId()
-        );
+        $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return Category $category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set image
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Media $image
+     * @return self
+     */
+    public function setImage(\SoundGap\ContentAdminBundle\Document\Media $image)
+    {
+        $this->image = $image;
         return $this;
     }
 
     /**
      * Get image
      *
-     * @return hash $image
+     * @return SoundGap\ContentAdminBundle\Document\Media $image
      */
     public function getImage()
     {

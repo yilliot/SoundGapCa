@@ -15,25 +15,25 @@ class CharacterPose
     protected $id;
 
     /**
-     * @MongoDB\String
+     * @MongoDB\ReferenceOne(targetDocument="Character")
      * @MongoDB\Index
      */
     protected $character;
 
     /**
-     * @MongoDB\String
+     * @MongoDB\ReferenceOne(targetDocument="Pose")
      * @MongoDB\Index
      */
     protected $pose;
 
     /**
-     * @MongoDB\Hash
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
     protected $image;
 
     public function __toString()
     {
-        return $this->character.':'.$this->pose;
+        return $this->character->getName().':'.$this->pose->getName();
     }
 
     /**
@@ -71,19 +71,19 @@ class CharacterPose
     /**
      * Set character
      *
-     * @param string $character
+     * @param SoundGap\ContentAdminBundle\Document\Character $character
      * @return self
      */
-    public function setCharacter($character)
+    public function setCharacter(\SoundGap\ContentAdminBundle\Document\Character $character)
     {
-        $this->character = $character->getName();
+        $this->character = $character;
         return $this;
     }
 
     /**
      * Get character
      *
-     * @return string $character
+     * @return SoundGap\ContentAdminBundle\Document\Character $character
      */
     public function getCharacter()
     {
@@ -93,19 +93,19 @@ class CharacterPose
     /**
      * Set pose
      *
-     * @param string $pose
+     * @param SoundGap\ContentAdminBundle\Document\Pose $pose
      * @return self
      */
-    public function setPose($pose)
+    public function setPose(\SoundGap\ContentAdminBundle\Document\Pose $pose)
     {
-        $this->pose = $pose->getName();
+        $this->pose = $pose;
         return $this;
     }
 
     /**
      * Get pose
      *
-     * @return string $pose
+     * @return SoundGap\ContentAdminBundle\Document\Pose $pose
      */
     public function getPose()
     {
@@ -115,23 +115,19 @@ class CharacterPose
     /**
      * Set image
      *
-     * @param hash $image
+     * @param SoundGap\ContentAdminBundle\Document\Media $image
      * @return self
      */
-    public function setImage($image)
+    public function setImage(\SoundGap\ContentAdminBundle\Document\Media $image)
     {
-        $this->image = array(
-            'webPath' => $image->getWebPath(),
-            'name' => $image->getName(),
-            'id' => $image->getId()
-        );
+        $this->image = $image;
         return $this;
     }
 
     /**
      * Get image
      *
-     * @return hash $image
+     * @return SoundGap\ContentAdminBundle\Document\Media $image
      */
     public function getImage()
     {

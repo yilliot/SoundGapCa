@@ -17,8 +17,8 @@
   </thead>
   {% for characterPose in characterPoses %}
     <tr>
-      <td>{{characterPose.pose}}</td>
-      <td>{{characterPose.character}}</td>
+      <td>{{characterPose.pose.name}}</td>
+      <td>{{characterPose.character.name}}</td>
       <td><img class='img-thumbnail' src="/{{characterPose.image.webPath}}"></td>
       <td>
         <div>

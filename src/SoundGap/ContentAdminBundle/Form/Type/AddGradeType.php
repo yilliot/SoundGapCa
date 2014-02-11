@@ -5,6 +5,7 @@ namespace SoundGap\ContentAdminBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ODM\MongoDB\DocumentRepository;
 
 class AddGradeType extends AbstractType
 {
@@ -19,6 +20,10 @@ class AddGradeType extends AbstractType
             ->add('image','document', array(
                 'class' => 'SoundGapContentAdminBundle:Media',
                 'property' => 'name',
+                'query_builder' => function(DocumentRepository $dr)
+                {
+                    return $dr->createQueryBuilder()->field('type')->equals('image')->sort('id','desc');
+                },
             ))
             ->add('position');
         if (!isset($options['data'])) {

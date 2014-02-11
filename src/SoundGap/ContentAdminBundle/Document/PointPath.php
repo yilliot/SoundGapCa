@@ -16,15 +16,16 @@ class PointPath
     protected $id;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="Point")
      * @MongoDB\Index 
      */
-    protected $fromPointId;
+    protected $fromPoint;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="Point")
+     * @MongoDB\Index 
      */
-    protected $toPointId;
+    protected $toPoint;
 
     /**
      * Get id
@@ -39,44 +40,44 @@ class PointPath
     /**
      * Set fromPointId
      *
-     * @param object_id $fromPointId
+     * @param SoundGap\ContentAdminBundle\Document\Point $fromPointId
      * @return self
      */
-    public function setFromPointId($fromPointId)
+    public function setFromPoint(\SoundGap\ContentAdminBundle\Document\Point $fromPoint)
     {
-        $this->fromPointId = $fromPointId;
+        $this->fromPoint = $fromPoint;
         return $this;
     }
 
     /**
-     * Get fromPointId
+     * Get fromPoint
      *
-     * @return object_id $fromPointId
+     * @return SoundGap\ContentAdminBundle\Document\Point $fromPoint
      */
-    public function getFromPointId()
+    public function getFromPoint()
     {
-        return $this->fromPointId;
+        return $this->fromPoint;
     }
 
     /**
-     * Set toPointId
+     * Set toPoint
      *
-     * @param object_id $toPointId
+     * @param SoundGap\ContentAdminBundle\Document\Point $toPoint
      * @return self
      */
-    public function setToPointId($toPointId)
+    public function setToPoint(\SoundGap\ContentAdminBundle\Document\Point $toPoint)
     {
-        $this->toPointId = $toPointId;
+        $this->toPoint = $toPoint;
         return $this;
     }
 
     /**
-     * Get toPointId
+     * Get toPoint
      *
-     * @return object_id $toPointId
+     * @return SoundGap\ContentAdminBundle\Document\Point $toPoint
      */
-    public function getToPointId()
+    public function getToPoint()
     {
-        return $this->toPointId;
+        return $this->toPoint;
     }
 }

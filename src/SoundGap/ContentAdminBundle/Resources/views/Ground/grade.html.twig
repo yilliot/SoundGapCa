@@ -9,7 +9,6 @@
   <table class="table">
   <thead>
     <tr>
-      <th>Category</th>
       <th>{{pageName|capitalize}}</th>
       <th>Image</th>
       <th>Position</th>
@@ -18,8 +17,7 @@
   </thead>
   {% for grade in grades %}
     <tr>
-      <td>{{grade.category}}</td>
-      <td>{{grade.name}}</td>
+      <td>{{grade}}</td>
       <td><img class='img-thumbnail' src="/{{grade.image.webPath}}"></td>
       <td>{{grade.position}}</td>
       <td>

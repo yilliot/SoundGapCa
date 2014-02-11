@@ -3,7 +3,7 @@
 {% block title %}{{pageName|capitalize}}{{parent()}}{% endblock %}
 
 {% block pageName %}
-{{parent()}} : {{point.name}}
+{{parent()}} : {{point}}
 {% endblock %}
 
 {% block content %}
@@ -24,7 +24,7 @@
       <th>Actions</th>
     </tr>
   </thead>
-  {% for pointcontent in pointContents %}
+  {% for pointcontent in contents %}
     <tr>
       <td> {{pointcontent.pageNumber}} </td>
       <td>
@@ -38,10 +38,10 @@
       <td> {{pointcontent.caption}} </td>
       <td>
         <div>
-          <a href="{{path('soundgap_ca_main_pointcontent_update',{'pointContentId':pointcontent.id})}}">update</a>
+          <a href="{{path('soundgap_ca_main_pointContent_update',{'pointContentId':pointcontent.id})}}">update</a>
         </div>
         <div>
-          <a href="{{path('soundgap_ca_main_pointcontent_delete',{'id':pointcontent.id})}}" onclick="return confirm('sure bo?')"> delete </a>
+          <a href="{{path('soundgap_ca_main_pointContent_delete',{'id':pointcontent.id})}}" onclick="return confirm('sure bo?')"> delete </a>
         </div>
       </td>
     </tr>

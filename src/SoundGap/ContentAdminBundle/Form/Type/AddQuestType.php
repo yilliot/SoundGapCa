@@ -5,50 +5,31 @@ namespace SoundGap\ContentAdminBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ODM\MongoDB\DocumentRepository;
 
 class AddQuestType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $imageOptions = array(
+            'class' => 'SoundGapContentAdminBundle:Media',
+            'property' => 'name',
+            'empty_value' => 'Choose an option',
+            'required' => false,
+            'query_builder' => function(DocumentRepository $dr) {
+                return $dr->createQueryBuilder()->field('type')->equals('image')->sort('id','desc');
+            },
+        );
+
         $builder
-            ->add('isForExam','checkbox',array('required' => false))
+            ->add('isForExam', 'checkbox', array('required' => false))
             ->add('questCaption')
-            ->add('questImage','document',array(
-                'class' => 'SoundGapContentAdminBundle:Media',
-                'property' => 'name',
-                'empty_value' => 'Choose an option',
-                'required' => false,
-            ))
-            ->add('questAudio','document',array(
-                'class' => 'SoundGapContentAdminBundle:Media',
-                'property' => 'name',
-                'empty_value' => 'Choose an option',
-                'required' => false,
-            ))
-            ->add('option1Image','document',array(
-                'class' => 'SoundGapContentAdminBundle:Media',
-                'property' => 'name',
-                'empty_value' => 'Choose an option',
-                'required' => false,
-            ))
-            ->add('option2Image','document',array(
-                'class' => 'SoundGapContentAdminBundle:Media',
-                'property' => 'name',
-                'empty_value' => 'Choose an option',
-                'required' => false,
-            ))
-            ->add('option3Image','document',array(
-                'class' => 'SoundGapContentAdminBundle:Media',
-                'property' => 'name',
-                'empty_value' => 'Choose an option',
-                'required' => false,
-            ))
-            ->add('option4Image','document',array(
-                'class' => 'SoundGapContentAdminBundle:Media',
-                'property' => 'name',
-                'empty_value' => 'Choose an option',
-                'required' => false,
-            ))
+            ->add('questImage', 'document', $imageOptions)
+            ->add('questAudio', 'document', $imageOptions)
+            ->add('option1Image', 'document', $imageOptions)
+            ->add('option2Image', 'document', $imageOptions)
+            ->add('option3Image', 'document', $imageOptions)
+            ->add('option4Image', 'document', $imageOptions)
             ->add('option1Caption')
             ->add('option2Caption')
             ->add('option3Caption')

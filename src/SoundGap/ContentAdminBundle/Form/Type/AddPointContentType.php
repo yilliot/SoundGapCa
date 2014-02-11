@@ -5,81 +5,72 @@ namespace SoundGap\ContentAdminBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ODM\MongoDB\DocumentRepository;
 
 class AddPointContentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // var_dump($options['data']->getBackgroundImageId());exit;
+        $poseOptions = array(
+            'class' => 'SoundGapContentAdminBundle:CharacterPose',
+            'empty_value' => 'Choose an option',
+            'empty_data' => null,
+            'required' => false,
+            'query_builder' => function(DocumentRepository $dr)
+            {
+                return $dr->createQueryBuilder()->field('type')->equals('image')->sort('id','desc');
+            }
+        );
         $builder
             ->add('contentType','choice',array('choices'=>array(
                 'conversation' => 'Conversation',
                 'television' => 'Television',
             )))
             ->add('caption')
-            ->add('backgroundImageId','document',array(
+            ->add('backgroundImage','document',array(
                 'class' => 'SoundGapContentAdminBundle:Media',
                 'property' => 'name',
                 'empty_value' => 'Choose an option',
                 'empty_data' => null,
                 'required' => false,
-                // 'data' => $options['data']->getBackgroundImageId(),
+                'query_builder' => function(DocumentRepository $dr)
+                {
+                    return $dr->createQueryBuilder()->field('type')->equals('image')->sort('id','desc');
+                },
             ))
-            ->add('backgroundAudioId','document',array(
+            ->add('backgroundAudio','document',array(
                 'class' => 'SoundGapContentAdminBundle:Media',
                 'property' => 'name',
                 'empty_value' => 'Choose an option',
                 'empty_data' => null,
                 'required' => false,
+                'query_builder' => function(DocumentRepository $dr)
+                {
+                    return $dr->createQueryBuilder()->field('type')->equals('audio')->sort('id','desc');
+                },
             ))
-            ->add('startAudioId','document',array(
+            ->add('startAudio','document',array(
                 'class' => 'SoundGapContentAdminBundle:Media',
                 'property' => 'name',
                 'empty_value' => 'Choose an option',
                 'empty_data' => null,
                 'required' => false,
+                'query_builder' => function(DocumentRepository $dr)
+                {
+                    return $dr->createQueryBuilder()->field('type')->equals('audio')->sort('id','desc');
+                },
             ))
-            ->add('characterPose1Id','document',array(
-                'class' => 'SoundGapContentAdminBundle:CharacterPose',
-                'empty_value' => 'Choose an option',
-                'empty_data' => null,
-                'required' => false,
-            ))
+            ->add('characterPose1','document',$poseOptions)
             ->add('isCharacter1Speech','checkbox',array('required'=>false))
-            ->add('characterPose2Id','document',array(
-                'class' => 'SoundGapContentAdminBundle:CharacterPose',
-                'empty_value' => 'Choose an option',
-                'empty_data' => null,
-                'required' => false,
-            ))
+            ->add('characterPose2','document',$poseOptions)
             ->add('isCharacter2Speech','checkbox',array('required'=>false))
-            ->add('characterPose3Id','document',array(
-                'class' => 'SoundGapContentAdminBundle:CharacterPose',
-                'empty_value' => 'Choose an option',
-                'empty_data' => null,
-                'required' => false,
-            ))
+            ->add('characterPose3','document',$poseOptions)
             ->add('isCharacter3Speech','checkbox',array('required'=>false))
-            ->add('characterPose4Id','document',array(
-                'class' => 'SoundGapContentAdminBundle:CharacterPose',
-                'empty_value' => 'Choose an option',
-                'empty_data' => null,
-                'required' => false,
-            ))
+            ->add('characterPose4','document',$poseOptions)
             ->add('isCharacter4Speech','checkbox',array('required'=>false))
-            ->add('characterPose5Id','document',array(
-                'class' => 'SoundGapContentAdminBundle:CharacterPose',
-                'empty_value' => 'Choose an option',
-                'empty_data' => null,
-                'required' => false,
-            ))
+            ->add('characterPose5','document',$poseOptions)
             ->add('isCharacter5Speech','checkbox',array('required'=>false))
-            ->add('characterPose6Id','document',array(
-                'class' => 'SoundGapContentAdminBundle:CharacterPose',
-                'empty_value' => 'Choose an option',
-                'empty_data' => null,
-                'required' => false,
-            ))
+            ->add('characterPose6','document',$poseOptions)
             ->add('isCharacter6Speech','checkbox',array('required'=>false));
         if (!isset($options['data'])) {
             $builder->add('create','submit',array('attr'=>array('class'=>'btn btn-primary pull-right')));

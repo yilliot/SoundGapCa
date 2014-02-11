@@ -25,32 +25,32 @@ class Quest
     protected $questCaption;
 
     /**
-     * @MongoDB\Hash
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
     protected $questImage;
 
     /**
-     * @MongoDB\Hash
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
     protected $questAudio;
 
     /**
-     * @MongoDB\Hash
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
     protected $option1Image;
 
     /**
-     * @MongoDB\Hash
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
     protected $option2Image;
 
     /**
-     * @MongoDB\Hash
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
     protected $option3Image;
 
     /**
-     * @MongoDB\Hash
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
     protected $option4Image;
 
@@ -73,6 +73,11 @@ class Quest
      * @MongoDB\String
      */
     protected $option4Caption;
+
+    public function __toString()
+    {
+        return $this->questCaption.' : ['.$this->option1Caption.']';
+    }
 
     /**
      * Get id
@@ -126,162 +131,6 @@ class Quest
     public function getQuestCaption()
     {
         return $this->questCaption;
-    }
-
-    /**
-     * Set questImage
-     *
-     * @param hash $questImage
-     * @return self
-     */
-    public function setQuestImage($questImage)
-    {
-        $this->questImage = array(
-            'webPath' => $questImage->getWebPath(),
-            'name' => $questImage->getName(),
-            'id' => $questImage->getId()
-        );
-        return $this;
-    }
-
-    /**
-     * Get questImage
-     *
-     * @return hash $questImage
-     */
-    public function getQuestImage()
-    {
-        return $this->questImage;
-    }
-
-    /**
-     * Set questAudio
-     *
-     * @param hash $questAudio
-     * @return self
-     */
-    public function setQuestAudio($questAudio)
-    {
-        $this->questAudio = array(
-            'webPath' => $questAudio->getWebPath(),
-            'name' => $questAudio->getName(),
-            'id' => $questAudio->getId()
-        );
-        return $this;
-    }
-
-    /**
-     * Get questAudio
-     *
-     * @return hash $questAudio
-     */
-    public function getQuestAudio()
-    {
-        return $this->questAudio;
-    }
-
-    /**
-     * Set option1Image
-     *
-     * @param hash $option1Image
-     * @return self
-     */
-    public function setOption1Image($option1Image)
-    {
-        $this->option1Image = array(
-            'webPath' => $option1Image->getWebPath(),
-            'name' => $option1Image->getName(),
-            'id' => $option1Image->getId()
-        );
-        return $this;
-    }
-
-    /**
-     * Get option1Image
-     *
-     * @return hash $option1Image
-     */
-    public function getOption1Image()
-    {
-        return $this->option1Image;
-    }
-
-    /**
-     * Set option2Image
-     *
-     * @param hash $option2Image
-     * @return self
-     */
-    public function setOption2Image($option2Image)
-    {
-        $this->option2Image = array(
-            'webPath' => $option2Image->getWebPath(),
-            'name' => $option2Image->getName(),
-            'id' => $option2Image->getId()
-        );
-        return $this;
-    }
-
-    /**
-     * Get option2Image
-     *
-     * @return hash $option2Image
-     */
-    public function getOption2Image()
-    {
-        return $this->option2Image;
-    }
-
-    /**
-     * Set option3Image
-     *
-     * @param hash $option3Image
-     * @return self
-     */
-    public function setOption3Image($option3Image)
-    {
-        $this->option3Image = array(
-            'webPath' => $option3Image->getWebPath(),
-            'name' => $option3Image->getName(),
-            'id' => $option3Image->getId()
-        );
-        return $this;
-    }
-
-    /**
-     * Get option3Image
-     *
-     * @return hash $option3Image
-     */
-    public function getOption3Image()
-    {
-        return $this->option3Image;
-    }
-
-    /**
-     * Set option4Image
-     *
-     * @param hash $option4Image
-     * @return self
-     */
-    public function setOption4Image($option4Image)
-    {
-        $this->option4Image = array(
-            'webPath' => $option4Image->getWebPath(),
-            'name' => $option4Image->getName(),
-            'id' => $option4Image->getId()
-        );
-        return $this;
-    }
-
-    /**
-     * Get option4Image
-     *
-     * @return hash $option4Image
-     */
-    public function getOption4Image()
-    {
-        return $this->option4Image;
     }
 
     /**
@@ -370,5 +219,137 @@ class Quest
     public function getOption4Caption()
     {
         return $this->option4Caption;
+    }
+
+    /**
+     * Set questImage
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Media $questImage
+     * @return self
+     */
+    public function setQuestImage(\SoundGap\ContentAdminBundle\Document\Media $questImage)
+    {
+        $this->questImage = $questImage;
+        return $this;
+    }
+
+    /**
+     * Get questImage
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Media $questImage
+     */
+    public function getQuestImage()
+    {
+        return $this->questImage;
+    }
+
+    /**
+     * Set questAudio
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Media $questAudio
+     * @return self
+     */
+    public function setQuestAudio(\SoundGap\ContentAdminBundle\Document\Media $questAudio)
+    {
+        $this->questAudio = $questAudio;
+        return $this;
+    }
+
+    /**
+     * Get questAudio
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Media $questAudio
+     */
+    public function getQuestAudio()
+    {
+        return $this->questAudio;
+    }
+
+    /**
+     * Set option1Image
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Media $option1Image
+     * @return self
+     */
+    public function setOption1Image(\SoundGap\ContentAdminBundle\Document\Media $option1Image)
+    {
+        $this->option1Image = $option1Image;
+        return $this;
+    }
+
+    /**
+     * Get option1Image
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Media $option1Image
+     */
+    public function getOption1Image()
+    {
+        return $this->option1Image;
+    }
+
+    /**
+     * Set option2Image
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Media $option2Image
+     * @return self
+     */
+    public function setOption2Image(\SoundGap\ContentAdminBundle\Document\Media $option2Image)
+    {
+        $this->option2Image = $option2Image;
+        return $this;
+    }
+
+    /**
+     * Get option2Image
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Media $option2Image
+     */
+    public function getOption2Image()
+    {
+        return $this->option2Image;
+    }
+
+    /**
+     * Set option3Image
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Media $option3Image
+     * @return self
+     */
+    public function setOption3Image(\SoundGap\ContentAdminBundle\Document\Media $option3Image)
+    {
+        $this->option3Image = $option3Image;
+        return $this;
+    }
+
+    /**
+     * Get option3Image
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Media $option3Image
+     */
+    public function getOption3Image()
+    {
+        return $this->option3Image;
+    }
+
+    /**
+     * Set option4Image
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Media $option4Image
+     * @return self
+     */
+    public function setOption4Image(\SoundGap\ContentAdminBundle\Document\Media $option4Image)
+    {
+        $this->option4Image = $option4Image;
+        return $this;
+    }
+
+    /**
+     * Get option4Image
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Media $option4Image
+     */
+    public function getOption4Image()
+    {
+        return $this->option4Image;
     }
 }

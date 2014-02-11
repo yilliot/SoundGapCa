@@ -15,55 +15,55 @@ class PointContent
     protected $id;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="Point")
      * @MongoDB\Index 
      */
-    protected $pointId;
+    protected $point;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
-    protected $startAudioId;
+    protected $startAudio;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
-    protected $backgroundAudioId;
+    protected $backgroundAudio;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
-    protected $backgroundImageId;
+    protected $backgroundImage;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="CharacterPose")
      */
-    protected $characterPose1Id;
+    protected $characterPose1;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="CharacterPose")
      */
-    protected $characterPose2Id;
+    protected $characterPose2;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="CharacterPose")
      */
-    protected $characterPose3Id;
+    protected $characterPose3;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="CharacterPose")
      */
-    protected $characterPose4Id;
+    protected $characterPose4;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="CharacterPose")
      */
-    protected $characterPose5Id;
+    protected $characterPose5;
 
     /**
-     * @MongoDB\ObjectId
+     * @MongoDB\ReferenceOne(targetDocument="CharacterPose")
      */
-    protected $characterPose6Id;
+    protected $characterPose6;
 
     /**
      * @MongoDB\Boolean
@@ -121,223 +121,223 @@ class PointContent
     }
 
     /**
-     * Set pointId
+     * Set point
      *
-     * @param object_id $pointId
+     * @param SoundGap\ContentAdminBundle\Document\Point $point
      * @return self
      */
-    public function setPointId($pointId)
+    public function setPoint(\SoundGap\ContentAdminBundle\Document\Point $point)
     {
-        $this->pointId = $pointId;
+        $this->point = $point;
         return $this;
     }
 
     /**
-     * Get pointId
+     * Get point
      *
-     * @return object_id $pointId
+     * @return SoundGap\ContentAdminBundle\Document\Point $point
      */
-    public function getPointId()
+    public function getPoint()
     {
-        return $this->pointId;
+        return $this->point;
     }
 
     /**
-     * Set startAudioId
+     * Set startAudio
      *
-     * @param object_id $startAudioId
+     * @param SoundGap\ContentAdminBundle\Document\Media $startAudio
      * @return self
      */
-    public function setStartAudioId($startAudioId)
+    public function setStartAudio(\SoundGap\ContentAdminBundle\Document\Media $startAudio)
     {
-        $this->startAudioId = $startAudioId;
+        $this->startAudio = $startAudio;
         return $this;
     }
 
     /**
-     * Get startAudioId
+     * Get startAudio
      *
-     * @return object_id $startAudioId
+     * @return SoundGap\ContentAdminBundle\Document\Media $startAudio
      */
-    public function getStartAudioId()
+    public function getStartAudio()
     {
-        return $this->startAudioId;
+        return $this->startAudio;
     }
 
     /**
-     * Set backgroundAudioId
+     * Set backgroundAudio
      *
-     * @param object_id $backgroundAudioId
+     * @param SoundGap\ContentAdminBundle\Document\Media $backgroundAudio
      * @return self
      */
-    public function setBackgroundAudioId($backgroundAudioId)
+    public function setBackgroundAudio(\SoundGap\ContentAdminBundle\Document\Media $backgroundAudio)
     {
-        $this->backgroundAudioId = $backgroundAudioId;
+        $this->backgroundAudio = $backgroundAudio;
         return $this;
     }
 
     /**
-     * Get backgroundAudioId
+     * Get backgroundAudio
      *
-     * @return object_id $backgroundAudioId
+     * @return SoundGap\ContentAdminBundle\Document\Media $backgroundAudio
      */
-    public function getBackgroundAudioId()
+    public function getBackgroundAudio()
     {
-        return $this->backgroundAudioId;
+        return $this->backgroundAudio;
     }
 
     /**
-     * Set backgroundImageId
+     * Set backgroundImage
      *
-     * @param object_id $backgroundImageId
+     * @param SoundGap\ContentAdminBundle\Document\Media $backgroundImage
      * @return self
      */
-    public function setBackgroundImageId($backgroundImageId)
+    public function setBackgroundImage(\SoundGap\ContentAdminBundle\Document\Media $backgroundImage)
     {
-        $this->backgroundImageId = $backgroundImageId;
+        $this->backgroundImage = $backgroundImage;
         return $this;
     }
 
     /**
-     * Get backgroundImageId
+     * Get backgroundImage
      *
-     * @return object_id $backgroundImageId
+     * @return SoundGap\ContentAdminBundle\Document\Media $backgroundImage
      */
-    public function getBackgroundImageId()
+    public function getBackgroundImage()
     {
-        return $this->backgroundImageId;
+        return $this->backgroundImage;
     }
 
     /**
-     * Set characterPose1Id
+     * Set characterPose1
      *
-     * @param object_id $characterPose1Id
+     * @param SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose1
      * @return self
      */
-    public function setCharacterPose1Id($characterPose1Id)
+    public function setCharacterPose1(\SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose1)
     {
-        $this->characterPose1Id = $characterPose1Id;
+        $this->characterPose1 = $characterPose1;
         return $this;
     }
 
     /**
-     * Get characterPose1Id
+     * Get characterPose1
      *
-     * @return object_id $characterPose1Id
+     * @return SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose1
      */
-    public function getCharacterPose1Id()
+    public function getCharacterPose1()
     {
-        return $this->characterPose1Id;
+        return $this->characterPose1;
     }
 
     /**
-     * Set characterPose2Id
+     * Set characterPose2
      *
-     * @param object_id $characterPose2Id
+     * @param SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose2
      * @return self
      */
-    public function setCharacterPose2Id($characterPose2Id)
+    public function setCharacterPose2(\SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose2)
     {
-        $this->characterPose2Id = $characterPose2Id;
+        $this->characterPose2 = $characterPose2;
         return $this;
     }
 
     /**
-     * Get characterPose2Id
+     * Get characterPose2
      *
-     * @return object_id $characterPose2Id
+     * @return SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose2
      */
-    public function getCharacterPose2Id()
+    public function getCharacterPose2()
     {
-        return $this->characterPose2Id;
+        return $this->characterPose2;
     }
 
     /**
-     * Set characterPose3Id
+     * Set characterPose3
      *
-     * @param object_id $characterPose3Id
+     * @param SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose3
      * @return self
      */
-    public function setCharacterPose3Id($characterPose3Id)
+    public function setCharacterPose3(\SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose3)
     {
-        $this->characterPose3Id = $characterPose3Id;
+        $this->characterPose3 = $characterPose3;
         return $this;
     }
 
     /**
-     * Get characterPose3Id
+     * Get characterPose3
      *
-     * @return object_id $characterPose3Id
+     * @return SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose3
      */
-    public function getCharacterPose3Id()
+    public function getCharacterPose3()
     {
-        return $this->characterPose3Id;
+        return $this->characterPose3;
     }
 
     /**
-     * Set characterPose4Id
+     * Set characterPose4
      *
-     * @param object_id $characterPose4Id
+     * @param SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose4
      * @return self
      */
-    public function setCharacterPose4Id($characterPose4Id)
+    public function setCharacterPose4(\SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose4)
     {
-        $this->characterPose4Id = $characterPose4Id;
+        $this->characterPose4 = $characterPose4;
         return $this;
     }
 
     /**
-     * Get characterPose4Id
+     * Get characterPose4
      *
-     * @return object_id $characterPose4Id
+     * @return SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose4
      */
-    public function getCharacterPose4Id()
+    public function getCharacterPose4()
     {
-        return $this->characterPose4Id;
+        return $this->characterPose4;
     }
 
     /**
-     * Set characterPose5Id
+     * Set characterPose5
      *
-     * @param object_id $characterPose5Id
+     * @param SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose5
      * @return self
      */
-    public function setCharacterPose5Id($characterPose5Id)
+    public function setCharacterPose5(\SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose5)
     {
-        $this->characterPose5Id = $characterPose5Id;
+        $this->characterPose5 = $characterPose5;
         return $this;
     }
 
     /**
-     * Get characterPose5Id
+     * Get characterPose5
      *
-     * @return object_id $characterPose5Id
+     * @return SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose5
      */
-    public function getCharacterPose5Id()
+    public function getCharacterPose5()
     {
-        return $this->characterPose5Id;
+        return $this->characterPose5;
     }
 
     /**
-     * Set characterPose6Id
+     * Set characterPose6
      *
-     * @param object_id $characterPose6Id
+     * @param SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose6
      * @return self
      */
-    public function setCharacterPose6Id($characterPose6Id)
+    public function setCharacterPose6(\SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose6)
     {
-        $this->characterPose6Id = $characterPose6Id;
+        $this->characterPose6 = $characterPose6;
         return $this;
     }
 
     /**
-     * Get characterPose6Id
+     * Get characterPose6
      *
-     * @return object_id $characterPose6Id
+     * @return SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose6
      */
-    public function getCharacterPose6Id()
+    public function getCharacterPose6()
     {
-        return $this->characterPose6Id;
+        return $this->characterPose6;
     }
 
     /**

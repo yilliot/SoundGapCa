@@ -5,30 +5,22 @@ namespace SoundGap\ContentAdminBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ODM\MongoDB\DocumentRepository;
 
-class AddPointContentType extends AbstractType
+class AddPointQuestType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('type','choice',array('choices'=>array(
-                'lesson' => 'Lesson',
-                'practice' => 'Practice',
-                'challenge' => 'Challenge',
-            )))
-            ->add('gradeId','document',array(
-                'class' => 'SoundGapContentAdminBundle:Grade',
-            ))
-            ->add('image','document',array(
+            ->add('numberToPass')
+            ->add('numberOfQuest')
+            ->add('backgroundImage','document',array(
                 'class' => 'SoundGapContentAdminBundle:Media',
                 'property' => 'name',
-            ))
-            ->add('imageCenterCoordinateX','number')
-            ->add('imageCenterCoordinateY','number')
-            ->add('appetizer','document',array(
-                'class' => 'SoundGapContentAdminBundle:Appetizer',
-                'property' => 'name',
+                'query_builder' => function(DocumentRepository $dr)
+                {
+                    return $dr->createQueryBuilder()->field('type')->equals('image')->sort('id','desc');
+                },
             ));
         if (!isset($options['data'])) {
             $builder->add('create','submit',array('attr'=>array('class'=>'btn btn-primary pull-right')));
@@ -40,12 +32,12 @@ class AddPointContentType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SoundGap\ContentAdminBundle\Document\PointContent',
+            'data_class' => 'SoundGap\ContentAdminBundle\Document\PointQuest',
         ));
     }
 
     public function getName()
     {
-        return 'PointContent';
+        return 'PointQuest';
     }
 }

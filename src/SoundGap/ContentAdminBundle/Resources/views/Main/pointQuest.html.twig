@@ -1,0 +1,99 @@
+{% extends 'SoundGapContentAdminBundle:Layout:ca.html.twig' %}
+
+{% block title %}{{pageName|capitalize}}{{parent()}}{% endblock %}
+
+{% block pageName %}
+{{parent()}} : {{pointQuest.point}}
+{% endblock %}
+
+{% block content %}
+<div class='col-sm-6'>
+<h2>{{actionName|humanize}} {{pageName|humanize}}</h2>
+{{ form_start(form, {'method': 'POST','attr':{'class':'form-horizontal','role':'form'}}) }}
+{{ form_end(form) }}
+
+<div class='clearfix'></div>
+<h2>Added Quests List <small> <span class='badge'>{{pointQuest.quests|length}}</span> added</small> </h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th width="30%">Quest</th>
+        <th>Answer</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    </tbody>
+    {% for quest in pointQuest.quests %}
+      <tr>
+        <td>
+          {% if quest.isForExam %}
+            <span class='glyphicon glyphicon-bookmark'></span>
+          {% endif %} 
+          {{quest.questCaption}}
+          {% if quest.questImage %}
+            <div><img class='img-thumbnail' src="/{{quest.questImage.webPath}}"></div>
+          {% endif %}
+        </td>
+        <td>
+          <div>
+            {{quest.option1Caption}}
+          </div>
+          {% if quest.option1Image %}
+            <div><img class='img-thumbnail' src="/{{quest.option1Image.webPath}}"></div>
+          {% endif %}
+        </td>
+        <td>
+          <div>
+            <a class='label label-danger' href="{{path('soundgap_ca_main_pointQuest_remove',{'questId':quest.id, 'pointQuestId':pointQuest.id})}}"> remove from point </a>
+          </div>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class='col-sm-6'>
+  <h2>{{pageName|capitalize}} List</h2>
+  <table class="table">
+  <thead>
+    <tr>
+      <th width="30%">Quest</th>
+      <th>Answer</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for quest in quests %}
+  {% if quest not in pointQuest.quests %}
+    <tr>
+      <td>
+          {% if quest.isForExam %}
+            <span class='glyphicon glyphicon-bookmark'></span>
+          {% endif %} 
+          {{quest.questCaption}}
+          {% if quest.questImage %}
+            <div><img class='img-thumbnail' src="/{{quest.questImage.webPath}}"></div>
+          {% endif %}
+      </td>
+      <td>
+        <div>
+          {{quest.option1Caption}}
+        </div>
+        {% if quest.option1Image %}
+          <div><img class='img-thumbnail' src="/{{quest.option1Image.webPath}}"></div>
+        {% endif %}
+      </td>
+      <td>
+        <div>
+          <a class='label label-primary' href="{{path('soundgap_ca_main_pointQuest_add',{'questId':quest.id, 'pointQuestId':pointQuest.id})}}"> add to point </a>
+        </div>
+      </td>
+    </tr>
+  {% endif %}
+  {% endfor %}
+  </tbody>
+  </table>
+</div>
+
+{% endblock %}

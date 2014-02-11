@@ -20,7 +20,7 @@ class Appetizer
     protected $name;
 
     /**
-     * @MongoDB\Hash
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
     protected $image;
 
@@ -32,32 +32,6 @@ class Appetizer
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set image
-     *
-     * @param hash $image
-     * @return self
-     */
-    public function setImage($image)
-    {
-        $this->image = array(
-            'webPath' => $image->getWebPath(),
-            'name' => $image->getName(),
-            'id' => $image->getId()
-        );
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return hash $image
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 
     /**
@@ -80,5 +54,27 @@ class Appetizer
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set image
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Media $image
+     * @return self
+     */
+    public function setImage(\SoundGap\ContentAdminBundle\Document\Media $image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Media $image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

@@ -25,9 +25,13 @@ class Category
     protected $name;
 
     /**
-     * @MongoDB\Hash
+     * @MongoDB\ReferenceOne(targetDocument="Media")
      */
     protected $image;
+
+    public function __toString(){
+        return $this->name;
+    }
 
     /**
      * Get id
@@ -64,23 +68,19 @@ class Category
     /**
      * Set image
      *
-     * @param hash $image
+     * @param SoundGap\ContentAdminBundle\Document\Media $image
      * @return self
      */
-    public function setImage($image)
+    public function setImage(\SoundGap\ContentAdminBundle\Document\Media $image)
     {
-        $this->image = array(
-            'webPath' => $image->getWebPath(),
-            'name' => $image->getName(),
-            'id' => $image->getId()
-        );
+        $this->image = $image;
         return $this;
     }
 
     /**
      * Get image
      *
-     * @return hash $image
+     * @return SoundGap\ContentAdminBundle\Document\Media $image
      */
     public function getImage()
     {

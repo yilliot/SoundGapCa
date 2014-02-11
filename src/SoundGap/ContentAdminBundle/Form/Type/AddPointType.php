@@ -5,6 +5,7 @@ namespace SoundGap\ContentAdminBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ODM\MongoDB\DocumentRepository;
 
 class AddPointType extends AbstractType
 {
@@ -17,12 +18,16 @@ class AddPointType extends AbstractType
                 'practice' => 'Practice',
                 'challenge' => 'Challenge',
             )))
-            ->add('gradeId','document',array(
+            ->add('grade','document',array(
                 'class' => 'SoundGapContentAdminBundle:Grade',
             ))
             ->add('image','document',array(
                 'class' => 'SoundGapContentAdminBundle:Media',
                 'property' => 'name',
+                'query_builder' => function(DocumentRepository $dr)
+                {
+                    return $dr->createQueryBuilder()->field('type')->equals('image')->sort('id','desc');
+                },
             ))
             ->add('imageCenterCoordinateX','number')
             ->add('imageCenterCoordinateY','number')

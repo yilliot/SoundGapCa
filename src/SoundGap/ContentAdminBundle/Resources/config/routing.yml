@@ -64,37 +64,6 @@ soundgap_ca_media_delete:
     pattern:  /media/delete/{id}
     defaults: { _controller: SoundGapContentAdminBundle:Media:mediaDelete }
 
-soundgap_ca_main_point:
-    pattern:  /main/point
-    defaults: { _controller: SoundGapContentAdminBundle:Main:point }
-soundgap_ca_main_point_update:
-    pattern:  /main/point/{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:point }
-soundgap_ca_main_pointcontent:
-    pattern:  /main/pointcontent/{pointId}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:pointContent }
-soundgap_ca_main_pointcontent_update:
-    pattern:  /main/pointcontent/update/{pointContentId}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:pointContentUpdate }
-soundgap_ca_main_pointquest:
-    pattern:  /main/pointquest/{pointId}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:pointQuest }
-soundgap_ca_main_pointPath:
-    pattern:  /main/pointPath
-    defaults: { _controller: SoundGapContentAdminBundle:Main:pointPath }
-soundgap_ca_main_point_delete:
-    pattern:  /main/point/delete{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:pointDelete }
-soundgap_ca_main_pointcontent_delete:
-    pattern:  /main/pointcontent/delete/{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:pointContentDelete }
-soundgap_ca_main_pointquest_delete:
-    pattern:  /main/pointquest/delete/{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:pointQuestDelete }
-soundgap_ca_main_pointPath_delete:
-    pattern:  /main/pointPath/delete/{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:pointPathDelete }
-
 soundgap_ca_parts_appetizer:
     pattern:  /parts/appetizer
     defaults: { _controller: SoundGapContentAdminBundle:Parts:appetizer }
@@ -122,4 +91,42 @@ soundgap_ca_parts_quest_delete:
 soundgap_ca_parts_characterPose_delete:
     pattern:  /parts/characterPose/delete/{id}
     defaults: { _controller: SoundGapContentAdminBundle:Parts:characterPoseDelete }
+
+soundgap_ca_main_point:
+    pattern:  /main/point
+    defaults: { _controller: SoundGapContentAdminBundle:Main:point }
+soundgap_ca_main_point_update:
+    pattern:  /main/point/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:point }
+soundgap_ca_main_pointContent:
+    pattern:  /main/pointcontent/{pointId}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointContent }
+soundgap_ca_main_pointContent_update:
+    pattern:  /main/pointcontent/update/{pointContentId}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointContentUpdate }
+soundgap_ca_main_pointQuest:
+    pattern:  /main/pointquest/{pointId}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointQuest }
+soundgap_ca_main_pointQuest_add:
+    pattern:  /main/pointquest/{pointQuestId}/{questId}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointQuestAdd }
+soundgap_ca_main_pointQuest_remove:
+    pattern:  /main/pointquestRemove/{pointQuestId}/{questId}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointQuestRemove }
+soundgap_ca_main_pointPath:
+    pattern:  /main/pointPath/{gradeId}/{fromId}/{toId}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointPath, gradeId:null, fromId:null, toId:null }
+
+soundgap_ca_main_point_delete:
+    pattern:  /main/point/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointDelete }
+soundgap_ca_main_pointContent_delete:
+    pattern:  /main/pointcontent/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointContentDelete }
+soundgap_ca_main_pointQuest_delete:
+    pattern:  /main/pointquest/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointQuestDelete }
+soundgap_ca_main_pointPath_remove:
+    pattern:  /main/pointPathRemove/{fromId}/{toId}
+    defaults: { _controller: SoundGapContentAdminBundle:Main:pointPathRemove }
 

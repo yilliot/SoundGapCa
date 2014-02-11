@@ -9,6 +9,7 @@
   <table class="table">
   <thead>
     <tr>
+      <th>Type</th>
       <th>{{pageName|capitalize}}</th>
       <th>CategoryGrade</th>
       <th>Image</th>
@@ -19,17 +20,19 @@
     <tr>
       <td>
         {% if point.type == 'lesson' %}
-          <div><span class='label label-primary'>{{point.type|upper}}</span></div>
+          <span class='glyphicon glyphicon-th-list'></span>
         {% endif %}
         {% if point.type == 'practice' %}
-          <div><span class='label label-warning'>{{point.type|upper}}</span></div>
+          <span class='glyphicon glyphicon-star-empty'></span>
         {% endif %}
         {% if point.type == 'challenge' %}
-          <div><span class='label label-success'>{{point.type|upper}}</span></div>
+          <span class='glyphicon glyphicon-star'></span>
         {% endif %}
+      </td>
+      <td>
         <div>{{point.name}}</div>
       </td>
-      <td>{{point.categoryInfo.category}}:{{point.categoryInfo.grade}}</td>
+      <td>{{point.grade}}</td>
       <td>
         <div >
           <img  class="img-thumbnail" src="/{{point.image.webPath}}">
@@ -38,9 +41,9 @@
       <td>
         <div>
         {% if point.type == 'lesson' %}
-          <a class="label label-primary" href="{{path('soundgap_ca_main_pointcontent',{'pointId':point.id})}}"> Content </a>
+          <a class="label label-primary" href="{{path('soundgap_ca_main_pointContent',{'pointId':point.id})}}"> Content </a>
         {% else %}
-          <a class="label label-primary" href="{{path('soundgap_ca_main_pointquest',{'pointId':point.id})}}"> Quest </a>
+          <a class="label label-primary" href="{{path('soundgap_ca_main_pointQuest',{'pointId':point.id})}}"> Quest </a>
         {% endif %}
         </div>
         <div>
