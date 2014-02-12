@@ -44,7 +44,7 @@ assetic:
 doctrine_mongodb:
     connections:
         default:
-            server: mongodb://l:27017
+            server: "%mongo_server%"
             options: {}
     default_database: SoundGap
     document_managers:
