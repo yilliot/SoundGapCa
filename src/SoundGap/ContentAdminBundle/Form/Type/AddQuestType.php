@@ -22,7 +22,7 @@ class AddQuestType extends AbstractType
         );
 
         $builder
-            ->add('isForExam', 'checkbox', array('required' => false))
+            ->add('isForChallenge', 'checkbox', array('required' => false))
             ->add('questCaption')
             ->add('questImage', 'document', $imageOptions)
             ->add('questAudio', 'document', $imageOptions)

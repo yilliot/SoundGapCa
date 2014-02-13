@@ -17,7 +17,7 @@ class Quest
     /**
      * @MongoDB\Boolean
      */
-    protected $isForExam;
+    protected $isForChallenge;
 
     /**
      * @MongoDB\String
@@ -90,25 +90,25 @@ class Quest
     }
 
     /**
-     * Set isForExam
+     * Set isForChallenge
      *
-     * @param boolean $isForExam
+     * @param boolean $isForChallenge
      * @return self
      */
-    public function setIsForExam($isForExam)
+    public function setIsForChallenge($isForChallenge)
     {
-        $this->isForExam = $isForExam;
+        $this->isForChallenge = $isForChallenge;
         return $this;
     }
 
     /**
-     * Get isForExam
+     * Get isForChallenge
      *
-     * @return boolean $isForExam
+     * @return boolean $isForChallenge
      */
-    public function getIsForExam()
+    public function getIsForChallenge()
     {
-        return $this->isForExam;
+        return $this->isForChallenge;
     }
 
     /**

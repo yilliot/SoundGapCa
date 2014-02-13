@@ -26,7 +26,7 @@
     {% for quest in pointQuest.quests %}
       <tr>
         <td>
-          {% if quest.isForExam %}
+          {% if quest.isForChallenge %}
             <span class='glyphicon glyphicon-bookmark'></span>
           {% endif %} 
           {{quest.questCaption}}
@@ -68,7 +68,7 @@
   {% if quest not in pointQuest.quests %}
     <tr>
       <td>
-          {% if quest.isForExam %}
+          {% if quest.isForChallenge %}
             <span class='glyphicon glyphicon-bookmark'></span>
           {% endif %} 
           {{quest.questCaption}}
