@@ -1,3 +1,11 @@
+sound_gap_user:
+    resource: "@SoundGapUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+sound_gap_app_api:
+    resource: "@SoundGapAppApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+
 sound_gap_content_admin:
     resource: "@SoundGapContentAdminBundle/Resources/config/routing.yml"
     prefix:   /ca

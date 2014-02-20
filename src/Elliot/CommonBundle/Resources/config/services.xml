@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="elliot_common.s3.class">AmazonS3</parameter>
+        <parameter key="elliot_common.memcached.class">Memcached</parameter>
+        <parameter key="elliot_common.factory.memcached_factory.class">Elliot\CommonBundle\Factory\MemachedFactory</parameter>
+        <parameter key="elliot_common.factory.s3_factory.class">Elliot\CommonBundle\Factory\S3Factory</parameter>
+    </parameters>
+
+    <services>
+        <service id="elliot_common.s3"
+                 class="%elliot_common.s3.class%"
+                 factory-class="%elliot_common.factory.s3_factory.class%"
+                 factory-method="get"
+        >
+            <argument>%elliot_common.s3.config%</argument>
+        </service>
+        <service id="elliot_common.memcached"
+                 class="%elliot_common.memcached.class%"
+                 factory-class="%elliot_common.factory.memcached_factory.class%"
+                 factory-method="get"
+        >
+            <argument>%elliot_common.memcached.config%</argument>
+        </service>
+    </services>
+</container>

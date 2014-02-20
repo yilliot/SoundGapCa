@@ -55,6 +55,12 @@ doctrine_mongodb:
         fsync: false # boolean 
         timeout: 10  # integer >= -1
 
+# app/config/config.yml
+fos_user:
+    db_driver: mongodb # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: SoundGap\UserBundle\Document\User
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"

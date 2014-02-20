@@ -1,0 +1,7 @@
+parameters:
+#    sound_gap_user.example.class: SoundGap\UserBundle\Example
+
+services:
+#    sound_gap_user.example:
+#        class: %sound_gap_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -24,6 +24,13 @@ class Grade
 
     /**
      * @MongoDB\String
+     * @MongoDB\Index
+     * @Assert\NotBlank()
+     */
+    protected $package;
+
+    /**
+     * @MongoDB\String
      * @Assert\NotBlank()
      */
     protected $name;

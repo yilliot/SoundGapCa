@@ -1,0 +1,3 @@
+sound_gap_user_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: SoundGapUserBundle:Default:index }

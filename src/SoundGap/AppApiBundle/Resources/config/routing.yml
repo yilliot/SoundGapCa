@@ -1,0 +1,10 @@
+soundgap_app_api_homepage:
+    pattern:  /
+    defaults: { _controller: SoundGapAppApiBundle:Default:index }
+
+soundgap_theory_app_api_version:
+    pattern:  /version
+    defaults: { _controller: SoundGapAppApiBundle:Version:getVersion, _format: json }
+soundgap_user_api_signup:
+    pattern:  /user/signup
+    defaults: { _controller: SoundGapAppApiBundle:User:signup, _format: json }

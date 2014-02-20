@@ -6,7 +6,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * @MongoDB\Document
- * @MongoDB\UniqueIndex(keys={"fromPointId"="asc", "toPointId"="asc"})
+ * @MongoDB\UniqueIndex(keys={"fromPoint"="asc", "toPoint"="asc"})
  */
 class PointPath
 {

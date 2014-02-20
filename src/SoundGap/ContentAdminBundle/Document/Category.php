@@ -25,6 +25,13 @@ class Category
     protected $name;
 
     /**
+     * @MongoDB\String
+     * @MongoDB\Index
+     * @Assert\NotBlank()
+     */
+    protected $app;
+
+    /**
      * @MongoDB\ReferenceOne(targetDocument="Media")
      */
     protected $image;
