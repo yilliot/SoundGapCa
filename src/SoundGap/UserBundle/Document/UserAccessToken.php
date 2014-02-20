@@ -21,7 +21,7 @@ class UserAccessToken
     protected $user;
 
     /**
-     * @MongoDB\Date
+     * @MongoDB\Timestamp
      */
     protected $expiry;
 
@@ -60,7 +60,7 @@ class UserAccessToken
     /**
      * Set expiry
      *
-     * @param date $expiry
+     * @param timestamp $expiry
      * @return self
      */
     public function setExpiry($expiry)
@@ -72,7 +72,7 @@ class UserAccessToken
     /**
      * Get expiry
      *
-     * @return date $expiry
+     * @return timestamp $expiry
      */
     public function getExpiry()
     {

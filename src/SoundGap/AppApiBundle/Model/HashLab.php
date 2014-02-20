@@ -1,10 +1,17 @@
 <?php
 
 namespace SoundGap\AppApiBundle\Model;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+
+class HashHttpException extends \Exception {
+}
 
 class HashLab
 {
+    public function __construct($memcache)
+    {
+        $this->memcache = $memcache;
+    }
+
     public function genHash($parameters = '')
     {
         $time = time();
@@ -19,12 +26,12 @@ class HashLab
     {
         # check if hash implemented correctly, assume trust origin
         if(!$this->checkParamHash($hash, $parameterString)) {
-            throw new HttpException(400, 'invalid hash');
+            throw new HashHttpException();
         }
 
         # if userId+hash found in memcache, possible same request multiple times
         if ($this->memcache->get($userId.$hash)) {
-            throw new HttpException(400, 'phishing detected');
+            throw new HashHttpException();
         }
         # add userId+hash in memcache for 1 day
         $this->memcache->add($userId.$hash, '1', 86400);

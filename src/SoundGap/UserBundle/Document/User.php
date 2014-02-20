@@ -23,7 +23,6 @@ class User extends BaseUser
      * @Assert\Email(message = "You need email address for password recovery")
      * @Assert\Length(min = "10", minMessage = "We need a longer password")
      * @MongoDB\String
-     * @MongoDB\Index
      * @MongoDB\UniqueIndex
      */
     protected $email;

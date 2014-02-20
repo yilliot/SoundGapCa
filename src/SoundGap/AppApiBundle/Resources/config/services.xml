@@ -3,4 +3,12 @@
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="soundgap_api.hash_lab" class="SoundGap\AppApiBundle\Model\HashLab">
+          <argument type='service' id='elliot_common.memcached' />
+        </service>
+        <service id="soundgap_api.token_counter" class="SoundGap\AppApiBundle\Model\TokenCounter">
+          <argument type='service' id='doctrine_mongodb' />
+        </service>
+    </services>
 </container>

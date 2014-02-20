@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -68,3 +68,7 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+elliot_common:
+    memcached:
+        servers: [ {host:127.0.0.1} ]
