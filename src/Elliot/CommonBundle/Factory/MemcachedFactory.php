@@ -2,13 +2,13 @@
 
 namespace Elliot\CommonBundle\Factory;
 
-class MemcahedFactory
+class MemcachedFactory
 {
     public static function get(array $config)
     {
         $memcached = new \Memcached();
 
-        $memached->addServers($config['servers']);
+        $memcached->addServers($config['servers']);
 
         return $memcached;
     }

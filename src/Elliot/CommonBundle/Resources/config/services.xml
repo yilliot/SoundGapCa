@@ -7,7 +7,7 @@
     <parameters>
         <parameter key="elliot_common.s3.class">AmazonS3</parameter>
         <parameter key="elliot_common.memcached.class">Memcached</parameter>
-        <parameter key="elliot_common.factory.memcached_factory.class">Elliot\CommonBundle\Factory\MemachedFactory</parameter>
+        <parameter key="elliot_common.factory.memcached_factory.class">Elliot\CommonBundle\Factory\MemcachedFactory</parameter>
         <parameter key="elliot_common.factory.s3_factory.class">Elliot\CommonBundle\Factory\S3Factory</parameter>
     </parameters>
 
