@@ -13,6 +13,9 @@ soundgap_theory_app_api_version:
 soundgap_user_api_signup:
     pattern:  /user/signup
     defaults: { _controller: SoundGapAppApiBundle:User:signup, _format: json }
+soundgap_user_api_login:
+    pattern:  /user/login
+    defaults: { _controller: SoundGapAppApiBundle:User:login, _format: json }
 soundgap_user_api_resetpassword:
     pattern:  /user/resetPassword
     defaults: { _controller: SoundGapAppApiBundle:User:resetPassword, _format: json }

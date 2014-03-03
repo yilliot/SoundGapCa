@@ -19,9 +19,14 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @Assert\NotBlank(message = "How may I address you?")
+     * @MongoDB\String
+     */
+    protected $name;
+
+    /**
      * @Assert\NotBlank(message = "You need email address for password recovery")
      * @Assert\Email(message = "You need email address for password recovery")
-     * @Assert\Length(min = "10", minMessage = "We need a longer password")
      * @MongoDB\String
      * @MongoDB\UniqueIndex
      */
@@ -90,5 +95,27 @@ class User extends BaseUser
     public function getCustomModules()
     {
         return $this->customModules;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return self
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string $name
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

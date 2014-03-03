@@ -12,13 +12,19 @@ use SoundGap\UserBundle\Document\User;
 
 class UserController extends Controller
 {
+    // action
     const ACTION_SIGNUP = 'ACTION_SIGNUP';
     const ACTION_LOGIN = 'ACTION_LOGIN';
+
+    // error
+    const ERROR_EMAIL_NOTFOUND = 'ERROR_EMAIL_NOTFOUND';
+    const ERROR_EMAIL_DUPLICATED = 'ERROR_EMAIL_DUPLICATED';
     const ERROR_PASSWORD = 'ERROR_PASSWORD';
     const ERROR_PARAM = 'ERROR_PARAM';
     const ERROR_HASH = 'ERROR_HASH';
 
     private $userManager;
+    private $nameInput;
     private $emailInput;
     private $passwordInput;
 
@@ -35,7 +41,7 @@ class UserController extends Controller
 
         $this->emailInput = $this->getRequest()->request->get('email');
         // overwrite for test
-        $this->emailInput = 'yilliot@gmail.com';
+        // $this->emailInput = 'yilliot@gmail.com';
 
         $this->checkHash($this->emailInput);
 
@@ -47,7 +53,7 @@ class UserController extends Controller
             $data = array(
                 'errorCode' => self::ERROR_PARAM,
                 'success' => false,
-                'message' => $user->getEmail().' hasn\'t not signup yet',
+                'message' => $this->emailInput.' hasn\'t not signup yet',
             );
             $response = new JsonResponse();
             $response->setData($data);
@@ -90,6 +96,7 @@ class UserController extends Controller
     public function signupAction()
     {
         $this->userManager = $this->get('fos_user.user_manager');
+        $this->nameInput = $this->getRequest()->request->get('name');
         $this->emailInput = $this->getRequest()->request->get('email');
         $this->passwordInput = $this->getRequest()->request->get('password');
 
@@ -97,14 +104,22 @@ class UserController extends Controller
         // $this->emailInput = 'yilliot2@gmail.com';
         // $this->passwordInput = '111111';
 
-        $this->checkHash($this->emailInput.$this->passwordInput);
+        $hashResponse = $this->checkHash($this->emailInput.$this->passwordInput);
+        if ($hashResponse) {
+            return $hashResponse;
+        }
 
-        # find by email
+        # find if email already exist
         $user = $this->userManager->findUserByEmail($this->emailInput);
-
-        # login
         if ($user) {
-            $data = $this->login($user);
+            $errorCode = self::ERROR_EMAIL_DUPLICATED;
+            $data = array(
+                'actionCode' => self::ACTION_SIGNUP,
+                'errorCode' => isset($errorCode) ? $errorCode : null,
+                'success' => !isset($errorCode),
+                'errorMessage' => $user->getEmail().' has already registered with us',
+                'token' => isset($token) ? $token : null,
+            );
         # signup
         } else {
             $data = $this->signup();
@@ -115,22 +130,48 @@ class UserController extends Controller
         return $response;
     }
 
+    public function loginAction()
+    {
+        $this->userManager = $this->get('fos_user.user_manager');
+        $this->emailInput = $this->getRequest()->request->get('email');
+        $this->passwordInput = $this->getRequest()->request->get('password');
+
+        // overwrite for test
+        // $this->emailInput = 'yilliot2@gmail.com';
+        // $this->passwordInput = '111111';
+
+        $this->checkHash($this->emailInput.$this->passwordInput);
+
+        $user = $this->userManager->findUserByEmail($this->emailInput);
+        $data = $this->login($user);
+
+        $response = new JsonResponse();
+        $response->setData($data);
+        return $response;
+    }
+
     protected function login($user)
     {
-        $encoder_service = $this->get('security.encoder_factory');
-        $encoder = $encoder_service->getEncoder($user);
-        $encoded_pass = $encoder->encodePassword($this->passwordInput, $user->getSalt());
+        if ($user) {
+            $encoder_service = $this->get('security.encoder_factory');
+            $encoder = $encoder_service->getEncoder($user);
+            $encoded_pass = $encoder->encodePassword($this->passwordInput, $user->getSalt());
 
-        # generate token
-        if ($encoded_pass === $user->getPassword()) {
-            //$token = $this->generateUserAccessToken($user);
-            $tokenCounter = $this->get('soundgap_api.token_counter');
-            $token = $tokenCounter->generateUserAccessToken($user);
+            # generate token
+            if ($encoded_pass === $user->getPassword()) {
+                $tokenCounter = $this->get('soundgap_api.token_counter');
+                $token = $tokenCounter->generateUserAccessToken($user);
 
-        # forget password
+            # forget password
+            } else {
+                $errorCode = self::ERROR_PASSWORD;
+                $errorMessages = array('password' => 'Do you forget your password?');
+            }
+
+        # user is null
         } else {
-            $errorCode = self::ERROR_PASSWORD;
-            $errorMessages = array('password' => 'Do you forget your password?');
+            $errorCode = self::ERROR_EMAIL_NOTFOUND;
+            $errorMessages = array('email' => $this->emailInput.' hasn\'t not registered yet');
         }
         return array(
             'actionCode' => self::ACTION_LOGIN,
@@ -144,6 +185,7 @@ class UserController extends Controller
     protected function signup()
     {
         $user = $this->userManager->createUser();
+        $user->setName($this->nameInput);
         $user->setEmail($this->emailInput);
         $user->setUsername($this->emailInput);
         $user->setPlainPassword($this->passwordInput);
@@ -178,22 +220,11 @@ class UserController extends Controller
         );
     }
 
-    private function generateUserAccessToken($user)
-    {
-        $userAccessToken = new UserAccessToken();
-        $userAccessToken->setUser($user);
-        $userAccessToken->setExpiry(strtotime('next year'));
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $dm->persist($userAccessToken);
-        $dm->flush();
-        return $userAccessToken->getId();
-    }
-
-    public function checkHash($param)
+    private function checkHash($param)
     {
         $hashLab = $this->get('soundgap_api.hash_lab');
         $hash = $this->getRequest()->request->get('hash');
-        // $hash = $hashLab->genHash($this->emailInput.$this->passwordInput);
+        $hash = $hashLab->genHash($this->emailInput.$this->passwordInput);
 
         try {
             $hashLab->check($hash, $param);

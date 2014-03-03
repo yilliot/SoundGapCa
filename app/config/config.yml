@@ -60,6 +60,11 @@ fos_user:
     db_driver: mongodb # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: SoundGap\UserBundle\Document\User
+    resetting:
+        email:
+            from_email: # Use this node only if you don't want the global email address for the resetting email
+                address: machine@soundgap.com
+                sender_name: SoundGap Machine
 
 # Swiftmailer Configuration
 swiftmailer:

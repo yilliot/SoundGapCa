@@ -1,0 +1,30 @@
+{% extends 'SoundGapContentAdminBundle:Layout:base.html.twig' %}
+
+{% block title %}User{% endblock %}
+{% block styles %}
+<link rel="stylesheet" type="text/less" href="/user/styles/main.less">
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="/content_admin/scripts/less-1.6.2.min.js"></script>
+<script type="text/javascript" src="/content_admin/bower_components/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/content_admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(function() {
+})
+</script>
+{% endblock %}
+
+{% block body %}
+{% for type, messages in app.session.flashbag.all() %}
+    {% for message in messages %}
+        <div class="flash-{{ type }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+<div>
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
+</div>
+{% endblock %}

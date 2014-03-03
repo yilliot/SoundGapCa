@@ -1,0 +1,8 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+<div id='fos_user_resetting_reset' class='col-md-4 col-md-offset-4'>
+  <h1>Password reset </h1>
+  {% include "FOSUserBundle:Resetting:reset_content.html.twig" %}
+</div>
+{% endblock fos_user_content %}
