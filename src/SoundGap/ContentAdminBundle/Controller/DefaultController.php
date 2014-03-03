@@ -10,4 +10,9 @@ class DefaultController extends Controller
     {
         return $this->render('SoundGapContentAdminBundle:Default:index.html.twig');
     }
+
+    public function wwwAction()
+    {
+        return $this->redirect('http://www.soundgap.com', 301);
+    }
 }
