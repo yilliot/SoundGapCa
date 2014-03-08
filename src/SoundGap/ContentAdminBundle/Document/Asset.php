@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @MongoDB\Document
  * @MongoDB\HasLifecycleCallbacks
  */
-class Media
+class Asset
 {
     /**
      * @MongoDB\Id
@@ -141,7 +141,7 @@ class Media
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'uploads/media';
+        return 'uploads/asset';
     }
 
     /**

@@ -7,7 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document
  */
-class PointContent
+class StationLessonPage
 {
     /**
      * @MongoDB\Id
@@ -15,25 +15,49 @@ class PointContent
     protected $id;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Point")
-     * @MongoDB\Index 
+     * @MongoDB\String
      */
-    protected $point;
+    protected $type;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Media")
+     * @MongoDB\Int
      */
-    protected $startAudio;
+    protected $position;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Media")
+     * @MongoDB\String
      */
-    protected $backgroundAudio;
+    protected $caption;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Media")
+     * @MongoDB\String
+     */
+    protected $title;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
      */
     protected $backgroundImage;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
+     */
+    protected $backgroundMusic;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
+     */
+    protected $backgroundAmbient;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
+     */
+    protected $triggerAudio;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
+     */
+    protected $triggerVideo;
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="CharacterPose")
@@ -96,19 +120,10 @@ class PointContent
     protected $isCharacter6Speech;
 
     /**
-     * @MongoDB\String
+     * @MongoDB\ReferenceOne(targetDocument="Station")
+     * @MongoDB\Index 
      */
-    protected $caption;
-
-    /**
-     * @MongoDB\String
-     */
-    protected $contentType;
-
-    /**
-     * @MongoDB\Int
-     */
-    protected $pageNumber;
+    protected $station;
 
     /**
      * Get id
@@ -120,79 +135,106 @@ class PointContent
         return $this->id;
     }
 
+    public function __toString()
+    {
+        return $this->position.':'.$this->caption;
+    }
+
     /**
-     * Set point
+     * Set type
      *
-     * @param SoundGap\ContentAdminBundle\Document\Point $point
+     * @param string $type
      * @return self
      */
-    public function setPoint(\SoundGap\ContentAdminBundle\Document\Point $point)
+    public function setType($type)
     {
-        $this->point = $point;
+        $this->type = $type;
         return $this;
     }
 
     /**
-     * Get point
+     * Get type
      *
-     * @return SoundGap\ContentAdminBundle\Document\Point $point
+     * @return string $type
      */
-    public function getPoint()
+    public function getType()
     {
-        return $this->point;
+        return $this->type;
     }
 
     /**
-     * Set startAudio
+     * Set position
      *
-     * @param SoundGap\ContentAdminBundle\Document\Media $startAudio
+     * @param int $position
      * @return self
      */
-    public function setStartAudio(\SoundGap\ContentAdminBundle\Document\Media $startAudio)
+    public function setPosition($position)
     {
-        $this->startAudio = $startAudio;
+        $this->position = $position;
         return $this;
     }
 
     /**
-     * Get startAudio
+     * Get position
      *
-     * @return SoundGap\ContentAdminBundle\Document\Media $startAudio
+     * @return int $position
      */
-    public function getStartAudio()
+    public function getPosition()
     {
-        return $this->startAudio;
+        return $this->position;
     }
 
     /**
-     * Set backgroundAudio
+     * Set caption
      *
-     * @param SoundGap\ContentAdminBundle\Document\Media $backgroundAudio
+     * @param string $caption
      * @return self
      */
-    public function setBackgroundAudio(\SoundGap\ContentAdminBundle\Document\Media $backgroundAudio)
+    public function setCaption($caption)
     {
-        $this->backgroundAudio = $backgroundAudio;
+        $this->caption = $caption;
         return $this;
     }
 
     /**
-     * Get backgroundAudio
+     * Get caption
      *
-     * @return SoundGap\ContentAdminBundle\Document\Media $backgroundAudio
+     * @return string $caption
      */
-    public function getBackgroundAudio()
+    public function getCaption()
     {
-        return $this->backgroundAudio;
+        return $this->caption;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return self
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string $title
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
      * Set backgroundImage
      *
-     * @param SoundGap\ContentAdminBundle\Document\Media $backgroundImage
+     * @param SoundGap\ContentAdminBundle\Document\Asset $backgroundImage
      * @return self
      */
-    public function setBackgroundImage(\SoundGap\ContentAdminBundle\Document\Media $backgroundImage)
+    public function setBackgroundImage(\SoundGap\ContentAdminBundle\Document\Asset $backgroundImage)
     {
         $this->backgroundImage = $backgroundImage;
         return $this;
@@ -201,11 +243,99 @@ class PointContent
     /**
      * Get backgroundImage
      *
-     * @return SoundGap\ContentAdminBundle\Document\Media $backgroundImage
+     * @return SoundGap\ContentAdminBundle\Document\Asset $backgroundImage
      */
     public function getBackgroundImage()
     {
         return $this->backgroundImage;
+    }
+
+    /**
+     * Set backgroundMusic
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Asset $backgroundMusic
+     * @return self
+     */
+    public function setBackgroundMusic(\SoundGap\ContentAdminBundle\Document\Asset $backgroundMusic)
+    {
+        $this->backgroundMusic = $backgroundMusic;
+        return $this;
+    }
+
+    /**
+     * Get backgroundMusic
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Asset $backgroundMusic
+     */
+    public function getBackgroundMusic()
+    {
+        return $this->backgroundMusic;
+    }
+
+    /**
+     * Set backgroundAmbient
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Asset $backgroundAmbient
+     * @return self
+     */
+    public function setBackgroundAmbient(\SoundGap\ContentAdminBundle\Document\Asset $backgroundAmbient)
+    {
+        $this->backgroundAmbient = $backgroundAmbient;
+        return $this;
+    }
+
+    /**
+     * Get backgroundAmbient
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Asset $backgroundAmbient
+     */
+    public function getBackgroundAmbient()
+    {
+        return $this->backgroundAmbient;
+    }
+
+    /**
+     * Set triggerAudio
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Asset $triggerAudio
+     * @return self
+     */
+    public function setTriggerAudio(\SoundGap\ContentAdminBundle\Document\Asset $triggerAudio)
+    {
+        $this->triggerAudio = $triggerAudio;
+        return $this;
+    }
+
+    /**
+     * Get triggerAudio
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Asset $triggerAudio
+     */
+    public function getTriggerAudio()
+    {
+        return $this->triggerAudio;
+    }
+
+    /**
+     * Set triggerVideo
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Asset $triggerVideo
+     * @return self
+     */
+    public function setTriggerVideo(\SoundGap\ContentAdminBundle\Document\Asset $triggerVideo)
+    {
+        $this->triggerVideo = $triggerVideo;
+        return $this;
+    }
+
+    /**
+     * Get triggerVideo
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Asset $triggerVideo
+     */
+    public function getTriggerVideo()
+    {
+        return $this->triggerVideo;
     }
 
     /**
@@ -473,68 +603,24 @@ class PointContent
     }
 
     /**
-     * Set caption
+     * Set station
      *
-     * @param string $caption
+     * @param SoundGap\ContentAdminBundle\Document\Station $station
      * @return self
      */
-    public function setCaption($caption)
+    public function setStation(\SoundGap\ContentAdminBundle\Document\Station $station)
     {
-        $this->caption = $caption;
+        $this->station = $station;
         return $this;
     }
 
     /**
-     * Get caption
+     * Get station
      *
-     * @return string $caption
+     * @return SoundGap\ContentAdminBundle\Document\Station $station
      */
-    public function getCaption()
+    public function getStation()
     {
-        return $this->caption;
-    }
-
-    /**
-     * Set contentType
-     *
-     * @param string $contentType
-     * @return self
-     */
-    public function setContentType($contentType)
-    {
-        $this->contentType = $contentType;
-        return $this;
-    }
-
-    /**
-     * Get contentType
-     *
-     * @return string $contentType
-     */
-    public function getContentType()
-    {
-        return $this->contentType;
-    }
-
-    /**
-     * Set pageNumber
-     *
-     * @param int $pageNumber
-     * @return self
-     */
-    public function setPageNumber($pageNumber)
-    {
-        $this->pageNumber = $pageNumber;
-        return $this;
-    }
-
-    /**
-     * Get pageNumber
-     *
-     * @return int $pageNumber
-     */
-    public function getPageNumber()
-    {
-        return $this->pageNumber;
+        return $this->station;
     }
 }

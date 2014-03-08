@@ -51,7 +51,7 @@ class UserController extends Controller
         if (null === $user) {
 
             $data = array(
-                'errorCode' => self::ERROR_PARAM,
+                'errorCode' => self::ERROR_EMAIL_NOTFOUND,
                 'success' => false,
                 'message' => $this->emailInput.' hasn\'t not signup yet',
             );

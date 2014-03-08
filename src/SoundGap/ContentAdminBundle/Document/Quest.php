@@ -15,9 +15,9 @@ class Quest
     protected $id;
 
     /**
-     * @MongoDB\Boolean
+     * @MongoDB\Int
      */
-    protected $isForChallenge;
+    protected $priority;
 
     /**
      * @MongoDB\String
@@ -351,5 +351,27 @@ class Quest
     public function getOption4Image()
     {
         return $this->option4Image;
+    }
+
+    /**
+     * Set priority
+     *
+     * @param int $priority
+     * @return self
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+        return $this;
+    }
+
+    /**
+     * Get priority
+     *
+     * @return int $priority
+     */
+    public function getPriority()
+    {
+        return $this->priority;
     }
 }

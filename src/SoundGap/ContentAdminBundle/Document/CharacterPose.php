@@ -21,13 +21,13 @@ class CharacterPose
     protected $character;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Pose")
+     * @MongoDB\String
      * @MongoDB\Index
      */
     protected $pose;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Media")
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
      */
     protected $image;
 
@@ -115,10 +115,10 @@ class CharacterPose
     /**
      * Set image
      *
-     * @param SoundGap\ContentAdminBundle\Document\Media $image
+     * @param SoundGap\ContentAdminBundle\Document\Asset $image
      * @return self
      */
-    public function setImage(\SoundGap\ContentAdminBundle\Document\Media $image)
+    public function setImage(\SoundGap\ContentAdminBundle\Document\Asset $image)
     {
         $this->image = $image;
         return $this;
@@ -127,7 +127,7 @@ class CharacterPose
     /**
      * Get image
      *
-     * @return SoundGap\ContentAdminBundle\Document\Media $image
+     * @return SoundGap\ContentAdminBundle\Document\Asset $image
      */
     public function getImage()
     {

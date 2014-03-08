@@ -3,11 +3,14 @@
 namespace SoundGap\ContentAdminBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique as MongoDBUnique;
 
 /**
  * @MongoDB\Document
+ * @MongoDBUnique(fields="name")
  */
-class Appetizer
+class School
 {
     /**
      * @MongoDB\Id
@@ -16,13 +19,15 @@ class Appetizer
 
     /**
      * @MongoDB\String
+     * @MongoDB\UniqueIndex
+     * @Assert\NotBlank()
      */
     protected $name;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Media")
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
      */
-    protected $image;
+    protected $logo;
 
     /**
      * Get id
@@ -57,24 +62,24 @@ class Appetizer
     }
 
     /**
-     * Set image
+     * Set logo
      *
-     * @param SoundGap\ContentAdminBundle\Document\Media $image
+     * @param SoundGap\ContentAdminBundle\Document\Asset $logo
      * @return self
      */
-    public function setImage(\SoundGap\ContentAdminBundle\Document\Media $image)
+    public function setLogo(\SoundGap\ContentAdminBundle\Document\Asset $logo)
     {
-        $this->image = $image;
+        $this->logo = $logo;
         return $this;
     }
 
     /**
-     * Get image
+     * Get logo
      *
-     * @return SoundGap\ContentAdminBundle\Document\Media $image
+     * @return SoundGap\ContentAdminBundle\Document\Asset $logo
      */
-    public function getImage()
+    public function getLogo()
     {
-        return $this->image;
+        return $this->logo;
     }
 }

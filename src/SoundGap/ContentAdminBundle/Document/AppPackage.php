@@ -10,7 +10,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique as MongoDBUnique;
  * @MongoDB\Document
  * @MongoDBUnique(fields="name")
  */
-class Pose
+class AppPackage
 {
     /**
      * @MongoDB\Id
@@ -23,11 +23,6 @@ class Pose
      * @Assert\NotBlank()
      */
     protected $name;
-
-    public function __toString()
-    {
-        return $this->name;
-    }
 
     /**
      * Get id
