@@ -25,6 +25,14 @@ class AppPackage
     protected $name;
 
     /**
+     * @MongoDB\ReferenceOne(targetDocument="App")
+     * @MongoDB\Index
+     */
+    protected $app;
+
+
+
+    /**
      * Get id
      *
      * @return id $id
@@ -54,5 +62,27 @@ class AppPackage
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set app
+     *
+     * @param SoundGap\ContentAdminBundle\Document\App $app
+     * @return self
+     */
+    public function setApp(\SoundGap\ContentAdminBundle\Document\App $app)
+    {
+        $this->app = $app;
+        return $this;
+    }
+
+    /**
+     * Get app
+     *
+     * @return SoundGap\ContentAdminBundle\Document\App $app
+     */
+    public function getApp()
+    {
+        return $this->app;
     }
 }

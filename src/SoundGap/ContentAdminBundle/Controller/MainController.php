@@ -3,13 +3,7 @@
 namespace SoundGap\ContentAdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use SoundGap\ContentAdminBundle\Form\Type\AddPointType;
-use SoundGap\ContentAdminBundle\Form\Type\AddPointContentType;
-use SoundGap\ContentAdminBundle\Form\Type\AddPointQuestType;
-use SoundGap\ContentAdminBundle\Document\Point;
-use SoundGap\ContentAdminBundle\Document\PointContent;
-use SoundGap\ContentAdminBundle\Document\PointQuest;
-use SoundGap\ContentAdminBundle\Document\PointPath;
+
 
 class MainController extends Controller
 {

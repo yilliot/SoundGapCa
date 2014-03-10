@@ -23,11 +23,11 @@ class Grade
     protected $category;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Package")
+     * @MongoDB\ReferenceOne(targetDocument="AppPackage")
      * @MongoDB\Index
      * @Assert\NotBlank()
      */
-    protected $package;
+    protected $appPackage;
 
     /**
      * @MongoDB\String
@@ -91,28 +91,6 @@ class Grade
     public function getCategory()
     {
         return $this->category;
-    }
-
-    /**
-     * Set package
-     *
-     * @param SoundGap\ContentAdminBundle\Document\Package $package
-     * @return self
-     */
-    public function setPackage(\SoundGap\ContentAdminBundle\Document\Package $package)
-    {
-        $this->package = $package;
-        return $this;
-    }
-
-    /**
-     * Get package
-     *
-     * @return SoundGap\ContentAdminBundle\Document\Package $package
-     */
-    public function getPackage()
-    {
-        return $this->package;
     }
 
     /**
@@ -245,5 +223,27 @@ class Grade
     public function getPosition()
     {
         return $this->position;
+    }
+
+    /**
+     * Set appPackage
+     *
+     * @param SoundGap\ContentAdminBundle\Document\AppPackage $appPackage
+     * @return self
+     */
+    public function setAppPackage(\SoundGap\ContentAdminBundle\Document\AppPackage $appPackage)
+    {
+        $this->appPackage = $appPackage;
+        return $this;
+    }
+
+    /**
+     * Get appPackage
+     *
+     * @return SoundGap\ContentAdminBundle\Document\AppPackage $appPackage
+     */
+    public function getAppPackage()
+    {
+        return $this->appPackage;
     }
 }

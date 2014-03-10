@@ -29,20 +29,15 @@ class Asset
     protected $path;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Tag")
+     * @MongoDB\ReferenceOne(targetDocument="AssetType")
      * @MongoDB\Index
      */
-    protected $tag;
+    protected $assetType;
 
     /**
      * @MongoDB\String
      */
     protected $mimeType;
-
-    /**
-     * @MongoDB\String
-     */
-    protected $type;
 
     /**
      * @MongoDB\Date
@@ -55,6 +50,22 @@ class Asset
      */
     private $attachment;
     private $temp;
+
+    /**
+     * @MongoDB\Boolean
+     */
+    protected $isDeleted;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="SchoolApp")
+     * @MongoDB\Index
+     */
+    protected $schoolApp;
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     /**
      * @MongoDB\PrePersist()
@@ -247,50 +258,6 @@ class Asset
     }
 
     /**
-     * Set tag
-     *
-     * @param \SoundGap\ContentAdminBundle\Document\Tag $tag
-     * @return self
-     */
-    public function setTag(\SoundGap\ContentAdminBundle\Document\Tag $tag)
-    {
-        $this->tag = $tag;
-        return $this;
-    }
-
-    /**
-     * Get tag
-     *
-     * @return \SoundGap\ContentAdminBundle\Document\Tag $tag
-     */
-    public function getTag()
-    {
-        return $this->tag;
-    }
-
-    /**
-     * Set type
-     *
-     * @param string $type
-     * @return self
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string $type
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
      * Set path
      *
      * @param string $path
@@ -310,5 +277,82 @@ class Asset
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * Set assetType
+     *
+     * @param SoundGap\ContentAdminBundle\Document\AssetType $assetType
+     * @return self
+     */
+    public function setAssetType(\SoundGap\ContentAdminBundle\Document\AssetType $assetType)
+    {
+        $this->assetType = $assetType;
+        return $this;
+    }
+
+    /**
+     * Get assetType
+     *
+     * @return SoundGap\ContentAdminBundle\Document\AssetType $assetType
+     */
+    public function getAssetType()
+    {
+        return $this->assetType;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @return self
+     */
+    public function softDelete()
+    {
+        $this->isDeleted = true;
+        return $this;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean $isDeleted
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @param boolean $isDeleted
+     * @return self
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+        return $this;
+    }
+
+    /**
+     * Set schoolApp
+     *
+     * @param SoundGap\ContentAdminBundle\Document\SchoolApp $schoolApp
+     * @return self
+     */
+    public function setSchoolApp(\SoundGap\ContentAdminBundle\Document\SchoolApp $schoolApp)
+    {
+        $this->schoolApp = $schoolApp;
+        return $this;
+    }
+
+    /**
+     * Get schoolApp
+     *
+     * @return SoundGap\ContentAdminBundle\Document\SchoolApp $schoolApp
+     */
+    public function getSchoolApp()
+    {
+        return $this->schoolApp;
     }
 }

@@ -5,18 +5,15 @@ namespace SoundGap\ContentAdminBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ODM\MongoDB\DocumentRepository;
 
-class AddMediaType extends AbstractType
+class AddSchoolType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('tag','document',array(
-                'class' => 'SoundGapContentAdminBundle:Tag',
-                'property' => 'name',
-            ))
-            ->add('attachment','file');
+            ->add('name');
+
         if (!isset($options['data'])) {
             $builder->add('create','submit',array('attr'=>array('class'=>'btn btn-primary pull-right')));
         } else {
@@ -27,12 +24,12 @@ class AddMediaType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SoundGap\ContentAdminBundle\Document\Media',
+            'data_class' => 'SoundGap\ContentAdminBundle\Document\School',
         ));
     }
 
     public function getName()
     {
-        return 'Media';
+        return 'School';
     }
 }

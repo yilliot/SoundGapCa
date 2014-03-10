@@ -28,7 +28,10 @@ class School
      * @MongoDB\ReferenceOne(targetDocument="Asset")
      */
     protected $logo;
-
+    public function __toString()
+    {
+        return $this->name;
+    }
     /**
      * Get id
      *

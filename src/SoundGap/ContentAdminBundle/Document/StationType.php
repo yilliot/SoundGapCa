@@ -10,7 +10,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique as MongoDBUnique;
  * @MongoDB\Document
  * @MongoDBUnique(fields="name")
  */
-class App
+class StationType
 {
     /**
      * @MongoDB\Id
@@ -24,11 +24,6 @@ class App
      */
     protected $name;
 
-    public function __toString()
-    {
-        return $this->name;
-    }
-
     /**
      * Get id
      *
@@ -37,6 +32,11 @@ class App
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**

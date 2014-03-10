@@ -25,32 +25,32 @@ class Quest
     protected $questCaption;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Media")
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
      */
     protected $questImage;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Media")
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
      */
     protected $questAudio;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Media")
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
      */
     protected $option1Image;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Media")
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
      */
     protected $option2Image;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Media")
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
      */
     protected $option3Image;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Media")
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
      */
     protected $option4Image;
 
@@ -224,10 +224,10 @@ class Quest
     /**
      * Set questImage
      *
-     * @param SoundGap\ContentAdminBundle\Document\Media $questImage
+     * @param SoundGap\ContentAdminBundle\Document\Asset $questImage
      * @return self
      */
-    public function setQuestImage(\SoundGap\ContentAdminBundle\Document\Media $questImage)
+    public function setQuestImage(\SoundGap\ContentAdminBundle\Document\Asset $questImage)
     {
         $this->questImage = $questImage;
         return $this;
@@ -236,7 +236,7 @@ class Quest
     /**
      * Get questImage
      *
-     * @return SoundGap\ContentAdminBundle\Document\Media $questImage
+     * @return SoundGap\ContentAdminBundle\Document\Asset $questImage
      */
     public function getQuestImage()
     {
@@ -246,10 +246,10 @@ class Quest
     /**
      * Set questAudio
      *
-     * @param SoundGap\ContentAdminBundle\Document\Media $questAudio
+     * @param SoundGap\ContentAdminBundle\Document\Asset $questAudio
      * @return self
      */
-    public function setQuestAudio(\SoundGap\ContentAdminBundle\Document\Media $questAudio)
+    public function setQuestAudio(\SoundGap\ContentAdminBundle\Document\Asset $questAudio)
     {
         $this->questAudio = $questAudio;
         return $this;
@@ -258,7 +258,7 @@ class Quest
     /**
      * Get questAudio
      *
-     * @return SoundGap\ContentAdminBundle\Document\Media $questAudio
+     * @return SoundGap\ContentAdminBundle\Document\Asset $questAudio
      */
     public function getQuestAudio()
     {
@@ -268,10 +268,10 @@ class Quest
     /**
      * Set option1Image
      *
-     * @param SoundGap\ContentAdminBundle\Document\Media $option1Image
+     * @param SoundGap\ContentAdminBundle\Document\Asset $option1Image
      * @return self
      */
-    public function setOption1Image(\SoundGap\ContentAdminBundle\Document\Media $option1Image)
+    public function setOption1Image(\SoundGap\ContentAdminBundle\Document\Asset $option1Image)
     {
         $this->option1Image = $option1Image;
         return $this;
@@ -280,7 +280,7 @@ class Quest
     /**
      * Get option1Image
      *
-     * @return SoundGap\ContentAdminBundle\Document\Media $option1Image
+     * @return SoundGap\ContentAdminBundle\Document\Asset $option1Image
      */
     public function getOption1Image()
     {
@@ -290,10 +290,10 @@ class Quest
     /**
      * Set option2Image
      *
-     * @param SoundGap\ContentAdminBundle\Document\Media $option2Image
+     * @param SoundGap\ContentAdminBundle\Document\Asset $option2Image
      * @return self
      */
-    public function setOption2Image(\SoundGap\ContentAdminBundle\Document\Media $option2Image)
+    public function setOption2Image(\SoundGap\ContentAdminBundle\Document\Asset $option2Image)
     {
         $this->option2Image = $option2Image;
         return $this;
@@ -302,7 +302,7 @@ class Quest
     /**
      * Get option2Image
      *
-     * @return SoundGap\ContentAdminBundle\Document\Media $option2Image
+     * @return SoundGap\ContentAdminBundle\Document\Asset $option2Image
      */
     public function getOption2Image()
     {
@@ -312,10 +312,10 @@ class Quest
     /**
      * Set option3Image
      *
-     * @param SoundGap\ContentAdminBundle\Document\Media $option3Image
+     * @param SoundGap\ContentAdminBundle\Document\Asset $option3Image
      * @return self
      */
-    public function setOption3Image(\SoundGap\ContentAdminBundle\Document\Media $option3Image)
+    public function setOption3Image(\SoundGap\ContentAdminBundle\Document\Asset $option3Image)
     {
         $this->option3Image = $option3Image;
         return $this;
@@ -324,7 +324,7 @@ class Quest
     /**
      * Get option3Image
      *
-     * @return SoundGap\ContentAdminBundle\Document\Media $option3Image
+     * @return SoundGap\ContentAdminBundle\Document\Asset $option3Image
      */
     public function getOption3Image()
     {
@@ -334,10 +334,10 @@ class Quest
     /**
      * Set option4Image
      *
-     * @param SoundGap\ContentAdminBundle\Document\Media $option4Image
+     * @param SoundGap\ContentAdminBundle\Document\Asset $option4Image
      * @return self
      */
-    public function setOption4Image(\SoundGap\ContentAdminBundle\Document\Media $option4Image)
+    public function setOption4Image(\SoundGap\ContentAdminBundle\Document\Asset $option4Image)
     {
         $this->option4Image = $option4Image;
         return $this;
@@ -346,7 +346,7 @@ class Quest
     /**
      * Get option4Image
      *
-     * @return SoundGap\ContentAdminBundle\Document\Media $option4Image
+     * @return SoundGap\ContentAdminBundle\Document\Asset $option4Image
      */
     public function getOption4Image()
     {

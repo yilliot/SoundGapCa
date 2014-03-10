@@ -5,12 +5,10 @@ namespace SoundGap\ContentAdminBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SoundGap\ContentAdminBundle\Form\Type\AddTagType;
-use SoundGap\ContentAdminBundle\Form\Type\AddPoseType;
 use SoundGap\ContentAdminBundle\Form\Type\AddCategoryType;
 use SoundGap\ContentAdminBundle\Form\Type\AddCharacterType;
 use SoundGap\ContentAdminBundle\Form\Type\AddGradeType;
 
-use SoundGap\ContentAdminBundle\Document\Pose;
 use SoundGap\ContentAdminBundle\Document\Category;
 use SoundGap\ContentAdminBundle\Document\Grade;
 use SoundGap\ContentAdminBundle\Document\Character;
@@ -71,29 +69,6 @@ class GroundController extends Controller
         ));
     }
 
-    public function characterAction($id = null)
-    {
-        $actionName = $id ? 'update' : 'create';
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $character = $dm->getRepository('SoundGapContentAdminBundle:Character')->find($id);
-        $form = $this->createForm(new AddCharacterType(), $character);
-        if ($this->getRequest()->getMethod() == 'POST') {
-            $form->bind($this->getRequest());
-            if ($form->isValid()) {
-                $data = $form->getData();
-                $dm->persist($data);
-                $dm->flush();
-                $this->getRequest()->getSession()->getFlashBag()->add('notice', $actionName.'d');
-                return $this->redirect($this->getRequest()->getUri());
-            }
-        }
-        return $this->render('SoundGapContentAdminBundle:Ground:character.html.twig',array(
-            'form' => $form->createView(),
-            'characters' => $dm->getRepository('SoundGapContentAdminBundle:Character')->findAll(),
-            'pageName' => 'character',
-            'actionName' => $actionName,
-        ));
-    }
 
     public function poseAction($id = null)
     {
@@ -120,46 +95,6 @@ class GroundController extends Controller
         ));
     }
 
-    public function tagAction($id = null)
-    {
-        $actionName = $id ? 'update' : 'create';
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $tag = $dm->getRepository('SoundGapContentAdminBundle:Tag')->find($id);
-        $form = $this->createForm(new AddTagType(), $tag);
-
-        if ($this->getRequest()->getMethod() == 'POST') {
-            $form->bind($this->getRequest());
-            if ($form->isValid()) {
-                $data = $form->getData();
-                $dm->persist($data);
-                $dm->flush();
-                $this->getRequest()->getSession()->getFlashBag()->add('notice', $actionName.'d');
-                return $this->redirect($this->getRequest()->getUri());
-            }
-        }
-        return $this->render('SoundGapContentAdminBundle:Ground:tag.html.twig',array(
-            'form' => $form->createView(),
-            'tags' => $dm->getRepository('SoundGapContentAdminBundle:Tag')->findAll(),
-            'pageName' => 'tag',
-            'actionName' => $actionName,
-        ));
-    }
-
-    public function tagDeleteAction($id)
-    {
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $result = $dm->createQueryBuilder('SoundGapContentAdminBundle:Tag')
-            ->findAndremove()
-            ->field('id')->equals($id)
-            ->getQuery()
-            ->execute();
-        if ($result) {
-            $this->getRequest()->getSession()->getFlashBag()->add('notice', "'{$result->getName()}' deleted");
-        } else {
-            $this->getRequest()->getSession()->getFlashBag()->add('notice','not found');
-        }
-        return $this->redirect($this->generateUrl('soundgap_ca_ground_tag'));
-    }
     public function poseDeleteAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
@@ -175,21 +110,8 @@ class GroundController extends Controller
         }
         return $this->redirect($this->generateUrl('soundgap_ca_ground_pose'));
     }
-    public function characterDeleteAction($id)
-    {
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $result = $dm->createQueryBuilder('SoundGapContentAdminBundle:Character')
-            ->findAndremove()
-            ->field('id')->equals($id)
-            ->getQuery()
-            ->execute();
-        if ($result) {
-            $this->getRequest()->getSession()->getFlashBag()->add('notice', "'{$result->getName()}' deleted");
-        } else {
-            $this->getRequest()->getSession()->getFlashBag()->add('notice','not found');
-        }
-        return $this->redirect($this->generateUrl('soundgap_ca_ground_character'));
-    }
+
+
     public function gradeDeleteAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();

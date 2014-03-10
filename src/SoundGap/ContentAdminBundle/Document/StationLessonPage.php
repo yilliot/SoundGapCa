@@ -15,7 +15,7 @@ class StationLessonPage
     protected $id;
 
     /**
-     * @MongoDB\String
+     * @MongoDB\ReferenceOne(targetDocument="StationLessonPageType")
      */
     protected $type;
 
@@ -138,28 +138,6 @@ class StationLessonPage
     public function __toString()
     {
         return $this->position.':'.$this->caption;
-    }
-
-    /**
-     * Set type
-     *
-     * @param string $type
-     * @return self
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string $type
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**
@@ -622,5 +600,27 @@ class StationLessonPage
     public function getStation()
     {
         return $this->station;
+    }
+
+    /**
+     * Set type
+     *
+     * @param SoundGap\ContentAdminBundle\Document\StationLessonPageType $type
+     * @return self
+     */
+    public function setType(\SoundGap\ContentAdminBundle\Document\StationLessonPageType $type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return SoundGap\ContentAdminBundle\Document\StationLessonPageType $type
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

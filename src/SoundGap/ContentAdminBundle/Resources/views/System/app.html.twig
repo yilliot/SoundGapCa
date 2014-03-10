@@ -10,21 +10,21 @@
   <thead>
     <tr>
       <th>{{pageName|capitalize}} Name</th>
-      <th>Image</th>
+      <th>School</th>
       <th>Actions</th>
     </tr>
   </thead>
-  {% for category in categories %}
+  {% for app in apps %}
     <tr>
-      <td>{{category.title}}</td>
-      <td><img class='img-thumbnail' src="/{{category.image.webPath}}"></td>
+      <td>{{app.name}}</td>
+      <td>{{app.school.name|default("generic-school")}}</td>
       <td>
-        <div>
-          <a class='label label-warning' href="{{path('soundgap_ca_ground_category_update',{'id':category.id})}}"> update </a>
-        </div>
-        <div>
-          <a class='label label-danger' href="{{path('soundgap_ca_ground_category_delete',{'id':category.id})}}" onclick="return confirm('sure bo?')"> delete </a>
-        </div>
+      <div>
+        <a class='label label-warning' href="{{path('soundgapca_system_app_update',{'id':app.id})}}"> update </a>
+      </div>
+      <div>
+        <a class='label label-danger' href="{{path('soundgapca_system_app_delete',{'id':app.id})}}" onclick="return confirm('sure bo?')"> delete </a>
+      </div>
       </td>
     </tr>
   {% endfor %}

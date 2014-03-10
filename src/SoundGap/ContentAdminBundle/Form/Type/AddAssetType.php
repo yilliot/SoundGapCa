@@ -6,12 +6,16 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class AddPoseType extends AbstractType
+class AddAssetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name');
+            ->add('name')
+            ->add('AssetType','document',array(
+                'class' => 'SoundGapContentAdminBundle:AssetType',
+            ))
+            ->add('attachment','file');
         if (!isset($options['data'])) {
             $builder->add('create','submit',array('attr'=>array('class'=>'btn btn-primary pull-right')));
         } else {
@@ -22,12 +26,12 @@ class AddPoseType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SoundGap\ContentAdminBundle\Document\Pose',
+            'data_class' => 'SoundGap\ContentAdminBundle\Document\Asset',
         ));
     }
 
     public function getName()
     {
-        return 'Pose';
+        return 'Asset';
     }
 }

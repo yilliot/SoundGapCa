@@ -91,28 +91,6 @@ class CharacterPose
     }
 
     /**
-     * Set pose
-     *
-     * @param SoundGap\ContentAdminBundle\Document\Pose $pose
-     * @return self
-     */
-    public function setPose(\SoundGap\ContentAdminBundle\Document\Pose $pose)
-    {
-        $this->pose = $pose;
-        return $this;
-    }
-
-    /**
-     * Get pose
-     *
-     * @return SoundGap\ContentAdminBundle\Document\Pose $pose
-     */
-    public function getPose()
-    {
-        return $this->pose;
-    }
-
-    /**
      * Set image
      *
      * @param SoundGap\ContentAdminBundle\Document\Asset $image
@@ -132,5 +110,27 @@ class CharacterPose
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set pose
+     *
+     * @param string $pose
+     * @return self
+     */
+    public function setPose($pose)
+    {
+        $this->pose = $pose;
+        return $this;
+    }
+
+    /**
+     * Get pose
+     *
+     * @return string $pose
+     */
+    public function getPose()
+    {
+        return $this->pose;
     }
 }

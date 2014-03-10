@@ -7,19 +7,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ODM\MongoDB\DocumentRepository;
 
-class AddCategoryType extends AbstractType
+class AddAppType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('backgroundImage','document',array(
-                'class' => 'SoundGapContentAdminBundle:Asset',
-                'property' => 'name',
-                'query_builder' => function(DocumentRepository $dr) {
-                    return $dr->createQueryBuilder()->field('assetType')->equals('category.backgroundImage')->sort('id','desc');
-                },
-            ));
+            ->add('name');
         if (!isset($options['data'])) {
             $builder->add('create','submit',array('attr'=>array('class'=>'btn btn-primary pull-right')));
         } else {
@@ -30,12 +23,12 @@ class AddCategoryType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SoundGap\ContentAdminBundle\Document\Category',
+            'data_class' => 'SoundGap\ContentAdminBundle\Document\App',
         ));
     }
 
     public function getName()
     {
-        return 'Category';
+        return 'App';
     }
 }

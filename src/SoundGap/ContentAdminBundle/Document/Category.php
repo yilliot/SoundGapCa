@@ -83,6 +83,11 @@ class Category
         return $this->id;
     }
 
+    public function __toString()
+    {
+        return $this->title;
+    }
+
     /**
      * Set buttonTitle
      *

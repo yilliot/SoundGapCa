@@ -1,0 +1,10 @@
+<li class="col-md-10">
+  <label class="control-label col-md-4" for="schoolapps">School Apps : </label>
+  <div class="col-md-8">
+    <select class="form-control select_goto_url" name='schoolapps'>
+      {% for schoolapp in schoolApps %}
+        <option {{ schoolapp.id == schoolAppId ? 'selected="selected"' : '' }} value="{{path('soundgapca_system_set_schoolappid',{'id':schoolapp.id})}}">{{schoolapp}}</option>
+      {% endfor %}
+    </select>
+  </div>
+</li>

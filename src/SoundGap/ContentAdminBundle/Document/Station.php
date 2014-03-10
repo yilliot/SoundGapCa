@@ -17,7 +17,7 @@ class Station
     protected $id;
 
     /**
-     * @MongoDB\String
+     * @MongoDB\ReferenceOne(targetDocument="StationType")
      */
     protected $type;
 
@@ -103,28 +103,6 @@ class Station
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set type
-     *
-     * @param string $type
-     * @return self
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string $type
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**
@@ -397,5 +375,27 @@ class Station
     public function getGrade()
     {
         return $this->grade;
+    }
+
+    /**
+     * Set type
+     *
+     * @param SoundGap\ContentAdminBundle\Document\StationType $type
+     * @return self
+     */
+    public function setType(\SoundGap\ContentAdminBundle\Document\StationType $type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return SoundGap\ContentAdminBundle\Document\StationType $type
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

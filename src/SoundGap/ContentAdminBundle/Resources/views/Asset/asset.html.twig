@@ -15,25 +15,25 @@
       <th>Actions</th>
     </tr>
   </thead>
-  {% for media in medias %}
+  {% for asset in assets %}
     <tr>
-      <td>{{media.name}}</td>
-      <td>{{media.tag.name}}</td>
+      <td>{{asset.name}}</td>
+      <td>{{asset.assetType.name}}</td>
       <td>
         <div >
-          {% if pageName == 'image' %}
-            <img class="img-thumbnail" src="/{{media.webPath}}">
+          {% if 'image' in asset.assetType.name or 'logo' in asset.assetType.name %}
+            <img class="img-thumbnail asset" src="/{{asset.webPath}}">
           {% else %}
-              <audio src="/{{media.webPath}}" controls></audio>
+              <audio src="/{{asset.webPath}}" controls></audio>
           {% endif %}
         </div>
       </td>
       <td>
         <div>
-          <a class='label label-warning' href="{{path('soundgap_ca_media_'~pageName~'_update',{'id':media.id})}}"> update </a>
+          <a class='label label-warning' href="{{path('soundgapca_asset_update',{'id':asset.id})}}"> update </a>
         </div>
         <div>
-          <a class='label label-danger' href="{{path('soundgap_ca_media_delete',{'id':media.id})}}" onclick="return confirm('sure bo?')"> delete </a>
+          <a class='label label-danger' href="{{path('soundgapca_asset_delete',{'id':asset.id})}}" onclick="return confirm('sure bo?')"> delete </a>
         </div>
       </td>
     </tr>

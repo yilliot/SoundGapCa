@@ -10,7 +10,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique as MongoDBUnique;
  * @MongoDB\Document
  * @MongoDBUnique(fields="name")
  */
-class App
+class AssetType
 {
     /**
      * @MongoDB\Id
@@ -37,6 +37,11 @@ class App
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**

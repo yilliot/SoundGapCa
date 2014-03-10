@@ -11,6 +11,7 @@ $(function() {
   $(".alert").alert();
 })
 </script>
+<script type="text/javascript" src="/content_admin/scripts/main.js"></script>
 {% endblock %}
 
 {% block styles %}
@@ -20,11 +21,24 @@ $(function() {
 {% block body %}
 <div id='navbar' class="navbar navbar-inverse navbar-static-top" role="navigation">
   <div class="container-fluid">
-    <div class="navbar-header">
+    <div class="navbar-header col-md-4">
       <a class="navbar-brand" href="{{path('soundgap_ca_homepage')}}">SoundGap Content Admin</a>
       {% if pageName is defined %}
         <span class="navbar-brand" > : {% block pageName %}{{pageName|humanize}}{% endblock %}</span>
       {% endif %}
+    </div>
+    <div class="col-md-8">
+      <ul class="nav">
+        {{render(controller('SoundGapContentAdminBundle:System:embedSchoolApp'))}}
+        <li class="dropdown col-md-2">
+          <span class="dropdown-toggle" data-toggle="dropdown">User <b class="caret"></b></span>
+          <ul class="dropdown-menu">
+            <li><a href="#"> - </a></li>
+            <li class="divider"></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
@@ -51,28 +65,46 @@ $(function() {
           <li>
             <span>Main Course</span>
             <ul class="nav nav-sidebar">
-              <li><a href="{{path("soundgap_ca_main_point")}}">Point</a></li>
-              <li><a href="{{path("soundgap_ca_main_pointPath")}}"><span>PointPath</span></a></li>
+              <li><a href="{{path("soundgap_ca_main_station")}}">Station Lesson</a></li>
+              <li><a href="{{path("soundgap_ca_main_station")}}">Station Exam</a></li>
+              <li><a href="{{path("soundgap_ca_parts_quest")}}"><span>Quest</span></a></li>
             </ul>
           </li>
           <li>
             <span>Parts</span>
             <ul class="nav nav-sidebar">
-              <li><a href="{{path("soundgap_ca_parts_quest")}}"><span>Quest</span></a></li>
-              <li><a href="{{path("soundgap_ca_parts_appetizer")}}"><span>Appetizer</span></a></li>
-              <li><a href="{{path("soundgap_ca_parts_characterPose")}}"><span>CharacterPose</span></a></li>
             </ul>
           </li>
           <li>
-            <span>Ground</span>
+            <span>Syllabus</span>
             <ul class="nav nav-sidebar">
-              <li><a href="{{path("soundgap_ca_ground_character")}}"><span>Character</span></a></li>
-              <li><a href="{{path("soundgap_ca_ground_pose")}}"><span>Pose</span></a></li>
-              <li><a href="{{path("soundgap_ca_ground_grade")}}"><span>Grade</span></a></li>
               <li><a href="{{path("soundgap_ca_ground_category")}}"><span>Category</span></a></li>
-              <li><a href="{{path("soundgap_ca_media_image")}}"><span>Image</span></a></li>
-              <li><a href="{{path("soundgap_ca_media_audio")}}"><span>Audio</span></a></li>
-              <li><a href="{{path("soundgap_ca_ground_tag")}}"><span>Tag</span></a></li>
+              <li><a href="{{path("soundgap_ca_ground_grade")}}"><span>Grade</span></a></li>
+            </ul>
+          </li>
+          <li>
+            <span>Assets</span>
+            <ul class="nav nav-sidebar">
+              <li><a href="{{path("soundgapca_asset_character")}}"><span>Character</span></a></li>
+              <li><a href="{{path("soundgapca_asset_characterPose")}}"><span>CharacterPose</span></a></li>
+              <li><a href="{{path("soundgapca_asset")}}"><span>Emoticon</span></a></li>
+              <li><a href="{{path("soundgapca_asset")}}"><span>Assets</span></a></li>
+            </ul>
+          </li>
+          <li>
+            <span>Core</span>
+            <ul class="nav nav-sidebar">
+              <li><a href="{{path("soundgapca_system_school_userupdate")}}"><span>School</span></a></li>
+              <li><a href="{{path("soundgapca_system_app_userupdate")}}"><span>School App</span></a></li>
+            </ul>
+          </li>
+          <li>
+            <span>System</span>
+            <ul class="nav nav-sidebar">
+              <li><a href="{{path("soundgapca_system_school")}}"><span>School</span></a></li>
+              <li><a href="{{path("soundgapca_system_app")}}"><span>App</span></a></li>
+              <li><a href="{{path("soundgapca_system_schoolapp")}}"><span>School App</span></a></li>
+              <li><a href="{{path("soundgapca_system_apppackage")}}"><span>AppPackage</span></a></li>
             </ul>
           </li>
         </ul>
