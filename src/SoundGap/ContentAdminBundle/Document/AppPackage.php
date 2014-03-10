@@ -30,7 +30,10 @@ class AppPackage
      */
     protected $app;
 
-
+    public function __toString()
+    {
+        return $this->getApp().':'.$this->name;
+    }
 
     /**
      * Get id

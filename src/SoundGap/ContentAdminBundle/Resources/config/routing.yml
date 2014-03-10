@@ -67,38 +67,48 @@ soundgapca_asset_update:
 soundgapca_asset_delete:
     pattern:  /asset/asset/delete/{id}
     defaults: { _controller: SoundGapContentAdminBundle:Asset:assetDelete }
-soundgapca_asset_characterPose:
+soundgapca_asset_characterpose:
     pattern:  /asset/characterPose
     defaults: { _controller: SoundGapContentAdminBundle:Asset:characterPose }
-soundgapca_asset_characterPose_update:
+soundgapca_asset_characterpose_update:
     pattern:  /asset/characterPose/{id}
     defaults: { _controller: SoundGapContentAdminBundle:Asset:characterPose }
+soundgapca_asset_characterpose_delete:
+    pattern:  /asset/characterPose/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Asset:characterPoseDelete }
+soundgapca_asset_emoticon:
+    pattern:  /asset/emoticon
+    defaults: { _controller: SoundGapContentAdminBundle:Asset:emoticon }
+soundgapca_asset_emoticon_update:
+    pattern:  /asset/emoticon/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Asset:emoticon }
+soundgapca_asset_emoticon_delete:
+    pattern:  /asset/emoticon/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Asset:emoticonDelete }
 
 
 soundgapca_system_set_schoolappid:
     pattern:  /system/set/school/{id}
     defaults: { _controller: SoundGapContentAdminBundle:System:setSchoolAppId }
 
-
-
-soundgap_ca_ground_category:
+soundgapca_ground_category:
     pattern:  /ground/category
     defaults: { _controller: SoundGapContentAdminBundle:Ground:category }
-soundgap_ca_ground_category_update:
+soundgapca_ground_category_update:
     pattern:  /ground/category/{id}
     defaults: { _controller: SoundGapContentAdminBundle:Ground:category }
-soundgap_ca_ground_category_delete:
+soundgapca_ground_category_delete:
     pattern:  /ground/category/delete/{id}
     defaults: { _controller: SoundGapContentAdminBundle:Ground:categoryDelete }
-soundgap_ca_ground_grade:
-    pattern:  /ground/grade
+soundgapca_ground_grade:
+    pattern:  /ground/grade/{categoryId}
     defaults: { _controller: SoundGapContentAdminBundle:Ground:grade }
-soundgap_ca_ground_grade_update:
-    pattern:  /ground/grade/{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Ground:grade }
-soundgap_ca_ground_grade_delete:
+soundgapca_ground_grade_delete:
     pattern:  /ground/grade/delete/{id}
     defaults: { _controller: SoundGapContentAdminBundle:Ground:gradeDelete }
+soundgapca_ground_grade_update:
+    pattern:  /ground/grade/{categoryId}/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:grade }
 
 soundgap_ca_parts_quest:
     pattern:  /parts/quest
@@ -109,9 +119,6 @@ soundgap_ca_parts_quest_update:
 soundgap_ca_parts_quest_delete:
     pattern:  /parts/quest/delete/{id}
     defaults: { _controller: SoundGapContentAdminBundle:Parts:questDelete }
-soundgap_ca_parts_characterPose_delete:
-    pattern:  /parts/characterPose/delete/{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Parts:characterPoseDelete }
 
 soundgap_ca_main_station:
     pattern:  /main/station

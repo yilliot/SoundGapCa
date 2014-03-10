@@ -7,33 +7,18 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ODM\MongoDB\DocumentRepository;
 
-class AddCharacterPoseType extends AbstractType
+class AddEmoticonType extends AbstractType
 {
-    public function __construct($schoolAppId) {
-        $this->schoolAppId = $schoolAppId;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pose')
-            ->add('character','document',array(
-                'class' => 'SoundGapContentAdminBundle:Character',
-                'query_builder' => function(DocumentRepository $dr)
-                {
-                    return $dr->createQueryBuilder()
-                        ->field('schoolApp.id')->equals($this->schoolAppId)
-                        ->field('isDeleted')->notEqual(true)
-                        ->sort('id','desc');
-                },
-            ))
-            ->add('image','document',array(
+            ->add('code')
+            ->add('icon','document',array(
                 'class' => 'SoundGapContentAdminBundle:Asset',
                 'query_builder' => function(DocumentRepository $dr)
                 {
                     return $dr->createQueryBuilder()
-                        ->field('assetType.id')->equals('531a81ca0d9826ce5f0041b5')
-                        ->field('schoolApp.id')->equals($this->schoolAppId)
+                        ->field('assetType.id')->equals('531a81ca0d9826ce5f0041b4')
                         ->field('isDeleted')->notEqual(true)
                         ->sort('id','desc');
                 },
@@ -48,12 +33,12 @@ class AddCharacterPoseType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SoundGap\ContentAdminBundle\Document\CharacterPose',
+            'data_class' => 'SoundGap\ContentAdminBundle\Document\Emoticon',
         ));
     }
 
     public function getName()
     {
-        return 'CharacterPose';
+        return 'Emoticon';
     }
 }

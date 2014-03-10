@@ -24,6 +24,17 @@ class Character
      */
     protected $name;
 
+    /**
+     * @MongoDB\Boolean
+     */
+    protected $isDeleted;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="SchoolApp")
+     * @MongoDB\Index
+     */
+    protected $schoolApp;
+
     public function __toString()
     {
         return $this->name;
@@ -59,5 +70,61 @@ class Character
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @return self
+     */
+    public function softDelete()
+    {
+        $this->isDeleted = true;
+        return $this;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean $isDeleted
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
+
+
+    /**
+     * Set isDeleted
+     *
+     * @param boolean $isDeleted
+     * @return self
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+        return $this;
+    }
+
+    /**
+     * Set schoolApp
+     *
+     * @param SoundGap\ContentAdminBundle\Document\SchoolApp $schoolApp
+     * @return self
+     */
+    public function setSchoolApp(\SoundGap\ContentAdminBundle\Document\SchoolApp $schoolApp)
+    {
+        $this->schoolApp = $schoolApp;
+        return $this;
+    }
+
+    /**
+     * Get schoolApp
+     *
+     * @return SoundGap\ContentAdminBundle\Document\SchoolApp $schoolApp
+     */
+    public function getSchoolApp()
+    {
+        return $this->schoolApp;
     }
 }

@@ -16,20 +16,7 @@ class Grade
     protected $id;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Category")
-     * @MongoDB\Index
      * @Assert\NotBlank()
-     */
-    protected $category;
-
-    /**
-     * @MongoDB\ReferenceOne(targetDocument="AppPackage")
-     * @MongoDB\Index
-     * @Assert\NotBlank()
-     */
-    protected $appPackage;
-
-    /**
      * @MongoDB\String
      */
     protected $buttonTitle;
@@ -61,6 +48,29 @@ class Grade
      */
     protected $position;
 
+    /**
+     * @MongoDB\Boolean
+     */
+    protected $isDeleted;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Category")
+     * @MongoDB\Index
+     */
+    protected $category;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="AppPackage")
+     * @MongoDB\Index
+     * @Assert\NotBlank()
+     */
+    protected $appPackage;
+
+
+    public function __toString()
+    {
+        return $this->getCategory().':'.$this->buttonTitle;
+    }
     /**
      * Get id
      *
@@ -245,5 +255,38 @@ class Grade
     public function getAppPackage()
     {
         return $this->appPackage;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @return self
+     */
+    public function softDelete()
+    {
+        $this->isDeleted = true;
+        return $this;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean $isDeleted
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @param boolean $isDeleted
+     * @return self
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+        return $this;
     }
 }

@@ -8,7 +8,6 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique as MongoDBUnique;
 
 /**
  * @MongoDB\Document
- * @MongoDBUnique(fields="name")
  */
 class Category
 {
@@ -62,16 +61,19 @@ class Category
     /**
      * @MongoDB\Int
      * @MongoDB\Index
-     * @Assert\NotBlank()
      */
     protected $position;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="App")
+     * @MongoDB\ReferenceOne(targetDocument="SchoolApp")
      * @MongoDB\Index
-     * @Assert\NotBlank()
      */
-    protected $app;
+    protected $schoolApp;
+
+    /**
+     * @MongoDB\Boolean
+     */
+    protected $isDeleted;
 
     /**
      * Get id
@@ -287,24 +289,57 @@ class Category
     }
 
     /**
-     * Set app
+     * Set schoolApp
      *
-     * @param SoundGap\ContentAdminBundle\Document\App $app
+     * @param SoundGap\ContentAdminBundle\Document\SchoolApp $schoolApp
      * @return self
      */
-    public function setApp(\SoundGap\ContentAdminBundle\Document\App $app)
+    public function setSchoolApp(\SoundGap\ContentAdminBundle\Document\SchoolApp $schoolApp)
     {
-        $this->app = $app;
+        $this->schoolApp = $schoolApp;
         return $this;
     }
 
     /**
-     * Get app
+     * Get schoolApp
      *
-     * @return SoundGap\ContentAdminBundle\Document\App $app
+     * @return SoundGap\ContentAdminBundle\Document\SchoolApp $schoolApp
      */
-    public function getApp()
+    public function getSchoolApp()
     {
-        return $this->app;
+        return $this->schoolApp;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @return self
+     */
+    public function softDelete()
+    {
+        $this->isDeleted = true;
+        return $this;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean $isDeleted
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @param boolean $isDeleted
+     * @return self
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+        return $this;
     }
 }

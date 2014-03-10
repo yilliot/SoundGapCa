@@ -10,9 +10,10 @@ use SoundGap\ContentAdminBundle\Constants\SessionConstants;
 
 class UserSchoolAppType extends AbstractType
 {
-    function __construct($schoolAppId) {
+    public function __construct($schoolAppId) {
         $this->schoolAppId = $schoolAppId;
     }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

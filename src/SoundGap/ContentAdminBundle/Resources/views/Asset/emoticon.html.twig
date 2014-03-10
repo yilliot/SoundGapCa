@@ -9,22 +9,22 @@
   <table class="table">
   <thead>
     <tr>
-      <th>{{pageName|capitalize}} Name</th>
-      <th>App</th>
+      <th>Code</th>
+      <th>Icon</th>
       <th>Actions</th>
     </tr>
   </thead>
-  {% for appPackage in appPackages %}
+  {% for emoticon in emoticons %}
     <tr>
-      <td>{{appPackage.name}}</td>
-      <td>{{appPackage.app.name}}</td>
+      <td>{{emoticon.code}}</td>
+      <td><img class='img-thumbnail' src="/{{emoticon.icon.webPath}}"></td>
       <td>
-      <div>
-        <a class='label label-warning' href="{{path('soundgapca_system_apppackage_update',{'id':appPackage.id})}}"> update </a>
-      </div>
-      <div>
-        <a class='label label-danger' href="{{path('soundgapca_system_apppackage_delete',{'id':appPackage.id})}}" onclick="return confirm('sure bo?')"> delete </a>
-      </div>
+        <div>
+          <a class='label label-warning' href="{{path('soundgapca_asset_emoticon_update',{'id':emoticon.id})}}"> update </a>
+        </div>
+        <div>
+          <a class='label label-danger' href="{{path('soundgapca_asset_emoticon_delete',{'id':emoticon.id})}}" onclick="return confirm('sure bo?')"> delete </a>
+        </div>
       </td>
     </tr>
   {% endfor %}

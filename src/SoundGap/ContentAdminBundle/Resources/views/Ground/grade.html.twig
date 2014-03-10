@@ -10,22 +10,31 @@
   <thead>
     <tr>
       <th>{{pageName|capitalize}}</th>
-      <th>Image</th>
+      <th>Button Image</th>
       <th>Position</th>
       <th>Actions</th>
     </tr>
   </thead>
   {% for grade in grades %}
     <tr>
-      <td>{{grade}}</td>
-      <td><img class='img-thumbnail' src="/{{grade.image.webPath}}"></td>
+      <td>
+        <div>{{grade}}</div>
+      </td>
+      <td>
+        {% if grade.buttonImage is not null %}
+          <img class='img-thumbnail asset' src="/{{grade.buttonImage.webPath}}">
+        {% else %}
+            <div>{{grade.buttonTitle}}</div>
+            <div>{{grade.buttonTitle2}}</div>
+        {% endif %}
+      </td>
       <td>{{grade.position}}</td>
       <td>
         <div>
-          <a class='label label-warning' href="{{path('soundgap_ca_ground_grade_update',{'id':grade.id})}}"> update </a>
+          <a class='label label-warning' href="{{path('soundgapca_ground_grade_update',{'categoryId':grade.category.id,'id':grade.id})}}"> update </a>
         </div>
         <div>
-          <a class='label label-danger' href="{{path('soundgap_ca_ground_grade_delete',{'id':grade.id})}}" onclick="return confirm('sure bo?')"> delete </a>
+          <a class='label label-danger' href="{{path('soundgapca_ground_grade_delete',{'id':grade.id})}}" onclick="return confirm('sure bo?')"> delete </a>
         </div>
       </td>
     </tr>

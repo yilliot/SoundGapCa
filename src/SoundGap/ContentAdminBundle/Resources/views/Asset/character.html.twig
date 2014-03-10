@@ -10,20 +10,18 @@
   <thead>
     <tr>
       <th>{{pageName|capitalize}} Name</th>
-      <th>App</th>
       <th>Actions</th>
     </tr>
   </thead>
-  {% for appPackage in appPackages %}
+  {% for character in characters %}
     <tr>
-      <td>{{appPackage.name}}</td>
-      <td>{{appPackage.app.name}}</td>
+      <td>{{character.name}}</td>
       <td>
       <div>
-        <a class='label label-warning' href="{{path('soundgapca_system_apppackage_update',{'id':appPackage.id})}}"> update </a>
+        <a class='label label-warning' href="{{path('soundgapca_asset_character_update',{'id':character.id})}}"> update </a>
       </div>
       <div>
-        <a class='label label-danger' href="{{path('soundgapca_system_apppackage_delete',{'id':appPackage.id})}}" onclick="return confirm('sure bo?')"> delete </a>
+        <a class='label label-danger' href="{{path('soundgapca_asset_character_delete',{'id':character.id})}}" onclick="return confirm('sure bo?')"> delete </a>
       </div>
       </td>
     </tr>

@@ -9,21 +9,34 @@
   <table class="table">
   <thead>
     <tr>
-      <th>{{pageName|capitalize}} Name</th>
-      <th>Image</th>
+      <th>{{pageName|capitalize}} Title</th>
+      <th>Button</th>
       <th>Actions</th>
     </tr>
   </thead>
   {% for category in categories %}
     <tr>
-      <td>{{category.title}}</td>
-      <td><img class='img-thumbnail' src="/{{category.image.webPath}}"></td>
+      <td>
+        <div>{{category.title}}</div>
+        <div>{{category.title2}}</div>
+      </td>
+      <td>
+        {% if category.buttonImage is not null %}
+          <img class='img-thumbnail asset' src="/{{category.buttonImage.webPath}}">
+        {% else %}
+            <div>{{category.buttonTitle}}</div>
+            <div>{{category.buttonTitle2}}</div>
+        {% endif %}
+      </td>
       <td>
         <div>
-          <a class='label label-warning' href="{{path('soundgap_ca_ground_category_update',{'id':category.id})}}"> update </a>
+          <a class='label label-primary' href="{{path('soundgapca_ground_grade',{'categoryId':category.id})}}"> Grade </a>
         </div>
         <div>
-          <a class='label label-danger' href="{{path('soundgap_ca_ground_category_delete',{'id':category.id})}}" onclick="return confirm('sure bo?')"> delete </a>
+          <a class='label label-warning' href="{{path('soundgapca_ground_category_update',{'id':category.id})}}"> update </a>
+        </div>
+        <div>
+          <a class='label label-danger' href="{{path('soundgapca_ground_category_delete',{'id':category.id})}}" onclick="return confirm('sure bo?')"> delete </a>
         </div>
       </td>
     </tr>
