@@ -7,66 +7,50 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ODM\MongoDB\DocumentRepository;
 
-class AddQuestType extends AbstractType
+class AddStationType extends AbstractType
 {
     public function __construct($schoolAppId) {
-        $this->schoolAppId = $schoolAppId;
+        return $this->schoolAppId = $schoolAppId;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $questionOptionImage = array(
-            'class' => 'SoundGapContentAdminBundle:Asset',
-            'empty_data' => null,
-            'empty_value' => '',
-            'query_builder' => function(DocumentRepository $dr)
-            {
-                return $dr->createQueryBuilder()
-                    ->field('assetType.id')->equals('531a81ca0d9826ce5f0041b7')
-                    ->field('schoolApp.id')->equals($this->schoolAppId)
-                    ->field('isDeleted')->notEqual(true)
-                    ->sort('id','desc');
-            },
-        );
-
         $builder
             ->add('title')
-            ->add('questCaption')
-            ->add('questImage', 'document', array(
+            ->add('title2')
+            ->add('buttonTitle')
+            ->add('buttonTitle2')
+            ->add('type')
+            ->add('buttonImage','document',array(
                 'class' => 'SoundGapContentAdminBundle:Asset',
                 'empty_data' => null,
                 'empty_value' => '',
                 'query_builder' => function(DocumentRepository $dr)
                 {
                     return $dr->createQueryBuilder()
-                        ->field('assetType.id')->equals('531a81ca0d9826ce5f0041b6')
+                        ->field('assetType.id')->equals('531a81ca0d9826ce5f0041b2')
                         ->field('schoolApp.id')->equals($this->schoolAppId)
                         ->field('isDeleted')->notEqual(true)
                         ->sort('id','desc');
                 },
             ))
-            ->add('questAudio', 'document', array(
+            ->add('lessonAppetizer','document',array(
                 'class' => 'SoundGapContentAdminBundle:Asset',
                 'empty_data' => null,
                 'empty_value' => '',
                 'query_builder' => function(DocumentRepository $dr)
                 {
                     return $dr->createQueryBuilder()
-                        ->field('assetType.id')->equals('531a81ca0d9826ce5f0041b6')
+                        ->field('assetType.id')->equals('531a81ca0d9826ce5f0041b3')
                         ->field('schoolApp.id')->equals($this->schoolAppId)
                         ->field('isDeleted')->notEqual(true)
                         ->sort('id','desc');
                 },
             ))
-            ->add('option1Caption')
-            ->add('option2Caption')
-            ->add('option3Caption')
-            ->add('option4Caption')
-            ->add('option1Image', 'document', $questionOptionImage)
-            ->add('option2Image', 'document', $questionOptionImage)
-            ->add('option3Image', 'document', $questionOptionImage)
-            ->add('option4Image', 'document', $questionOptionImage)
-            ->add('priority','integer',array('empty_data'=>0))
+            ->add('lessonObjective','textarea')
+            ->add('examPassRatePercentage')
+            ->add('examEmitCount')
+            ->add('position')
             ;
         if (!isset($options['data'])) {
             $builder->add('create','submit',array('attr'=>array('class'=>'btn btn-primary pull-right')));
@@ -78,12 +62,12 @@ class AddQuestType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SoundGap\ContentAdminBundle\Document\Quest',
+            'data_class' => 'SoundGap\ContentAdminBundle\Document\Station',
         ));
     }
 
     public function getName()
     {
-        return 'Quest';
+        return 'Station';
     }
 }

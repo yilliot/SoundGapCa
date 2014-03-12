@@ -4,49 +4,112 @@ namespace SoundGap\ContentAdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use SoundGap\ContentAdminBundle\Form\Type\AddQuestType;
+use SoundGap\ContentAdminBundle\Form\Type\AddStationType;
+use SoundGap\ContentAdminBundle\Form\Type\AddStationLessonPageType;
 
-class MainController extends Controller
+use SoundGap\ContentAdminBundle\Document\Station;
+use SoundGap\ContentAdminBundle\Document\StationLessonPage;
+use SoundGap\ContentAdminBundle\Document\Quest;
+
+
+use SoundGap\ContentAdminBundle\Constants\SessionConstants;
+
+
+class StationController extends Controller
 {
-
-    public function pointAction($id = null)
+    public function indexAction($gradeId, $id = null)
     {
+        $schoolAppId = $this->getRequest()->getSession()->get(SessionConstants::SESSION_SYSTEM_SCHOOLAPP_ID);
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $point = $dm->getRepository('SoundGapContentAdminBundle:Point')->find($id);
+        $station = $dm->getRepository('SoundGapContentAdminBundle:Station')->find($id);
+        $grade = $dm->getRepository('SoundGapContentAdminBundle:Grade')->find($gradeId);
+        $stations = $dm->createQueryBuilder('SoundGapContentAdminBundle:Station')
+                ->field('grade.id')->equals($gradeId)
+                ->field('isDeleted')->notEqual(true)
+                ->sort('position')
+                ->getQuery()->execute();
 
-        $form = $this->createForm(new AddPointType(), $point);
+        $form = $this->createForm(new AddStationType($schoolAppId), $station);
         if ($this->getRequest()->getMethod() == 'POST') {
+
+            ## modify post value
+            $stationArray = $this->getRequest()->request->get('Station');
+            if ($stationArray['position']=='') {
+                $stationArray['position'] = $stations->count()+1;
+                $this->getRequest()->request->set('Station', $stationArray);
+            }
             $form->bind($this->getRequest());
+
             if ($form->isValid()) {
                 $data = $form->getData();
-
-                # get grade info
-                $grade = $dm->getRepository('SoundGapContentAdminBundle:Grade')->find($data->getGrade()->getId());
+                $data->setGrade($grade);
                 $dm->persist($data);
                 $dm->flush();
                 $this->getRequest()->getSession()->getFlashBag()->add('notice','Added');
                 return $this->redirect($this->getRequest()->getUri());
             }
         }
-        return $this->render('SoundGapContentAdminBundle:Main:point.html.twig',array(
+        return $this->render('SoundGapContentAdminBundle:Station:index.html.twig',array(
             'form' => $form->createView(),
-            'points' => $dm->getRepository('SoundGapContentAdminBundle:Point')->findAll(),
-            'pageName' => 'point',
+            'grade' => $grade,
+            'stations' => $dm->createQueryBuilder('SoundGapContentAdminBundle:Station')
+                ->field('grade.id')->equals($gradeId)
+                ->field('isDeleted')->notEqual(true)
+                ->sort('position')
+                ->getQuery()->execute(),
+            'pageName' => 'station',
             'actionName' => $id ? 'update' : 'create',
         ));
     }
 
-    public function pointContentAction($pointId)
+    public function lessonAction($stationId, $id = null)
     {
+        $actionName = $id ? 'update' : 'create';
+        $schoolAppId = $this->getRequest()->getSession()->get(SessionConstants::SESSION_SYSTEM_SCHOOLAPP_ID);
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $point = $dm->getRepository('SoundGapContentAdminBundle:Point')->find($pointId);
-        return $this->pointContentSubfunction(
-            $point,
-            new PointContent(),
-            'create'
-        );
+        $station = $dm->getRepository('SoundGapContentAdminBundle:Station')->find($stationId);
+        $page = $dm->getRepository('SoundGapContentAdminBundle:StationLessonPage')->find($id);
+        $pages = $dm->createQueryBuilder('SoundGapContentAdminBundle:StationLessonPage')
+            ->field('station.id')->equals($stationId)
+            ->field('isDeleted')->notEqual(true)
+            ->getQuery()->execute();
+
+        $form = $this->createForm(new AddStationLessonPageType($schoolAppId), $page);
+
+        if ($this->getRequest()->getMethod() == 'POST') {
+
+            $form->bind($this->getRequest());
+            if ($form->isValid()) {
+
+                $data = $form->getData();
+                if ($actionName === 'create') {
+                    $lastPointContent = $dm->createQueryBuilder('SoundGapContentAdminBundle:PointContent')
+                        ->sort('pageNumber','desc')->limit(1)->getQuery()->getSingleResult();
+                    $lastPageNumber = 0;
+                    if ($lastPointContent)
+                        $lastPageNumber = $lastPointContent->getPageNumber();
+                    $data->setPageNumber($lastPageNumber+1);
+                    $data->setPoint($point);
+                }
+
+                $dm->persist($data);
+                $dm->flush();
+                $this->getRequest()->getSession()->getFlashBag()->add('notice',$actionName.'d');
+                return $this->redirect($this->getRequest()->getUri());
+            }
+        }
+
+        return $this->render('SoundGapContentAdminBundle:Station:lesson.html.twig',array(
+            'form' => $form->createView(),
+            'station' => $station,
+            'pages' => $pages,
+            'pageName' => 'Lesson Page',
+            'actionName' => $actionName,
+        ));
     }
 
-    public function pointContentUpdateAction($pointContentId)
+    public function lessonUpdateAction($pointContentId)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $pointContent = $dm->getRepository('SoundGapContentAdminBundle:PointContent')->find($pointContentId);
@@ -85,7 +148,7 @@ class MainController extends Controller
             }
         }
 
-        return $this->render('SoundGapContentAdminBundle:Main:pointContent.html.twig',array(
+        return $this->render('SoundGapContentAdminBundle:Station:pointContent.html.twig',array(
             'form' => $form->createView(),
             'point' => $point,
             'contents' => $dm->createQueryBuilder('SoundGapContentAdminBundle:PointContent')->sort('pageNumber','asc')->getQuery()->execute(),
@@ -94,59 +157,48 @@ class MainController extends Controller
         ));
     }
 
-    public function pointQuestAction($pointId)
+    public function examQuestAction($stationId, $id = null)
     {
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $pointQuest = $dm->getRepository('SoundGapContentAdminBundle:PointQuest')->findOneBy(array(
-            'point.id'=>$pointId
-        ));
-        $point = $pointQuest->getPoint();
+        $schoolAppId = $this->getRequest()->getSession()->get(SessionConstants::SESSION_SYSTEM_SCHOOLAPP_ID);
+        $actionName = $id ? 'update' : 'create';
 
-        $form = $this->createForm(new AddPointQuestType(), $pointQuest);
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $station = $dm->getRepository('SoundGapContentAdminBundle:Station')->find($stationId);
+        $quest = $dm->getRepository('SoundGapContentAdminBundle:Quest')->find($id);
+        $schoolApp = $dm->getRepository('SoundGapContentAdminBundle:SchoolApp')->find($schoolAppId);
+
+        $form = $this->createForm(new AddQuestType($schoolAppId), $quest);
 
         if ($this->getRequest()->getMethod() == 'POST') {
 
             $form->bind($this->getRequest());
             if ($form->isValid()) {
-
                 $data = $form->getData();
-
+                $data->setGrade($station->getGrade());
+                $data->setSchoolApp($schoolApp);
                 $dm->persist($data);
+                if ($actionName == 'create') {
+                    $station->addExamQuest($data);
+                }
                 $dm->flush();
                 $this->getRequest()->getSession()->getFlashBag()->add('notice','updated');
                 return $this->redirect($this->getRequest()->getUri());
             }
         }
-
-        return $this->render('SoundGapContentAdminBundle:Main:pointQuest.html.twig',array(
+        return $this->render('SoundGapContentAdminBundle:Station:examQuest.html.twig',array(
             'form' => $form->createView(),
-            'pointQuest' => $pointQuest,
-            'contents' => $pointQuest->getQuests(),
-            'quests' => $dm->getRepository('SoundGapContentAdminBundle:Quest')->findAll(),
-            'pageName' => 'point quest',
-            'actionName' => 'update',
+            'station' => $station,
+            'pageName' => 'examQuest',
+            'actionName' => $actionName,
         ));
     }
 
-    public function pointQuestAddAction($pointQuestId, $questId)
+    public function examQuestRemoveAction($stationId, $id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $pointQuest = $dm->getRepository('SoundGapContentAdminBundle:PointQuest')->find($pointQuestId);
-        $quest = $dm->getRepository('SoundGapContentAdminBundle:Quest')->find($questId);
-        $pointQuest->addQuest($quest);
-        $dm->persist($pointQuest);
-        $dm->flush();
-        $this->getRequest()->getSession()->getFlashBag()->add('notice','added');
-        return $this->redirect($this->getRequest()->headers->get('referer'));
-    }
-
-    public function pointQuestRemoveAction($pointQuestId, $questId)
-    {
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $pointQuest = $dm->getRepository('SoundGapContentAdminBundle:PointQuest')->find($pointQuestId);
-        $quest = $dm->getRepository('SoundGapContentAdminBundle:Quest')->find($questId);
-        $pointQuest->removeQuest($quest);
-        $dm->persist($pointQuest);
+        $station = $dm->getRepository('SoundGapContentAdminBundle:Station')->find($stationId);
+        $quest = $dm->getRepository('SoundGapContentAdminBundle:Quest')->find($id);
+        $station->removeExamQuest($quest);
         $dm->flush();
         $this->getRequest()->getSession()->getFlashBag()->add('notice','removed');
         return $this->redirect($this->getRequest()->headers->get('referer'));
@@ -187,7 +239,7 @@ class MainController extends Controller
             $points = $dm->getRepository('SoundGapContentAdminBundle:Point')->findAll();
         }
 
-        return $this->render('SoundGapContentAdminBundle:Main:pointPath.html.twig',array(
+        return $this->render('SoundGapContentAdminBundle:Station:pointPath.html.twig',array(
             'categories' => $dm->getRepository('SoundGapContentAdminBundle:Category')->findAll(),
             'grades' => $dm->getRepository('SoundGapContentAdminBundle:Grade')->findAll(),
             'points' => $points,

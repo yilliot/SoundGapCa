@@ -5,8 +5,11 @@ namespace SoundGap\ContentAdminBundle\DataFixtures\ODM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
+use SoundGap\ContentAdminBundle\Document\Character;
+use SoundGap\ContentAdminBundle\Document\AppPackage;
 use SoundGap\ContentAdminBundle\Document\School;
 use SoundGap\ContentAdminBundle\Document\App;
+use SoundGap\ContentAdminBundle\Document\SchoolApp;
 use SoundGap\ContentAdminBundle\Document\AssetType;
 use SoundGap\ContentAdminBundle\Document\StationType;
 use SoundGap\ContentAdminBundle\Document\StationLessonPageType;
@@ -97,19 +100,53 @@ class LoadContentAdminData implements FixtureInterface
         $assetType->setId('531a81ca0d9826ce5f0041b5');
         $assetType->setName('image.character');
         $manager->persist($assetType);
+        $assetType = new AssetType();
+        $assetType->setId('531a81ca0d9826ce5f0041b6');
+        $assetType->setName('image.quest');
+        $manager->persist($assetType);
+        $assetType = new AssetType();
+        $assetType->setId('531a81ca0d9826ce5f0041b7');
+        $assetType->setName('image.questOption');
+        $manager->persist($assetType);
 
-        $obj = new School();
-        $obj->setName('Bird Music');
-        $manager->persist($obj);
-        $obj = new School();
-        $obj->setName('BIGBAG');
+        $school1 = new School();
+        $school1->setName('BIGBAG');
+        $manager->persist($school1);
+        $school2 = new School();
+        $school2->setName('Bird Music');
+        $manager->persist($school2);
+
+        $app1 = new App();
+        $app1->setName('SoundGap');
+        $manager->persist($app1);
+        $app2 = new App();
+        $app2->setName('Theory Voyage');
+        $manager->persist($app2);
+
+        $schoolApp1 = new SchoolApp();
+        $schoolApp1->setId('531eff260d9826bf7e0041a7');
+        $schoolApp1->setApp($app1);
+        $schoolApp1->setSchool($school1);
+        $manager->persist($schoolApp1);
+
+        $schoolApp2 = new SchoolApp();
+        $schoolApp2->setId('531eff260d9826bf7e0041a78');
+        $schoolApp2->setApp($app2);
+        $schoolApp2->setSchool($school2);
+        $manager->persist($schoolApp2);
+
+        $obj = new AppPackage();
+        $obj->setName('Default');
+        $obj->setApp($app1);
         $manager->persist($obj);
 
-        $obj = new App();
-        $obj->setName('SoundGap');
+        $obj = new Character();
+        $obj->setName('Mario');
+        $obj->setSchoolApp($schoolApp1);
         $manager->persist($obj);
-        $obj = new App();
-        $obj->setName('Theory Voyage');
+        $obj = new Character();
+        $obj->setName('Hippo');
+        $obj->setSchoolApp($schoolApp1);
         $manager->persist($obj);
 
         $manager->flush();

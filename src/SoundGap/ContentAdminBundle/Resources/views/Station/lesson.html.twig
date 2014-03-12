@@ -1,0 +1,51 @@
+{% extends 'SoundGapContentAdminBundle:Layout:ca.html.twig' %}
+
+{% block title %}{{pageName|capitalize}}{{parent()}}{% endblock %}
+
+{% block pageName %}
+{{parent()}}
+{% endblock %}
+
+{% block content %}
+<div class='col-sm-7'>
+<h2>
+  {{station|humanize}} Pages
+  <small><a class="label label-default" href="{{path('soundgapca_station',{'gradeId':station.grade.id})}}">back to {{station.grade}}</a></small>
+</h2>
+<h3>{{actionName|humanize}}s of {{pageName|humanize}} </h3>
+{{ form_start(form, {'method': 'POST','attr':{'class':'form-horizontal','role':'form'}}) }}
+{{ form_end(form) }}
+</div>
+
+<div class='col-sm-5'>
+  <h2>{{pageName|capitalize}} List</h2>
+  <table class="table">
+  <thead>
+    <tr>
+      <th>Position</th>
+      <th>Type</th>
+      <th>Caption</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  {% for lessonPage in pages %}
+    <tr>
+      <td> {{lessonPage.position}} </td>
+      <td>
+        <div><span class='label label-warning'>{{lessonPage.type.name|upper}}</span></div>
+      </td>
+      <td> {{lessonPage.caption}} </td>
+      <td>
+        <div>
+          <a href="{{path('soundgapca_station_lesson_update',{'stationId':station.id,'id':lessonPage.id})}}">update</a>
+        </div>
+        <div>
+          <a href="{{path('soundgapca_station_lesson_delete',{'id':lessonPage.id})}}" onclick="return confirm('sure bo?')"> delete </a>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

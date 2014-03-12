@@ -50,7 +50,6 @@ class Station
     /**
      * @MongoDB\Int
      * @MongoDB\Index
-     * @Assert\NotBlank()
      */
     protected $position;
 
@@ -86,9 +85,14 @@ class Station
      */
     protected $grade;
 
+    /**
+     * @MongoDB\Boolean
+     */
+    protected $isDeleted;
+
     public function __toString()
     {
-        return $this->title;
+        return $this->title.','.$this->title2;
     }
     public function __construct()
     {
@@ -397,5 +401,38 @@ class Station
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @return self
+     */
+    public function softDelete()
+    {
+        $this->isDeleted = true;
+        return $this;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean $isDeleted
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @param boolean $isDeleted
+     * @return self
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+        return $this;
     }
 }

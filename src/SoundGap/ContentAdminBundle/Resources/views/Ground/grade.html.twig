@@ -1,11 +1,14 @@
 {% extends 'SoundGapContentAdminBundle:Layout:ca.html.twig' %}
 
-{% block title %}{{pageName|capitalize}}{{parent()}}{% endblock %}
+{% block title %}{{pageName|capitalize}}s of {{category|humanize}} {{parent()}}{% endblock %}
 
 
 {% block content %}
 <div class='col-sm-7'>
-  <h2>{{pageName|capitalize}} List</h2>
+  <h2>
+    {{pageName|capitalize}}s of {{category|humanize}}
+    <small><a class="label label-default" href="{{path('soundgapca_ground_category')}}">back to category list</a></small>
+  </h2>
   <table class="table">
   <thead>
     <tr>
@@ -30,6 +33,9 @@
       </td>
       <td>{{grade.position}}</td>
       <td>
+        <div>
+          <a class='label label-primary' href="{{path('soundgapca_station',{'gradeId':grade.id})}}"> Stations </a>
+        </div>
         <div>
           <a class='label label-warning' href="{{path('soundgapca_ground_grade_update',{'categoryId':grade.category.id,'id':grade.id})}}"> update </a>
         </div>

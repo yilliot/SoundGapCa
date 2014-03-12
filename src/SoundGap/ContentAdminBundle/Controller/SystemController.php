@@ -3,12 +3,14 @@
 namespace SoundGap\ContentAdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use SoundGap\ContentAdminBundle\Form\Type\AddSchoolType;
 use SoundGap\ContentAdminBundle\Form\Type\AddSchoolAppType;
 use SoundGap\ContentAdminBundle\Form\Type\AddAppType;
 use SoundGap\ContentAdminBundle\Form\Type\UserSchoolType;
 use SoundGap\ContentAdminBundle\Form\Type\UserSchoolAppType;
 use SoundGap\ContentAdminBundle\Form\Type\AddAppPackageType;
+
 use SoundGap\ContentAdminBundle\Constants\SessionConstants;
 
 
@@ -21,12 +23,16 @@ class SystemController extends Controller
 
     public function embedSchoolAppAction()
     {
+        $schoolAppId = $this->getRequest()->getSession()->get(SessionConstants::SESSION_SYSTEM_SCHOOLAPP_ID);
+        if (!$schoolAppId) {
+            $this->getRequest()->getSession()->set(SessionConstants::SESSION_SYSTEM_SCHOOLAPP_ID, '531eff260d9826bf7e0041a7');
+        }
         $dm = $this->get('doctrine_mongodb')->getManager();
         $appQb = $dm->createQueryBuilder('SoundGapContentAdminBundle:SchoolApp');
         return $this->render('SoundGapContentAdminBundle:System:embedSchoolApp.html.twig',array(
             'schoolApps' => $appQb
                 ->getQuery()->execute(),
-            'schoolAppId' => $this->getRequest()->getSession()->get(SessionConstants::SESSION_SYSTEM_SCHOOLAPP_ID),
+            'schoolAppId' => $schoolAppId,
             ));
     }
 

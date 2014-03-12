@@ -65,12 +65,12 @@ class GroundController extends Controller
         $actionName = $id ? 'update' : 'create';
         $dm = $this->get('doctrine_mongodb')->getManager();
         $grade = $dm->getRepository('SoundGapContentAdminBundle:Grade')->find($id);
+        $category = $dm->getRepository('SoundGapContentAdminBundle:Category')->find($categoryId);
         $form = $this->createForm(new AddGradeType($schoolAppId), $grade);
         if ($this->getRequest()->getMethod() == 'POST') {
             $form->bind($this->getRequest());
             if ($form->isValid()) {
                 $data = $form->getData();
-                $category = $dm->getRepository('SoundGapContentAdminBundle:Category')->find($categoryId);
                 $data->setCategory($category);
                 $dm->persist($data);
                 $dm->flush();
@@ -80,6 +80,7 @@ class GroundController extends Controller
         }
         return $this->render('SoundGapContentAdminBundle:Ground:grade.html.twig',array(
             'form' => $form->createView(),
+            'category' => $category,
             'grades' => $dm->createQueryBuilder('SoundGapContentAdminBundle:Grade')
                 ->field('category.id')->equals($categoryId)
                 ->field('isDeleted')->notEqual(true)

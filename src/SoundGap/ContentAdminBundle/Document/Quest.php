@@ -3,6 +3,7 @@
 namespace SoundGap\ContentAdminBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @MongoDB\Document
@@ -16,8 +17,14 @@ class Quest
 
     /**
      * @MongoDB\Int
+     * @Assert\NotBlank()
      */
     protected $priority;
+
+    /**
+     * @MongoDB\String
+     */
+    protected $title;
 
     /**
      * @MongoDB\String
@@ -73,6 +80,19 @@ class Quest
      * @MongoDB\String
      */
     protected $option4Caption;
+    
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Grade")
+     * @MongoDB\Index
+     */
+    protected $grade;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="SchoolApp")
+     * @MongoDB\Index
+     */
+    protected $schoolApp;
+
 
     public function __toString()
     {
@@ -87,28 +107,6 @@ class Quest
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set isForChallenge
-     *
-     * @param boolean $isForChallenge
-     * @return self
-     */
-    public function setIsForChallenge($isForChallenge)
-    {
-        $this->isForChallenge = $isForChallenge;
-        return $this;
-    }
-
-    /**
-     * Get isForChallenge
-     *
-     * @return boolean $isForChallenge
-     */
-    public function getIsForChallenge()
-    {
-        return $this->isForChallenge;
     }
 
     /**
@@ -373,5 +371,71 @@ class Quest
     public function getPriority()
     {
         return $this->priority;
+    }
+
+    /**
+     * Set grade
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Grade $grade
+     * @return self
+     */
+    public function setGrade(\SoundGap\ContentAdminBundle\Document\Grade $grade)
+    {
+        $this->grade = $grade;
+        return $this;
+    }
+
+    /**
+     * Get grade
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Grade $grade
+     */
+    public function getGrade()
+    {
+        return $this->grade;
+    }
+
+    /**
+     * Set schoolApp
+     *
+     * @param SoundGap\ContentAdminBundle\Document\SchoolApp $schoolApp
+     * @return self
+     */
+    public function setSchoolApp(\SoundGap\ContentAdminBundle\Document\SchoolApp $schoolApp)
+    {
+        $this->schoolApp = $schoolApp;
+        return $this;
+    }
+
+    /**
+     * Get schoolApp
+     *
+     * @return SoundGap\ContentAdminBundle\Document\SchoolApp $schoolApp
+     */
+    public function getSchoolApp()
+    {
+        return $this->schoolApp;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return self
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string $title
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

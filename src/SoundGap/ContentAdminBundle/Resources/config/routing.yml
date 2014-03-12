@@ -110,6 +110,50 @@ soundgapca_ground_grade_update:
     pattern:  /ground/grade/{categoryId}/{id}
     defaults: { _controller: SoundGapContentAdminBundle:Ground:grade }
 
+soundgapca_station_lesson:
+    pattern:  /station/lesson/{stationId}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:lesson }
+soundgapca_station_lesson_update:
+    pattern:  /station/lesson/{stationId}/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:lesson }
+soundgapca_station_lesson_delete:
+    pattern:  /station/lesson/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:lessonDelete }
+soundgapca_station_examquest:
+    pattern:  /station/examquest/{stationId}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:examQuest }
+soundgapca_station_examquest_update:
+    pattern:  /station/examquest/{stationId}/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:examQuest }
+soundgapca_station_examquest_remove:
+    pattern:  /station/examquest/remove/{stationId}/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:examQuestRemove }
+soundgapca_station:
+    pattern:  /station/{gradeId}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:index }
+soundgapca_station_update:
+    pattern:  /station/{gradeId}/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:index }
+soundgapca_station_delete:
+    pattern:  /station/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:delete }
+
+soundgapca_station_exam_add:
+    pattern:  /stationquest/{stationId}/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:stationQuestAdd }
+soundgapca_stationQuest_remove:
+    pattern:  /stationquestRemove/{stationQuestId}/{questId}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:stationQuestRemove }
+soundgapca_stationPath:
+    pattern:  /stationPath/{gradeId}/{fromId}/{toId}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:stationPath, gradeId:null, fromId:null, toId:null }
+
+
+soundgapca_stationPath_remove:
+    pattern:  /stationPathRemove/{fromId}/{toId}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:stationPathRemove }
+
+
 soundgap_ca_parts_quest:
     pattern:  /parts/quest
     defaults: { _controller: SoundGapContentAdminBundle:Parts:quest }
@@ -119,42 +163,4 @@ soundgap_ca_parts_quest_update:
 soundgap_ca_parts_quest_delete:
     pattern:  /parts/quest/delete/{id}
     defaults: { _controller: SoundGapContentAdminBundle:Parts:questDelete }
-
-soundgap_ca_main_station:
-    pattern:  /main/station
-    defaults: { _controller: SoundGapContentAdminBundle:Main:station }
-soundgap_ca_main_station_update:
-    pattern:  /main/station/{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:station }
-soundgap_ca_main_stationContent:
-    pattern:  /main/stationcontent/{stationId}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:stationContent }
-soundgap_ca_main_stationContent_update:
-    pattern:  /main/stationcontent/update/{stationContentId}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:stationContentUpdate }
-soundgap_ca_main_stationQuest:
-    pattern:  /main/stationquest/{stationId}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:stationQuest }
-soundgap_ca_main_stationQuest_add:
-    pattern:  /main/stationquest/{stationQuestId}/{questId}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:stationQuestAdd }
-soundgap_ca_main_stationQuest_remove:
-    pattern:  /main/stationquestRemove/{stationQuestId}/{questId}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:stationQuestRemove }
-soundgap_ca_main_stationPath:
-    pattern:  /main/stationPath/{gradeId}/{fromId}/{toId}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:stationPath, gradeId:null, fromId:null, toId:null }
-
-soundgap_ca_main_station_delete:
-    pattern:  /main/station/delete/{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:stationDelete }
-soundgap_ca_main_stationContent_delete:
-    pattern:  /main/stationcontent/delete/{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:stationContentDelete }
-soundgap_ca_main_stationQuest_delete:
-    pattern:  /main/stationquest/delete/{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:stationQuestDelete }
-soundgap_ca_main_stationPath_remove:
-    pattern:  /main/stationPathRemove/{fromId}/{toId}
-    defaults: { _controller: SoundGapContentAdminBundle:Main:stationPathRemove }
 

@@ -55,7 +55,7 @@ class StationLessonPage
     protected $triggerAudio;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Asset")
+     * @MongoDB\String
      */
     protected $triggerVideo;
 

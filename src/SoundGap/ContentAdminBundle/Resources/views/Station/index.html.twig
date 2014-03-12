@@ -1,0 +1,74 @@
+{% extends 'SoundGapContentAdminBundle:Layout:ca.html.twig' %}
+
+{% block title %}{{pageName|capitalize}}s of {{grade|humanize}} {{parent()}} {% endblock %}
+
+
+{% block content %}
+<div class='col-sm-7'>
+  <h2>
+    {{pageName|capitalize}}s of {{grade|humanize}}
+    <small><a class="label label-default" href="{{path('soundgapca_ground_grade',{'categoryId':grade.category.id})}}">back to {{grade.category}}</a></small>
+  </h2>
+
+  <table class="table">
+  <thead>
+    <tr>
+      <th>Position</th>
+      <th>Type</th>
+      <th>{{pageName|capitalize}} title</th>
+      <th>Button</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  {% for station in stations %}
+    <tr>
+      <td>
+        <div>{{station.position}}</div>
+      </td>
+      <td>
+        {% if station.type.name == 'Lesson' %}
+          <span class='glyphicon glyphicon-th-list'></span>
+        {% endif %}
+        {% if station.type.name == 'Exam' %}
+          <span class='glyphicon glyphicon-star'></span>
+        {% endif %}
+      </td>
+      <td>
+        <div>{{station}}</div>
+      </td>
+      <td>
+        {% if station.buttonImage is not null %}
+          <img class='img-thumbnail asset' src="/{{station.buttonImage.webPath}}">
+        {% else %}
+          <div>{{station.buttonTitle}}</div>
+          <div>{{station.buttonTitle2}}</div>
+        {% endif %}
+      </td>
+      <td>
+        <div>
+        {% if station.type.name == 'Lesson' %}
+          <a class="label label-primary" href="{{path('soundgapca_station_lesson',{'stationId':station.id})}}"> Lesson </a>
+        {% else %}
+          <a class="label label-primary" href="{{path('soundgapca_station_examquest',{'stationId':station.id})}}"> Exam Quest </a>
+        {% endif %}
+        </div>
+        <div>
+          <div>
+            <a class="label label-warning" href="{{path('soundgapca_station_update',{'gradeId':grade.id,'id':station.id})}}">update</a>
+          </div>
+          <div>
+            <a class="label label-danger" href="{{path('soundgapca_station_delete',{'id':station.id})}}" onclick="return confirm('sure bo?')"> delete </a>
+          </div>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+</div>
+
+<div class='col-sm-5'>
+<h2>{{actionName|humanize}} {{pageName|humanize}}</h2>
+{{ form_start(form, {'method': 'POST','attr':{'class':'form-horizontal','role':'form'}}) }}
+{{ form_end(form) }}
+</div>
+{% endblock %}
