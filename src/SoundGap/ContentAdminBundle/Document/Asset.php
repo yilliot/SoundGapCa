@@ -67,6 +67,20 @@ class Asset
         return $this->name;
     }
 
+    public function toKVArray()
+    {
+        return array(
+            'id' => $this->id,
+            'path' => $this->path,
+            'webPath' => $this->getWebPath(),
+            // 'assetType' => $this->assetType->getId(),
+            // 'name' => $this->name,
+        );
+    }
+    public function getFilename()
+    {
+        return ($this->getPath()) ? $this->getId().'.'.$this->getPath() : null;
+    }
     /**
      * @MongoDB\PrePersist()
      * @MongoDB\PreUpdate()

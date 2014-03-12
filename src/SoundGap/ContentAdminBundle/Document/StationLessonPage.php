@@ -140,6 +140,35 @@ class StationLessonPage
         return $this->position.':'.$this->caption;
     }
 
+    public function toKVArray()
+    {
+        return array(
+            'id' => $this->id,
+            'type' => $this->type->getId(),
+            'position' => $this->position,
+            'caption' => $this->caption,
+            'title' => $this->title,
+            'backgroundImage' => $this->backgroundImage->getFilename(),
+            'backgroundMusic' => $this->backgroundMusic->getFilename(),
+            'backgroundAmbient' => $this->backgroundAmbient->getFilename(),
+            'triggerAudio' => $this->triggerAudio->getFilename(),
+            'triggerVideo' => $this->triggerVideo->getFilename(),
+            'characterPose1' => $this->characterPose1->getImage->getFilename(),
+            'characterPose2' => $this->characterPose2->getImage->getFilename(),
+            'characterPose3' => $this->characterPose3->getImage->getFilename(),
+            'characterPose4' => $this->characterPose4->getImage->getFilename(),
+            'characterPose5' => $this->characterPose5->getImage->getFilename(),
+            'characterPose6' => $this->characterPose6->getImage->getFilename(),
+            'isCharacter1Speech' => $this->isCharacter1Speech,
+            'isCharacter2Speech' => $this->isCharacter2Speech,
+            'isCharacter3Speech' => $this->isCharacter3Speech,
+            'isCharacter4Speech' => $this->isCharacter4Speech,
+            'isCharacter5Speech' => $this->isCharacter5Speech,
+            'isCharacter6Speech' => $this->isCharacter6Speech,
+            // 'station' => $this->station->getId(),
+        );
+    }
+
     /**
      * Set position
      *

@@ -138,29 +138,10 @@ soundgapca_station_delete:
     pattern:  /station/delete/{id}
     defaults: { _controller: SoundGapContentAdminBundle:Station:delete }
 
-soundgapca_station_exam_add:
-    pattern:  /stationquest/{stationId}/{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Station:stationQuestAdd }
-soundgapca_stationQuest_remove:
-    pattern:  /stationquestRemove/{stationQuestId}/{questId}
-    defaults: { _controller: SoundGapContentAdminBundle:Station:stationQuestRemove }
-soundgapca_stationPath:
-    pattern:  /stationPath/{gradeId}/{fromId}/{toId}
-    defaults: { _controller: SoundGapContentAdminBundle:Station:stationPath, gradeId:null, fromId:null, toId:null }
+soundgapca_fix_detect_dbref:
+    pattern:  /fix/detect/debref
+    defaults: { _controller: SoundGapContentAdminBundle:FixDatabase:detectDBRef }
 
-
-soundgapca_stationPath_remove:
-    pattern:  /stationPathRemove/{fromId}/{toId}
-    defaults: { _controller: SoundGapContentAdminBundle:Station:stationPathRemove }
-
-
-soundgap_ca_parts_quest:
-    pattern:  /parts/quest
-    defaults: { _controller: SoundGapContentAdminBundle:Parts:quest }
-soundgap_ca_parts_quest_update:
-    pattern:  /parts/quest/{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Parts:quest }
-soundgap_ca_parts_quest_delete:
-    pattern:  /parts/quest/delete/{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Parts:questDelete }
-
+soundgapca_temp_json:
+    pattern:  /temp/api/json
+    defaults: { _controller: SoundGapContentAdminBundle:FixDatabase:tempJson }

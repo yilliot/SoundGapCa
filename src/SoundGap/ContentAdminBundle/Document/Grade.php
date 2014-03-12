@@ -71,6 +71,22 @@ class Grade
     {
         return $this->getCategory().':'.$this->buttonTitle;
     }
+
+    public function toKVArray()
+    {
+        return array(
+            'id' => $this->id,
+            'buttonTitle' => $this->buttonTitle,
+            'buttonTitle2' => $this->buttonTitle2,
+            'buttonImage' => ($this->buttonImage)?$this->buttonImage->getFilename():null,
+            'backgroundImage' => ($this->backgroundImage)?$this->backgroundImage->getFilename():null,
+            'backgroundMusic' => ($this->backgroundMusic)?$this->backgroundMusic->getFilename():null,
+            'position' => $this->position,
+            // 'isDeleted' => $this->isDeleted,
+            // 'categoryId' => $this->category->getId(),
+            // 'appPackageId' => $this->appPackage->getId(),
+        );
+    }
     /**
      * Get id
      *

@@ -94,6 +94,28 @@ class Station
     {
         return $this->title.','.$this->title2;
     }
+
+    public function toKVArray()
+    {
+        return array(
+            'id' => $this->id,
+            'type' => $this->type->getId(),
+            'title' => $this->title,
+            'title2' => $this->title2,
+            'buttonTitle' => $this->buttonTitle,
+            'buttonTitle2' => $this->buttonTitle2,
+            'buttonImage' => ($this->buttonImage)?$this->buttonImage->getFilename():null,
+            'position' => $this->position,
+            'lessonAppetizer' => ($this->lessonAppetizer)?$this->lessonAppetizer->getFilename():null,
+            'lessonObjective' => $this->lessonObjective,
+            'examPassRatePercentage' => $this->examPassRatePercentage,
+            'examEmitCount' => $this->examEmitCount,
+            'examQuests' => $this->examQuests,
+            // 'grade' => $this->grade->getId(),
+            // 'isDeleted' => $this->isDeleted,
+        );
+    }
+
     public function __construct()
     {
         $this->examQuests = new \Doctrine\Common\Collections\ArrayCollection();

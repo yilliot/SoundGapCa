@@ -124,13 +124,13 @@ class LoadContentAdminData implements FixtureInterface
         $manager->persist($app2);
 
         $schoolApp1 = new SchoolApp();
-        $schoolApp1->setId('531eff260d9826bf7e0041a7');
+        $schoolApp1->setId('531eff260d9826bf7e0041ab');
         $schoolApp1->setApp($app1);
         $schoolApp1->setSchool($school1);
         $manager->persist($schoolApp1);
 
         $schoolApp2 = new SchoolApp();
-        $schoolApp2->setId('531eff260d9826bf7e0041a78');
+        $schoolApp2->setId('531eff260d9826bf7e0041ac');
         $schoolApp2->setApp($app2);
         $schoolApp2->setSchool($school2);
         $manager->persist($schoolApp2);

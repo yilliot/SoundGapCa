@@ -35,6 +35,15 @@ class Emoticon
         return $this->code;
     }
 
+    public function toKVArray()
+    {
+        return array(
+            'code' => $this->code,
+            'icon' => $this->icon->getFilename(),
+            // 'isDeleted' => $this->isDeleted,
+        );
+    }
+
     /**
      * Get id
      *

@@ -25,7 +25,7 @@ class SystemController extends Controller
     {
         $schoolAppId = $this->getRequest()->getSession()->get(SessionConstants::SESSION_SYSTEM_SCHOOLAPP_ID);
         if (!$schoolAppId) {
-            $this->getRequest()->getSession()->set(SessionConstants::SESSION_SYSTEM_SCHOOLAPP_ID, '531eff260d9826bf7e0041a7');
+            $this->getRequest()->getSession()->set(SessionConstants::SESSION_SYSTEM_SCHOOLAPP_ID, '531eff260d9826bf7e0041ab');
         }
         $dm = $this->get('doctrine_mongodb')->getManager();
         $appQb = $dm->createQueryBuilder('SoundGapContentAdminBundle:SchoolApp');

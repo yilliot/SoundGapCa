@@ -90,6 +90,24 @@ class Category
         return $this->title;
     }
 
+    public function toKVArray()
+    {
+        return array(
+            'id' => $this->id,
+            'buttonTitle' => $this->buttonTitle,
+            'buttonTitle2' => $this->buttonTitle2,
+            'title' => $this->title,
+            'title2' => $this->title2,
+            'buttonImage' => $this->buttonImage->getFilename(),
+            'buttonImageTouch' => $this->buttonImageTouch->getFilename(),
+            'backgroundImage' => $this->backgroundImage->getFilename(),
+            'backgroundMusic' => $this->backgroundMusic->getFilename(),
+            'position' => $this->position,
+            // 'schoolApp' => $this->schoolApp->getId(),
+            // 'isDeleted' => $this->isDeleted,
+        );
+    }
+
     /**
      * Set buttonTitle
      *

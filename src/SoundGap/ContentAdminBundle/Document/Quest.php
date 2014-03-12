@@ -99,6 +99,27 @@ class Quest
         return $this->questCaption.' : ['.$this->option1Caption.']';
     }
 
+    public function toKVArray()
+    {
+        return array(
+            'id' => $this->id,
+            'priority' => $this->priority,
+            'title' => $this->title,
+            'questCaption' => $this->questCaption,
+            'questImage' => ($this->questImage)?$this->questImage->getFilename():null,
+            'questAudio' => ($this->questAudio)?$this->questAudio->getFilename():null,
+            'option1Image' => ($this->option1Image)?$this->option1Image->getFilename():null,
+            'option2Image' => ($this->option2Image)?$this->option2Image->getFilename():null,
+            'option3Image' => ($this->option3Image)?$this->option3Image->getFilename():null,
+            'option4Image' => ($this->option4Image)?$this->option4Image->getFilename():null,
+            'option1Caption' => $this->option1Caption,
+            'option2Caption' => $this->option2Caption,
+            'option3Caption' => $this->option3Caption,
+            'option4Caption' => $this->option4Caption,
+            // 'grade' => $this->grade->getId(),
+            // 'schoolApp' => $this->schoolApp->getId(),
+        );
+    }
     /**
      * Get id
      *

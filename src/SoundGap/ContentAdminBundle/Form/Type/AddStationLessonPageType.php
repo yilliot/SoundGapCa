@@ -15,7 +15,7 @@ class AddStationLessonPageType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $poseOptions = array(
+        $characterQueryBuilder = array(
             'class' => 'SoundGapContentAdminBundle:CharacterPose',
             'empty_value' => '',
             'empty_data' => null,
@@ -75,17 +75,17 @@ class AddStationLessonPageType extends AbstractType
                         ->sort('id','desc');
                 },
             ))
-            ->add('characterPose1','document',$poseOptions)
+            ->add('characterPose1','document',$characterQueryBuilder)
             ->add('isCharacter1Speech','checkbox',array('required'=>false))
-            ->add('characterPose2','document',$poseOptions)
+            ->add('characterPose2','document',$characterQueryBuilder)
             ->add('isCharacter2Speech','checkbox',array('required'=>false))
-            ->add('characterPose3','document',$poseOptions)
+            ->add('characterPose3','document',$characterQueryBuilder)
             ->add('isCharacter3Speech','checkbox',array('required'=>false))
-            ->add('characterPose4','document',$poseOptions)
+            ->add('characterPose4','document',$characterQueryBuilder)
             ->add('isCharacter4Speech','checkbox',array('required'=>false))
-            ->add('characterPose5','document',$poseOptions)
+            ->add('characterPose5','document',$characterQueryBuilder)
             ->add('isCharacter5Speech','checkbox',array('required'=>false))
-            ->add('characterPose6','document',$poseOptions)
+            ->add('characterPose6','document',$characterQueryBuilder)
             ->add('isCharacter6Speech','checkbox',array('required'=>false));
         if (!isset($options['data'])) {
             $builder->add('create','submit',array('attr'=>array('class'=>'btn btn-primary pull-right')));
