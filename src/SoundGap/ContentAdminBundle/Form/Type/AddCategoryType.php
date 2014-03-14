@@ -72,6 +72,7 @@ class AddCategoryType extends AbstractType
                         ->sort('id','desc');
                 },
             ))
+            ->add('position')
             ;
         if (!isset($options['data'])) {
             $builder->add('create','submit',array('attr'=>array('class'=>'btn btn-primary pull-right')));

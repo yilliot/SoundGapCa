@@ -1,6 +1,12 @@
 {% block form_row %}
 {% spaceless %}
-<div class="form-group">
+{% set class='' %}
+{% if attr.class is defined %}
+  {% set class = 'class="form-group ' ~ attr.class ~ '"' %}
+{% else %}
+  {% set class = 'class="form-group"' %}
+{% endif %}
+<div {{ class|raw }}>
   <div class='col-sm-3 control-label'>
     {{ form_label(form) }}
   </div>

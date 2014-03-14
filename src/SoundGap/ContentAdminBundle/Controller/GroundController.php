@@ -6,7 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use SoundGap\ContentAdminBundle\Form\Type\AddCategoryType;
 use SoundGap\ContentAdminBundle\Form\Type\AddGradeType;
+use SoundGap\ContentAdminBundle\Form\Type\AddQuestType;
 
+use SoundGap\ContentAdminBundle\Document\Quest;
 use SoundGap\ContentAdminBundle\Document\Category;
 use SoundGap\ContentAdminBundle\Document\Grade;
 
@@ -90,7 +92,6 @@ class GroundController extends Controller
             'actionName' => $actionName,
         ));
     }
-
     public function gradeDeleteAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
@@ -106,5 +107,52 @@ class GroundController extends Controller
             return $this->redirect($this->generateUrl('soundgapca_ground_category'));
         }
         return $this->redirect($this->generateUrl('soundgapca_ground_grade'));
+    }
+
+    public function questAction($id = null)
+    {
+        $schoolAppId = $this->getRequest()->getSession()->get(SessionConstants::SESSION_SYSTEM_SCHOOLAPP_ID);
+        $actionName = $id ? 'update' : 'create';
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $quest = $dm->getRepository('SoundGapContentAdminBundle:Quest')->find($id);
+        if (!$quest) {
+            $quest = new Quest();
+            $quest->setPriority(0);
+        }
+        $form = $this->createForm(new AddQuestType($schoolAppId), $quest);
+        if ($this->getRequest()->getMethod() == 'POST') {
+            $form->bind($this->getRequest());
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $dm->persist($data);
+                $dm->flush();
+                $this->getRequest()->getSession()->getFlashBag()->add('notice', $actionName.'d');
+                return $this->redirect($this->getRequest()->getUri());
+            }
+        }
+        return $this->render('SoundGapContentAdminBundle:Ground:quest.html.twig',array(
+            'form' => $form->createView(),
+            'quests' => $dm->createQueryBuilder('SoundGapContentAdminBundle:Quest')
+                ->field('isDeleted')->notEqual(true)
+                ->getQuery()->execute(),
+            'pageName' => 'quest',
+            'actionName' => $actionName,
+        ));
+    }
+    public function questDeleteAction($id)
+    {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $result = $dm->getRepository('SoundGapContentAdminBundle:Quest')->find($id);
+        if ($result) {
+            $categoryId = $result->getCategory()->getId();
+            $result->softDelete();
+            $dm->flush();
+            $this->getRequest()->getSession()->getFlashBag()->add('notice', "'{$result}' deleted");
+            return $this->redirect($this->generateUrl('soundgapca_ground_quest',array('categoryId'=>$categoryId)));
+        } else {
+            $this->getRequest()->getSession()->getFlashBag()->add('notice','not found');
+            return $this->redirect($this->generateUrl('soundgapca_ground_category'));
+        }
+        return $this->redirect($this->generateUrl('soundgapca_ground_quest'));
     }
 }

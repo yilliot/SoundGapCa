@@ -31,6 +31,19 @@ class AddGradeType extends AbstractType
                         ->sort('id','desc');
                 },
             ))
+            ->add('buttonImageTouch','document',array(
+                'class' => 'SoundGapContentAdminBundle:Asset',
+                'empty_data' => null,
+                'empty_value' => '',
+                'query_builder' => function(DocumentRepository $dr)
+                {
+                    return $dr->createQueryBuilder()
+                        ->field('assetType.id')->equals('531a81ca0d9826ce5f0041b2')
+                        ->field('schoolApp.id')->equals($this->schoolAppId)
+                        ->field('isDeleted')->notEqual(true)
+                        ->sort('id','desc');
+                },
+            ))
             ->add('backgroundImage','document',array(
                 'class' => 'SoundGapContentAdminBundle:Asset',
                 'empty_data' => null,

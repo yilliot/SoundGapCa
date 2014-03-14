@@ -6,6 +6,7 @@
 <script type="text/javascript" src="/content_admin/scripts/less-1.6.2.min.js"></script>
 <script type="text/javascript" src="/content_admin/bower_components/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="/content_admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/content_admin/select2-3.4.5/select2.min.js"></script>
 <script type="text/javascript">
 $(function() {
   $(".alert").alert();
@@ -16,6 +17,7 @@ $(function() {
 
 {% block styles %}
 <link rel="stylesheet" type="text/less" href="/content_admin/styles/main.less">
+<link rel="stylesheet" type="text/less" href="/content_admin/select2-3.4.5/select2.css">
 {% endblock %}
 
 {% block body %}
@@ -66,6 +68,7 @@ $(function() {
             <span>Ground</span>
             <ul class="nav nav-sidebar">
               <li><a href="{{path("soundgapca_ground_category")}}"><span>Category</span></a></li>
+              <li><a href="{{path("soundgapca_ground_quest")}}"><span>Quest</span></a></li>
             </ul>
           </li>
           <li>

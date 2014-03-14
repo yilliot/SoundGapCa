@@ -9,8 +9,9 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
 
 class AddStationLessonPageType extends AbstractType
 {
-    public function __construct($schoolAppId) {
-        return $this->schoolAppId = $schoolAppId;
+    public function __construct($schoolAppId, $gradeId) {
+        $this->schoolAppId = $schoolAppId;
+        $this->gradeId = $gradeId;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -34,8 +35,20 @@ class AddStationLessonPageType extends AbstractType
             ))
             ->add('title')
             ->add('caption')
-            ->add('triggerVideo')
             ->add('backgroundImage','document',array(
+                'class' => 'SoundGapContentAdminBundle:Asset',
+                'empty_data' => null,
+                'empty_value' => '',
+                'query_builder' => function(DocumentRepository $dr)
+                {
+                    return $dr->createQueryBuilder()
+                        ->field('assetType.id')->equals('531a81ca0d9826ce5f0041b0')
+                        ->field('schoolApp.id')->equals($this->schoolAppId)
+                        ->field('isDeleted')->notEqual(true)
+                        ->sort('id','desc');
+                },
+            ))
+            ->add('foregroundImage','document',array(
                 'class' => 'SoundGapContentAdminBundle:Asset',
                 'empty_data' => null,
                 'empty_value' => '',
@@ -48,7 +61,7 @@ class AddStationLessonPageType extends AbstractType
                         ->sort('id','desc');
                 },
             ))
-            ->add('backgroundMusic','document',array(
+            ->add('backgroundMusicLoop','document',array(
                 'class' => 'SoundGapContentAdminBundle:Asset',
                 'empty_data' => null,
                 'empty_value' => '',
@@ -56,6 +69,19 @@ class AddStationLessonPageType extends AbstractType
                 {
                     return $dr->createQueryBuilder()
                         ->field('assetType.id')->equals('531a81ca0d9826ce5f0041a1')
+                        ->field('schoolApp.id')->equals($this->schoolAppId)
+                        ->field('isDeleted')->notEqual(true)
+                        ->sort('id','desc');
+                },
+            ))
+            ->add('backgroundAmbientLoop','document',array(
+                'class' => 'SoundGapContentAdminBundle:Asset',
+                'empty_data' => null,
+                'empty_value' => '',
+                'query_builder' => function(DocumentRepository $dr)
+                {
+                    return $dr->createQueryBuilder()
+                        ->field('assetType.id')->equals('531a81ca0d9826ce5f0041a2')
                         ->field('schoolApp.id')->equals($this->schoolAppId)
                         ->field('isDeleted')->notEqual(true)
                         ->sort('id','desc');
@@ -69,24 +95,45 @@ class AddStationLessonPageType extends AbstractType
                 'query_builder' => function(DocumentRepository $dr)
                 {
                     return $dr->createQueryBuilder()
-                        ->field('assetType.id')->equals('531a81ca0d9826ce5f0041a2')
+                        ->field('assetType.id')->equals('531a81ca0d9826ce5f0041a3')
                         ->field('schoolApp.id')->equals($this->schoolAppId)
                         ->field('isDeleted')->notEqual(true)
                         ->sort('id','desc');
                 },
             ))
-            ->add('characterPose1','document',$characterQueryBuilder)
+            ->add('triggerAudioConversation','document',array(
+                'class' => 'SoundGapContentAdminBundle:Asset',
+                'empty_value' => '',
+                'empty_data' => null,
+                'required' => false,
+                'query_builder' => function(DocumentRepository $dr)
+                {
+                    return $dr->createQueryBuilder()
+                        ->field('assetType.id')->equals('531a81ca0d9826ce5f0041a4')
+                        ->field('schoolApp.id')->equals($this->schoolAppId)
+                        ->field('isDeleted')->notEqual(true)
+                        ->sort('id','desc');
+                },
+            ))
+            ->add('character1','document',$characterQueryBuilder)
             ->add('isCharacter1Speech','checkbox',array('required'=>false))
-            ->add('characterPose2','document',$characterQueryBuilder)
+            ->add('character2','document',$characterQueryBuilder)
             ->add('isCharacter2Speech','checkbox',array('required'=>false))
-            ->add('characterPose3','document',$characterQueryBuilder)
-            ->add('isCharacter3Speech','checkbox',array('required'=>false))
-            ->add('characterPose4','document',$characterQueryBuilder)
-            ->add('isCharacter4Speech','checkbox',array('required'=>false))
-            ->add('characterPose5','document',$characterQueryBuilder)
-            ->add('isCharacter5Speech','checkbox',array('required'=>false))
-            ->add('characterPose6','document',$characterQueryBuilder)
-            ->add('isCharacter6Speech','checkbox',array('required'=>false));
+            ->add('quest','document',array(
+                'attr' => array('class'=>'select2'),
+                'class' => 'SoundGapContentAdminBundle:Quest',
+                'empty_data' => null,
+                'empty_value' => '',
+                'query_builder' => function(DocumentRepository $dr)
+                {
+                    return $dr->createQueryBuilder()
+                        ->field('grade.id')->equals($this->gradeId)
+                        ->field('isDeleted')->notEqual(true)
+                        ->sort('id','desc');
+                },
+            ))
+            ->add('position')
+            ;
         if (!isset($options['data'])) {
             $builder->add('create','submit',array('attr'=>array('class'=>'btn btn-primary pull-right')));
         } else {

@@ -110,6 +110,16 @@ soundgapca_ground_grade_update:
     pattern:  /ground/grade/{categoryId}/{id}
     defaults: { _controller: SoundGapContentAdminBundle:Ground:grade }
 
+soundgapca_ground_quest:
+    pattern:  /ground/quest
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:quest }
+soundgapca_ground_quest_update:
+    pattern:  /ground/quest/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Ground:quest }
+soundgapca_ground_quest_delete:
+    pattern:  /station/quest/delete/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:questDelete }
+
 soundgapca_station_lesson:
     pattern:  /station/lesson/{stationId}
     defaults: { _controller: SoundGapContentAdminBundle:Station:lesson }
@@ -122,9 +132,9 @@ soundgapca_station_lesson_delete:
 soundgapca_station_examquest:
     pattern:  /station/examquest/{stationId}
     defaults: { _controller: SoundGapContentAdminBundle:Station:examQuest }
-soundgapca_station_examquest_update:
-    pattern:  /station/examquest/{stationId}/{id}
-    defaults: { _controller: SoundGapContentAdminBundle:Station:examQuest }
+soundgapca_station_examquest_add:
+    pattern:  /station/examquest/add/{stationId}/{id}
+    defaults: { _controller: SoundGapContentAdminBundle:Station:examQuestAdd }
 soundgapca_station_examquest_remove:
     pattern:  /station/examquest/remove/{stationId}/{id}
     defaults: { _controller: SoundGapContentAdminBundle:Station:examQuestRemove }
@@ -145,3 +155,7 @@ soundgapca_fix_detect_dbref:
 soundgapca_temp_json:
     pattern:  /temp/api/json
     defaults: { _controller: SoundGapContentAdminBundle:FixDatabase:tempJson }
+
+soundgapca_generate_json:
+    pattern:  /generate/json
+    defaults: { _controller: SoundGapContentAdminBundle:FixDatabase:generateJson }

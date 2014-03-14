@@ -16,11 +16,11 @@ class AddStationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('type')
             ->add('title')
             ->add('title2')
             ->add('buttonTitle')
             ->add('buttonTitle2')
-            ->add('type')
             ->add('buttonImage','document',array(
                 'class' => 'SoundGapContentAdminBundle:Asset',
                 'empty_data' => null,

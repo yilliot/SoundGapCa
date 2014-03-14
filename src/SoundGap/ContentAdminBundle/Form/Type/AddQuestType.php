@@ -30,6 +30,27 @@ class AddQuestType extends AbstractType
         );
 
         $builder
+            ->add('grade','document',array(
+                'class' => 'SoundGapContentAdminBundle:Grade',
+                'empty_data' => null,
+                'empty_value' => '',
+                'query_builder' => function(DocumentRepository $dr)
+                {
+                    $dm = $dr->getDocumentManager();
+                    $categories = $dm->createQueryBuilder('SoundGapContentAdminBundle:Category')
+                        ->field('schoolApp.id')->equals($this->schoolAppId)
+                        ->field('isDeleted')->notEqual(true)
+                        ->getQuery()->execute();
+                    $categoriesIdArray = array();
+                    foreach ($categories as $category) {
+                        $categoriesIdArray[] = $category->getId();
+                    }
+                    return $dr->createQueryBuilder()
+                        ->field('category.id')->in($categoriesIdArray)
+                        ->field('isDeleted')->notEqual(true)
+                        ->sort('id','asc');
+                },
+            ))
             ->add('title')
             ->add('questCaption')
             ->add('questImage', 'document', array(
@@ -66,7 +87,7 @@ class AddQuestType extends AbstractType
             ->add('option2Image', 'document', $questionOptionImage)
             ->add('option3Image', 'document', $questionOptionImage)
             ->add('option4Image', 'document', $questionOptionImage)
-            ->add('priority','integer',array('empty_data'=>0))
+            ->add('priority','integer',array('empty_data'=>0,'required'=>true))
             ;
         if (!isset($options['data'])) {
             $builder->add('create','submit',array('attr'=>array('class'=>'btn btn-primary pull-right')));

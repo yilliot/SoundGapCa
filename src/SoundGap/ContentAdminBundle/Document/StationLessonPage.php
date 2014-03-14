@@ -42,7 +42,17 @@ class StationLessonPage
     /**
      * @MongoDB\ReferenceOne(targetDocument="Asset")
      */
-    protected $backgroundMusic;
+    protected $foregroundImage;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
+     */
+    protected $backgroundMusicLoop;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
+     */
+    protected $backgroundAmbientLoop;
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="Asset")
@@ -52,42 +62,17 @@ class StationLessonPage
     /**
      * @MongoDB\ReferenceOne(targetDocument="Asset")
      */
-    protected $triggerAudio;
-
-    /**
-     * @MongoDB\String
-     */
-    protected $triggerVideo;
+    protected $triggerAudioConversation;
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="CharacterPose")
      */
-    protected $characterPose1;
+    protected $character1;
 
     /**
      * @MongoDB\ReferenceOne(targetDocument="CharacterPose")
      */
-    protected $characterPose2;
-
-    /**
-     * @MongoDB\ReferenceOne(targetDocument="CharacterPose")
-     */
-    protected $characterPose3;
-
-    /**
-     * @MongoDB\ReferenceOne(targetDocument="CharacterPose")
-     */
-    protected $characterPose4;
-
-    /**
-     * @MongoDB\ReferenceOne(targetDocument="CharacterPose")
-     */
-    protected $characterPose5;
-
-    /**
-     * @MongoDB\ReferenceOne(targetDocument="CharacterPose")
-     */
-    protected $characterPose6;
+    protected $character2;
 
     /**
      * @MongoDB\Boolean
@@ -100,30 +85,15 @@ class StationLessonPage
     protected $isCharacter2Speech;
 
     /**
-     * @MongoDB\Boolean
-     */
-    protected $isCharacter3Speech;
-
-    /**
-     * @MongoDB\Boolean
-     */
-    protected $isCharacter4Speech;
-
-    /**
-     * @MongoDB\Boolean
-     */
-    protected $isCharacter5Speech;
-
-    /**
-     * @MongoDB\Boolean
-     */
-    protected $isCharacter6Speech;
-
-    /**
      * @MongoDB\ReferenceOne(targetDocument="Station")
      * @MongoDB\Index 
      */
     protected $station;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Quest")
+     */
+    protected $quest;
 
     /**
      * Get id
@@ -148,23 +118,16 @@ class StationLessonPage
             'position' => $this->position,
             'caption' => $this->caption,
             'title' => $this->title,
-            'backgroundImage' => $this->backgroundImage->getFilename(),
-            'backgroundMusic' => $this->backgroundMusic->getFilename(),
-            'backgroundAmbient' => $this->backgroundAmbient->getFilename(),
-            'triggerAudio' => $this->triggerAudio->getFilename(),
-            'triggerVideo' => $this->triggerVideo->getFilename(),
-            'characterPose1' => $this->characterPose1->getImage->getFilename(),
-            'characterPose2' => $this->characterPose2->getImage->getFilename(),
-            'characterPose3' => $this->characterPose3->getImage->getFilename(),
-            'characterPose4' => $this->characterPose4->getImage->getFilename(),
-            'characterPose5' => $this->characterPose5->getImage->getFilename(),
-            'characterPose6' => $this->characterPose6->getImage->getFilename(),
+            'backgroundImage' => ($this->backgroundImage)?$this->backgroundImage->getFilename():null,
+            'foregroundImage' => ($this->foregroundImage)?$this->foregroundImage->getFilename():null,
+            'backgroundMusicLoop' => ($this->backgroundMusicLoop)?$this->backgroundMusicLoop->getFilename():null,
+            'backgroundAmbientLoop' => ($this->backgroundAmbientLoop)?$this->backgroundAmbientLoop->getFilename():null,
+            'backgroundAmbient' => ($this->backgroundAmbient)?$this->backgroundAmbient->getFilename():null,
+            'triggerAudioConversation' => ($this->triggerAudioConversation)?$this->triggerAudioConversation->getFilename():null,
+            'character1' => ($this->character1)?$this->character1->getImage->getFilename():null,
+            'character2' => ($this->character2)?$this->character2->getImage->getFilename():null,
             'isCharacter1Speech' => $this->isCharacter1Speech,
             'isCharacter2Speech' => $this->isCharacter2Speech,
-            'isCharacter3Speech' => $this->isCharacter3Speech,
-            'isCharacter4Speech' => $this->isCharacter4Speech,
-            'isCharacter5Speech' => $this->isCharacter5Speech,
-            'isCharacter6Speech' => $this->isCharacter6Speech,
             // 'station' => $this->station->getId(),
         );
     }
@@ -258,28 +221,6 @@ class StationLessonPage
     }
 
     /**
-     * Set backgroundMusic
-     *
-     * @param SoundGap\ContentAdminBundle\Document\Asset $backgroundMusic
-     * @return self
-     */
-    public function setBackgroundMusic(\SoundGap\ContentAdminBundle\Document\Asset $backgroundMusic)
-    {
-        $this->backgroundMusic = $backgroundMusic;
-        return $this;
-    }
-
-    /**
-     * Get backgroundMusic
-     *
-     * @return SoundGap\ContentAdminBundle\Document\Asset $backgroundMusic
-     */
-    public function getBackgroundMusic()
-    {
-        return $this->backgroundMusic;
-    }
-
-    /**
      * Set backgroundAmbient
      *
      * @param SoundGap\ContentAdminBundle\Document\Asset $backgroundAmbient
@@ -299,182 +240,6 @@ class StationLessonPage
     public function getBackgroundAmbient()
     {
         return $this->backgroundAmbient;
-    }
-
-    /**
-     * Set triggerAudio
-     *
-     * @param SoundGap\ContentAdminBundle\Document\Asset $triggerAudio
-     * @return self
-     */
-    public function setTriggerAudio(\SoundGap\ContentAdminBundle\Document\Asset $triggerAudio)
-    {
-        $this->triggerAudio = $triggerAudio;
-        return $this;
-    }
-
-    /**
-     * Get triggerAudio
-     *
-     * @return SoundGap\ContentAdminBundle\Document\Asset $triggerAudio
-     */
-    public function getTriggerAudio()
-    {
-        return $this->triggerAudio;
-    }
-
-    /**
-     * Set triggerVideo
-     *
-     * @param SoundGap\ContentAdminBundle\Document\Asset $triggerVideo
-     * @return self
-     */
-    public function setTriggerVideo(\SoundGap\ContentAdminBundle\Document\Asset $triggerVideo)
-    {
-        $this->triggerVideo = $triggerVideo;
-        return $this;
-    }
-
-    /**
-     * Get triggerVideo
-     *
-     * @return SoundGap\ContentAdminBundle\Document\Asset $triggerVideo
-     */
-    public function getTriggerVideo()
-    {
-        return $this->triggerVideo;
-    }
-
-    /**
-     * Set characterPose1
-     *
-     * @param SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose1
-     * @return self
-     */
-    public function setCharacterPose1(\SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose1)
-    {
-        $this->characterPose1 = $characterPose1;
-        return $this;
-    }
-
-    /**
-     * Get characterPose1
-     *
-     * @return SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose1
-     */
-    public function getCharacterPose1()
-    {
-        return $this->characterPose1;
-    }
-
-    /**
-     * Set characterPose2
-     *
-     * @param SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose2
-     * @return self
-     */
-    public function setCharacterPose2(\SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose2)
-    {
-        $this->characterPose2 = $characterPose2;
-        return $this;
-    }
-
-    /**
-     * Get characterPose2
-     *
-     * @return SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose2
-     */
-    public function getCharacterPose2()
-    {
-        return $this->characterPose2;
-    }
-
-    /**
-     * Set characterPose3
-     *
-     * @param SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose3
-     * @return self
-     */
-    public function setCharacterPose3(\SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose3)
-    {
-        $this->characterPose3 = $characterPose3;
-        return $this;
-    }
-
-    /**
-     * Get characterPose3
-     *
-     * @return SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose3
-     */
-    public function getCharacterPose3()
-    {
-        return $this->characterPose3;
-    }
-
-    /**
-     * Set characterPose4
-     *
-     * @param SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose4
-     * @return self
-     */
-    public function setCharacterPose4(\SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose4)
-    {
-        $this->characterPose4 = $characterPose4;
-        return $this;
-    }
-
-    /**
-     * Get characterPose4
-     *
-     * @return SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose4
-     */
-    public function getCharacterPose4()
-    {
-        return $this->characterPose4;
-    }
-
-    /**
-     * Set characterPose5
-     *
-     * @param SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose5
-     * @return self
-     */
-    public function setCharacterPose5(\SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose5)
-    {
-        $this->characterPose5 = $characterPose5;
-        return $this;
-    }
-
-    /**
-     * Get characterPose5
-     *
-     * @return SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose5
-     */
-    public function getCharacterPose5()
-    {
-        return $this->characterPose5;
-    }
-
-    /**
-     * Set characterPose6
-     *
-     * @param SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose6
-     * @return self
-     */
-    public function setCharacterPose6(\SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose6)
-    {
-        $this->characterPose6 = $characterPose6;
-        return $this;
-    }
-
-    /**
-     * Get characterPose6
-     *
-     * @return SoundGap\ContentAdminBundle\Document\CharacterPose $characterPose6
-     */
-    public function getCharacterPose6()
-    {
-        return $this->characterPose6;
     }
 
     /**
@@ -522,94 +287,6 @@ class StationLessonPage
     }
 
     /**
-     * Set isCharacter3Speech
-     *
-     * @param boolean $isCharacter3Speech
-     * @return self
-     */
-    public function setIsCharacter3Speech($isCharacter3Speech)
-    {
-        $this->isCharacter3Speech = $isCharacter3Speech;
-        return $this;
-    }
-
-    /**
-     * Get isCharacter3Speech
-     *
-     * @return boolean $isCharacter3Speech
-     */
-    public function getIsCharacter3Speech()
-    {
-        return $this->isCharacter3Speech;
-    }
-
-    /**
-     * Set isCharacter4Speech
-     *
-     * @param boolean $isCharacter4Speech
-     * @return self
-     */
-    public function setIsCharacter4Speech($isCharacter4Speech)
-    {
-        $this->isCharacter4Speech = $isCharacter4Speech;
-        return $this;
-    }
-
-    /**
-     * Get isCharacter4Speech
-     *
-     * @return boolean $isCharacter4Speech
-     */
-    public function getIsCharacter4Speech()
-    {
-        return $this->isCharacter4Speech;
-    }
-
-    /**
-     * Set isCharacter5Speech
-     *
-     * @param boolean $isCharacter5Speech
-     * @return self
-     */
-    public function setIsCharacter5Speech($isCharacter5Speech)
-    {
-        $this->isCharacter5Speech = $isCharacter5Speech;
-        return $this;
-    }
-
-    /**
-     * Get isCharacter5Speech
-     *
-     * @return boolean $isCharacter5Speech
-     */
-    public function getIsCharacter5Speech()
-    {
-        return $this->isCharacter5Speech;
-    }
-
-    /**
-     * Set isCharacter6Speech
-     *
-     * @param boolean $isCharacter6Speech
-     * @return self
-     */
-    public function setIsCharacter6Speech($isCharacter6Speech)
-    {
-        $this->isCharacter6Speech = $isCharacter6Speech;
-        return $this;
-    }
-
-    /**
-     * Get isCharacter6Speech
-     *
-     * @return boolean $isCharacter6Speech
-     */
-    public function getIsCharacter6Speech()
-    {
-        return $this->isCharacter6Speech;
-    }
-
-    /**
      * Set station
      *
      * @param SoundGap\ContentAdminBundle\Document\Station $station
@@ -651,5 +328,159 @@ class StationLessonPage
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set foregroundImage
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Asset $foregroundImage
+     * @return self
+     */
+    public function setForegroundImage(\SoundGap\ContentAdminBundle\Document\Asset $foregroundImage)
+    {
+        $this->foregroundImage = $foregroundImage;
+        return $this;
+    }
+
+    /**
+     * Get foregroundImage
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Asset $foregroundImage
+     */
+    public function getForegroundImage()
+    {
+        return $this->foregroundImage;
+    }
+
+    /**
+     * Set character1
+     *
+     * @param SoundGap\ContentAdminBundle\Document\CharacterPose $character1
+     * @return self
+     */
+    public function setCharacter1(\SoundGap\ContentAdminBundle\Document\CharacterPose $character1)
+    {
+        $this->character1 = $character1;
+        return $this;
+    }
+
+    /**
+     * Get character1
+     *
+     * @return SoundGap\ContentAdminBundle\Document\CharacterPose $character1
+     */
+    public function getCharacter1()
+    {
+        return $this->character1;
+    }
+
+    /**
+     * Set character2
+     *
+     * @param SoundGap\ContentAdminBundle\Document\CharacterPose $character2
+     * @return self
+     */
+    public function setCharacter2(\SoundGap\ContentAdminBundle\Document\CharacterPose $character2)
+    {
+        $this->character2 = $character2;
+        return $this;
+    }
+
+    /**
+     * Get character2
+     *
+     * @return SoundGap\ContentAdminBundle\Document\CharacterPose $character2
+     */
+    public function getCharacter2()
+    {
+        return $this->character2;
+    }
+
+    /**
+     * Set backgroundMusicLoop
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Asset $backgroundMusicLoop
+     * @return self
+     */
+    public function setBackgroundMusicLoop(\SoundGap\ContentAdminBundle\Document\Asset $backgroundMusicLoop)
+    {
+        $this->backgroundMusicLoop = $backgroundMusicLoop;
+        return $this;
+    }
+
+    /**
+     * Get backgroundMusicLoop
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Asset $backgroundMusicLoop
+     */
+    public function getBackgroundMusicLoop()
+    {
+        return $this->backgroundMusicLoop;
+    }
+
+    /**
+     * Set backgroundAmbientLoop
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Asset $backgroundAmbientLoop
+     * @return self
+     */
+    public function setBackgroundAmbientLoop(\SoundGap\ContentAdminBundle\Document\Asset $backgroundAmbientLoop)
+    {
+        $this->backgroundAmbientLoop = $backgroundAmbientLoop;
+        return $this;
+    }
+
+    /**
+     * Get backgroundAmbientLoop
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Asset $backgroundAmbientLoop
+     */
+    public function getBackgroundAmbientLoop()
+    {
+        return $this->backgroundAmbientLoop;
+    }
+
+    /**
+     * Set triggerAudioConversation
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Asset $triggerAudioConversation
+     * @return self
+     */
+    public function setTriggerAudioConversation(\SoundGap\ContentAdminBundle\Document\Asset $triggerAudioConversation)
+    {
+        $this->triggerAudioConversation = $triggerAudioConversation;
+        return $this;
+    }
+
+    /**
+     * Get triggerAudioConversation
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Asset $triggerAudioConversation
+     */
+    public function getTriggerAudioConversation()
+    {
+        return $this->triggerAudioConversation;
+    }
+
+    /**
+     * Set quest
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Quest $quest
+     * @return self
+     */
+    public function setQuest(\SoundGap\ContentAdminBundle\Document\Quest $quest)
+    {
+        $this->quest = $quest;
+        return $this;
+    }
+
+    /**
+     * Get quest
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Quest $quest
+     */
+    public function getQuest()
+    {
+        return $this->quest;
     }
 }

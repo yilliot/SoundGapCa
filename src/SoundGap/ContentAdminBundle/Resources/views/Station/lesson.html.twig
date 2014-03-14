@@ -47,5 +47,31 @@
   {% endfor %}
   </table>
 </div>
+<script type="text/javascript">
+  $(function(){
+    $("div.select2 select").select2();
+    $('#StationLessonPage_type').change(function(e){changeFormView($(this));});
+    changeFormView($('#StationLessonPage_type'));
+  });
+  function changeFormView ($this) {
+    var lessonItems = '#StationLessonPage_type,#StationLessonPage_title,#StationLessonPage_caption,#StationLessonPage_backgroundImage,#StationLessonPage_foregroundImage,#StationLessonPage_backgroundMusicLoop,#StationLessonPage_backgroundAmbientLoop,#StationLessonPage_backgroundAmbient,#StationLessonPage_triggerAudioConversation,#StationLessonPage_character1,#StationLessonPage_character2,#StationLessonPage_isCharacter1Speech,#StationLessonPage_isCharacter2Speech,#StationLessonPage_position';
+    var questItems = '#StationLessonPage_type,#StationLessonPage_backgroundImage,#StationLessonPage_backgroundMusicLoop,#StationLessonPage_backgroundAmbientLoop,#StationLessonPage_backgroundAmbient,#StationLessonPage_position,#StationLessonPage_quest';
+    if ($this.val() == '531a88de0d982620600041ad' ) {
+      $(lessonItems).each(function(e){
+        $(this).closest('.form-group').hide();
+      });
+      $(questItems).each(function(e){
+        $(this).closest('.form-group').show();
+      });
+    }else{
+      $(questItems).each(function(e){
+        $(this).closest('.form-group').hide();
+      });
+      $(lessonItems).each(function(e){
+        $(this).closest('.form-group').show();
+      });
+    };
+  }
+</script>
 
 {% endblock %}

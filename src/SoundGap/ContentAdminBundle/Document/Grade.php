@@ -34,6 +34,11 @@ class Grade
     /**
      * @MongoDB\ReferenceOne(targetDocument="Asset")
      */
+    protected $buttonImageTouch;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="Asset")
+     */
     protected $backgroundImage;
 
     /**
@@ -304,5 +309,27 @@ class Grade
     {
         $this->isDeleted = $isDeleted;
         return $this;
+    }
+
+    /**
+     * Set buttonImageTouch
+     *
+     * @param SoundGap\ContentAdminBundle\Document\Asset $buttonImageTouch
+     * @return self
+     */
+    public function setButtonImageTouch(\SoundGap\ContentAdminBundle\Document\Asset $buttonImageTouch)
+    {
+        $this->buttonImageTouch = $buttonImageTouch;
+        return $this;
+    }
+
+    /**
+     * Get buttonImageTouch
+     *
+     * @return SoundGap\ContentAdminBundle\Document\Asset $buttonImageTouch
+     */
+    public function getButtonImageTouch()
+    {
+        return $this->buttonImageTouch;
     }
 }

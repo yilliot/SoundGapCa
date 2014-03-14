@@ -1,0 +1,47 @@
+{% extends 'SoundGapContentAdminBundle:Layout:ca.html.twig' %}
+
+{% block title %}{{pageName|capitalize}}s {{parent()}}{% endblock %}
+
+
+{% block content %}
+<div class='col-sm-7'>
+  <h2>
+    {{pageName|capitalize}}s
+  </h2>
+  <table class="table">
+  <thead>
+    <tr>
+      <th>{{pageName|capitalize}}</th>
+      <th>Grade</th>
+      <th>Priority</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  {% for quest in quests %}
+    <tr>
+      <td>
+        <div>{{quest}}</div>
+      </td>
+      <td>
+        <div>{{quest.grade}}</div>
+      </td>
+      <td>{{quest.priority}}</td>
+      <td>
+        <div>
+          <a class='label label-warning' href="{{path('soundgapca_ground_quest_update',{'id':quest.id})}}"> update </a>
+        </div>
+        <div>
+          <a class='label label-danger' href="{{path('soundgapca_ground_quest_delete',{'id':quest.id})}}" onclick="return confirm('sure bo?')"> delete </a>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+</div>
+
+<div class='col-sm-5'>
+<h2>{{actionName|humanize}} {{pageName|humanize}}</h2>
+{{ form_start(form, {'method': 'POST','attr':{'class':'form-horizontal','role':'form'}}) }}
+{{ form_end(form) }}
+</div>
+{% endblock %}

@@ -12,60 +12,101 @@
   {{pageName|capitalize}}s of {{station|humanize}}
   <small><a class="label label-default" href="{{path('soundgapca_station',{'gradeId':station.grade.id})}}">back to {{station.grade}}</a></small>
 </h2>
-<h2>{{actionName|humanize}} {{pageName|humanize}}</h2>
-{{ form_start(form, {'method': 'POST','attr':{'class':'form-horizontal','role':'form'}}) }}
-{{ form_end(form) }}
+
+<h3>{{pageName|capitalize}} List <small> <span class='badge'>{{station.examQuests|length}}</span> added</small> </h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th width="30%">Quest</th>
+      <th>Answer</th>
+      <th>Priority</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  </tbody>
+  {% for quest in station.examQuests %}
+    <tr>
+      <td>
+        {{quest.title}}
+        {{quest.questCaption}}
+        {% if quest.questImage %}
+          <div><img class='img-thumbnail' src="/{{quest.questImage.webPath}}"></div>
+        {% endif %}
+      </td>
+      <td>
+        <div>
+          {{quest.option1Caption}}
+        </div>
+        {% if quest.option1Image %}
+          <div><img class='img-thumbnail' src="/{{quest.option1Image.webPath}}"></div>
+        {% endif %}
+      </td>
+      <td> {{quest.priority}} </td>
+      <td>
+        <div>
+          <a class='label label-warning' 
+            href="{{path('soundgapca_ground_quest_update',{'stationId':station.id, 'id':quest.id})}}">
+            update quest
+          </a>
+        </div>
+        <div>
+          <a class='label label-danger' 
+            href="{{path('soundgapca_station_examquest_remove',{'stationId':station.id, 'id':quest.id})}}">
+            remove from Station
+          </a>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
 <div class='clearfix'></div>
 </div>
 
 <div class='col-sm-6'>
-  <h3>{{pageName|capitalize}} List <small> <span class='badge'>{{station.examQuests|length}}</span> added</small> </h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th width="30%">Quest</th>
-        <th>Answer</th>
-        <th>Priority</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    </tbody>
-    {% for quest in station.examQuests %}
-      <tr>
-        <td>
-          {{quest.title}}
-          {{quest.questCaption}}
-          {% if quest.questImage %}
-            <div><img class='img-thumbnail' src="/{{quest.questImage.webPath}}"></div>
-          {% endif %}
-        </td>
-        <td>
-          <div>
-            {{quest.option1Caption}}
-          </div>
-          {% if quest.option1Image %}
-            <div><img class='img-thumbnail' src="/{{quest.option1Image.webPath}}"></div>
-          {% endif %}
-        </td>
-        <td> {{quest.priority}} </td>
-        <td>
-          <div>
-            <a class='label label-warning' 
-              href="{{path('soundgapca_station_examquest_update',{'stationId':station.id, 'id':quest.id})}}">
-              update quest
-            </a>
-          </div>
-          <div>
-            <a class='label label-danger' 
-              href="{{path('soundgapca_station_examquest_remove',{'stationId':station.id, 'id':quest.id})}}">
-              remove from Station
-            </a>
-          </div>
-        </td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+<h2>{{actionName|humanize}} {{pageName|humanize}}</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th width="30%">Quest</th>
+      <th>Answer</th>
+      <th>Priority</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  </tbody>
+  {% for quest in quests %}
+    {% if quest not in station.examQuests %}
+    <tr>
+      <td>
+        {{quest.title}}
+        {{quest.questCaption}}
+        {% if quest.questImage %}
+          <div><img class='img-thumbnail' src="/{{quest.questImage.webPath}}"></div>
+        {% endif %}
+      </td>
+      <td>
+        <div>
+          {{quest.option1Caption}}
+        </div>
+        {% if quest.option1Image %}
+          <div><img class='img-thumbnail' src="/{{quest.option1Image.webPath}}"></div>
+        {% endif %}
+      </td>
+      <td> {{quest.priority}} </td>
+      <td>
+        <div>
+          <a class='label label-warning' 
+            href="{{path('soundgapca_station_examquest_add',{'stationId':station.id, 'id':quest.id})}}">
+            add to {{station}}
+          </a>
+        </div>
+      </td>
+    </tr>
+    {% endif %}
+  {% endfor %}
+  </tbody>
+</table>
 </div>
 
 {% endblock %}

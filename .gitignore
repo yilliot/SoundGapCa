@@ -11,3 +11,4 @@
 /composer.phar
 /web/uploads/*
 /web/uploads/media/*
+/web/content_admin/dump/*

@@ -3,6 +3,8 @@
 namespace SoundGap\ContentAdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 use SoundGap\ContentAdminBundle\Document\App;
 use SoundGap\ContentAdminBundle\Document\AppPackage;
@@ -23,6 +25,7 @@ use SoundGap\ContentAdminBundle\Document\Emoticon;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 
+
 class FixDatabaseController extends Controller
 {
 
@@ -41,6 +44,29 @@ class FixDatabaseController extends Controller
         return $response;
         exit;
         return $this->render('SoundGapContentAdminBundle:Default:index.html.twig');
+    }
+
+    public function generateJsonAction()
+    {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $schoolApp = $dm->getRepository('SoundGapContentAdminBundle:SchoolApp')->find('531eff260d9826bf7e0041ab');
+        $data = $this->makeArraysBySchoolApp($schoolApp);
+        $response = new JsonResponse();
+        $response->setData($data);
+
+        // file
+        $dumpDirPath = realpath(__DIR__.'/../../../../web/content_admin/dump').'/';
+        $dumpFileName = 'data.json';
+        $fs = new Filesystem();
+        if (!$fs->exists($dumpDirPath)) {
+            $fs->mkdir($dumpDirPath);
+        }
+        $fs->dumpFile($dumpDirPath.$dumpFileName,json_encode($data));
+        foreach ($data as $filename => $jsondata) {
+            $fs->dumpFile($dumpDirPath.$filename.'.json',json_encode($jsondata));
+        }
+        return $response;
+        
     }
 
     public function tempJsonAction()
@@ -64,7 +90,7 @@ class FixDatabaseController extends Controller
             ->field('isDeleted')->notEqual(true)
             ->getQuery()->execute();
         foreach ($categories as $category) {
-            $categoriesArray[$category->getId()] = $category;
+            $categoriesArray[$category->getId()] = $category->toKVArray();
         }
 
         # grade by grades by categories

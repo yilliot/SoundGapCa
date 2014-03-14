@@ -17,7 +17,6 @@ class Quest
 
     /**
      * @MongoDB\Int
-     * @Assert\NotBlank()
      */
     protected $priority;
 
